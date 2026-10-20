@@ -1,0 +1,2881 @@
+/* BeautyTasks – Plugin-Styles. Eigene .bt-*-Klassen, optisch 1:1 zum bisherigen
+   BeautyTasks (Werte/Icon-Masken aus Tasks-Style.css übernommen). */
+
+/* Style-Settings-Integration (optional): Wer das „Style Settings"-Plugin hat, bekommt
+   Farbwähler für die Semantik-Farben. Ohne das Plugin gelten einfach die Defaults unten.
+   Die IDs entsprechen den --bt-*-Variablen. */
+/* @settings
+
+name: BeautyTasks
+id: beautytasks
+settings:
+  - id: bt-monochrome
+    title: Monochrome (no colors)
+    description: Render everything in the text color and ignore the color pickers below.
+    type: class-toggle
+    default: false
+  - id: bt-colors-heading
+    title: Colors
+    description: Semantic colors used across BeautyTasks (these also drive icon colors).
+    type: heading
+    level: 2
+    collapsed: true
+  - id: bt-overdue
+    title: Overdue
+    type: variable-themed-color
+    format: hex
+    default-light: '#E45649'
+    default-dark: '#E06C75'
+  - id: bt-add
+    title: Add button (+)
+    type: variable-themed-color
+    format: hex
+    default-light: '#C15B34'
+    default-dark: '#D19A66'
+  - id: bt-today
+    title: Due today
+    type: variable-themed-color
+    format: hex
+    default-light: '#C18401'
+    default-dark: '#E5C07B'
+  - id: bt-recur
+    title: Recurring
+    type: variable-themed-color
+    format: hex
+    default-light: '#0997B3'
+    default-dark: '#56B6C2'
+  - id: bt-label
+    title: Labels
+    type: variable-themed-color
+    format: hex
+    default-light: '#A626A4'
+    default-dark: '#C678DD'
+  - id: bt-prio-1
+    title: Priority 1 (highest)
+    type: variable-themed-color
+    format: hex
+    default-light: '#E45649'
+    default-dark: '#E06C75'
+  - id: bt-prio-2
+    title: Priority 2 (high)
+    type: variable-themed-color
+    format: hex
+    default-light: '#C15B34'
+    default-dark: '#D19A66'
+  - id: bt-prio-3
+    title: Priority 3 (medium)
+    type: variable-themed-color
+    format: hex
+    default-light: '#4078F2'
+    default-dark: '#61AFEF'
+  - id: bt-sched
+    title: Deadline / scheduled
+    type: variable-themed-color
+    format: hex
+    default-light: '#0997B3'
+    default-dark: '#56B6C2'
+  - id: bt-attach
+    title: Attachments
+    type: variable-themed-color
+    format: hex
+    default-light: '#8C8F96'
+    default-dark: '#828997'
+  - id: bt-nav-icons-heading
+    title: Sidebar icons
+    description: Colors of the left sidebar icons. Boards are individual; Labels / Areas / Projects each share one color (a per-item frontmatter color still wins).
+    type: heading
+    level: 2
+    collapsed: true
+  - id: bt-nav-search
+    title: Search
+    type: variable-themed-color
+    format: hex
+    default-light: '#4078F2'
+    default-dark: '#61AFEF'
+  - id: bt-nav-inbox
+    title: Inbox
+    type: variable-themed-color
+    format: hex
+    default-light: '#0997B3'
+    default-dark: '#56B6C2'
+  - id: bt-nav-heute
+    title: Today
+    type: variable-themed-color
+    format: hex
+    default-light: '#C18401'
+    default-dark: '#E5C07B'
+  - id: bt-nav-demnaechst
+    title: Upcoming
+    type: variable-themed-color
+    format: hex
+    default-light: '#C15B34'
+    default-dark: '#D19A66'
+  - id: bt-nav-wiederkehrend
+    title: Recurring
+    type: variable-themed-color
+    format: hex
+    default-light: '#0997B3'
+    default-dark: '#56B6C2'
+  - id: bt-nav-erledigt
+    title: Done
+    type: variable-themed-color
+    format: hex
+    default-light: '#50A14F'
+    default-dark: '#98C379'
+  - id: bt-nav-manage
+    title: ListManager
+    type: variable-themed-color
+    format: hex
+    default-light: '#8C8F96'
+    default-dark: '#828997'
+  - id: bt-nav-label
+    title: Labels (all)
+    type: variable-themed-color
+    format: hex
+    default-light: '#A626A4'
+    default-dark: '#C678DD'
+  - id: bt-nav-area
+    title: Areas (all)
+    type: variable-themed-color
+    format: hex
+    default-light: '#4078F2'
+    default-dark: '#61AFEF'
+  - id: bt-nav-project
+    title: Projects (all)
+    type: variable-themed-color
+    format: hex
+    default-light: '#C18401'
+    default-dark: '#E5C07B'
+
+*/
+
+/* Basis-Variablen (theme-neutral): Kopplungs-Aliase, Trennlinien, Lightbox-Overlay.
+   Die Semantik-FARBEN stehen theme-spezifisch weiter unten (.theme-dark/.theme-light).
+   Alles auf niedriger Spezifität, damit Style Settings, Theme oder Snippet überschreiben. */
+body {
+  /* Sidebar-Icons mit Chip-Gegenstück erben dessen Farbe (Kopplung B; übersteuerbar). */
+  --bt-nav-heute: var(--bt-today);
+  --bt-nav-wiederkehrend: var(--bt-recur);
+  --bt-nav-label: var(--bt-label);
+  --bt-line: rgba(255, 255, 255, 0.1);
+  --bt-line-faint: rgba(255, 255, 255, 0.05);
+  /* Lightbox-Overlay-Steuerelemente (dunkler Bild-Backdrop, theme-unabhängig hell) */
+  --bt-overlay-fg: var(--text-on-accent);
+  --bt-overlay-bg: rgba(255, 255, 255, 0.12);
+  --bt-overlay-bg-hover: rgba(255, 255, 255, 0.25);
+}
+
+/* Standard-Farbkonstellation (fest verbaut). Theme-spezifisch. Style Settings hat höhere
+   Spezifität (.theme-dark.css-settings-manager) und übersteuert diese Defaults weiterhin. */
+.theme-dark {
+  --bt-overdue: #E06C75;
+  --bt-add: #D19A66;
+  --bt-today: #E5C07B;
+  --bt-recur: #56B6C2;
+  --bt-label: #C678DD;
+  --bt-prio-1: #E06C75;
+  --bt-prio-2: #D19A66;
+  --bt-prio-3: #61AFEF;
+  --bt-sched: #56B6C2;
+  --bt-attach: #828997;
+  --bt-nav-search: #61AFEF;
+  --bt-nav-inbox: #56B6C2;
+  --bt-nav-demnaechst: #D19A66;
+  --bt-nav-erledigt: #98C379;
+  --bt-nav-manage: #828997;
+  --bt-nav-area: #61AFEF;
+  --bt-nav-project: #E5C07B;
+}
+.theme-light {
+  /* Trennlinien: die Basis-Defaults (body) sind weiß (rgba 255) und damit im
+     hellen Modus unsichtbar. Hier auf sichtbares Hellgrau überschrieben. */
+  --bt-line: #eee;
+  --bt-line-faint: #eee;
+  --bt-overdue: #E45649;
+  --bt-add: #C15B34;
+  --bt-today: #C18401;
+  --bt-recur: #0997B3;
+  --bt-label: #A626A4;
+  --bt-prio-1: #E45649;
+  --bt-prio-2: #C15B34;
+  --bt-prio-3: #4078F2;
+  --bt-sched: #0997B3;
+  --bt-attach: #8C8F96;
+  --bt-nav-search: #4078F2;
+  --bt-nav-inbox: #0997B3;
+  --bt-nav-demnaechst: #C15B34;
+  --bt-nav-erledigt: #50A14F;
+  --bt-nav-manage: #8C8F96;
+  --bt-nav-area: #4078F2;
+  --bt-nav-project: #C18401;
+}
+
+/* „Monochrome"-Toggle (Style Settings, class-toggle `bt-monochrome`): alle Semantik-Farben
+   auf die Textfarbe. Selektor mit drei Klassen (0,3,0) überbietet Style Settings' eigene
+   Farb-Overrides (`.theme-dark.css-settings-manager`, 0,2,0) – ohne !important. */
+.theme-dark.css-settings-manager.bt-monochrome,
+.theme-light.css-settings-manager.bt-monochrome {
+  --bt-overdue: var(--text-normal);
+  --bt-add: var(--text-normal);
+  --bt-today: var(--text-normal);
+  --bt-recur: var(--text-muted);
+  --bt-label: var(--text-muted);
+  --bt-prio-1: var(--text-normal);
+  --bt-prio-2: var(--text-normal);
+  --bt-prio-3: var(--text-normal);
+  --bt-sched: var(--text-muted);
+  --bt-attach: var(--text-muted);
+  --bt-nav-search: var(--text-normal);
+  --bt-nav-inbox: var(--text-normal);
+  --bt-nav-heute: var(--text-normal);
+  --bt-nav-demnaechst: var(--text-normal);
+  --bt-nav-wiederkehrend: var(--text-normal);
+  --bt-nav-erledigt: var(--text-normal);
+  --bt-nav-manage: var(--text-normal);
+  --bt-nav-label: var(--text-normal);
+  --bt-nav-area: var(--text-normal);
+  --bt-nav-project: var(--text-normal);
+}
+
+/* Kompletten Pane-Header-Balken ausblenden (nur diese View; der Tab bleibt).
+   Die Seite hat eine eigene Überschrift, der Header-Balken wäre redundant. */
+.workspace-leaf-content[data-type="beautytasks-main"] .view-header { display: none; }
+
+/* Aufgaben-Suche (FuzzySuggestModal, außerhalb der View – eigene bt-search-*-Klassen). */
+.bt-search-item { display: flex; flex-direction: column; gap: 2px; }
+.bt-search-title { color: var(--text-normal); }
+.bt-search-title.is-done { color: var(--text-muted); text-decoration: line-through; }   /* erledigt: wie in der Liste */
+.bt-search-meta { display: flex; flex-wrap: wrap; gap: 3px 8px; font-size: 0.8em; color: var(--text-muted); }
+.bt-search-tag.is-done { color: var(--text-faint); }
+.bt-search-tag.is-overdue { color: var(--bt-overdue); }   /* Datum überfällig */
+.bt-search-tag.is-today { color: var(--bt-today); }       /* Datum heute */
+
+/* ── Textgrößen (überschreibbar) ──────────────────────────────────────────────────────────────
+   Bewusst `em`: das bezieht sich im `font-size` auf den GEERBTEN Wert der jeweiligen Fläche – also
+   exakt die Basis, die die Ansicht ohnehin hat (wie ursprünglich, ohne Größen-Override). Bei
+   Skalierung 1 (= 100 %) ist die Größe damit unverändert, der Nutzer-Faktor skaliert nur.
+   main.ts setzt --bt-task-scale / --bt-nav-scale / --bt-head-scale (Prozent/100) auf body. */
+
+.bt-view {
+  font-size: calc(1em * var(--bt-task-scale, 1));
+  padding: 8px 0 40px;   /* seitlicher Abstand kommt aus der Sizer-Breite (unten), nicht hier */
+  overflow-y: auto;
+  /* Scrollbalken-Platz IMMER reservieren → kein Reflow/Verschieben von Überschriften & Text, wenn
+     die Leiste auftaucht oder verschwindet (z. B. beim Ansichtswechsel). `both-edges` reserviert den
+     Streifen auf BEIDEN Seiten → der zentrierte Inhalt bleibt exakt mittig; der Platz kommt aus dem
+     ohnehin breiten Leerrand der Lesebreite, kostet also nichts. */
+  scrollbar-gutter: stable both-edges;
+}
+/* Inhalt zentriert auf Lesebreite (wie das alte BeautyTasks). WICHTIG: der seitliche
+   Abstand wird über die SIZER-BREITE geregelt, nicht über Padding – denn bei einem
+   zentrierten Sizer heben sich Padding und Auto-Margin gegenseitig auf (= kein Effekt).
+   min(Lesebreite, 100% − 2·40px) garantiert auch bei schmalem Fenster ≥ 40px Rand. */
+.bt-view .bt-sizer {
+  max-width: min(var(--file-line-width, 700px), calc(100% - 80px));
+  margin-left: auto;
+  margin-right: auto;
+}
+.bt-view h1 {
+  margin: 6px 0 2px;
+  font-size: 1.7em; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15;
+  color: var(--text-normal);
+}
+
+/* Board-Kopfzeile: „+ Add task" links, dezenter ListManager-Link rechts. */
+.bt-board-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 20px 0 14px; }
+.bt-board-bar .bt-add { margin: 0; }   /* Abstand kommt von der Bar */
+.bt-board-link {
+  display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;
+  color: var(--text-muted); font-size: var(--font-ui-small); cursor: pointer;
+}
+.bt-board-link:hover { color: var(--text-normal); }
+.bt-board-link:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 2px; border-radius: 4px; }
+.bt-board-link-ic { display: inline-flex; flex-shrink: 0; }
+.bt-board-link-ic svg { width: 16px; height: 16px; }
+
+/* „+ Aufgabe hinzufügen" */
+.bt-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 20px 0 14px;
+  color: var(--text-muted);
+  /* Textgröße 1:1 zum alten BeautyTasks (Meta-Bind-Button erbte den Obsidian-
+     Button-Default). Das Plus bleibt unberührt, da .bt-add-icon fix 16px ist. */
+  font-size: var(--font-ui-small);
+  cursor: pointer;
+}
+.bt-add:hover { color: var(--text-normal); }
+.bt-add-icon {
+  width: 16px; height: 16px; flex-shrink: 0;
+  background-color: var(--bt-add);   /* Plus-Farbe (eigene Variable, entkoppelt) */
+  -webkit-mask: var(--bt-plus) center / contain no-repeat;
+  mask: var(--bt-plus) center / contain no-repeat;
+}
+
+/* Einheitlicher Leerzustand aller Boards: zentriert im verbleibenden Board-Raum, Icon +
+   Text in Akzentfarbe. Position/Style sind bewusst überall gleich. Die Klasse `.is-empty`
+   (von emptyState() gesetzt) macht den Sizer zur zentrierenden Flex-Spalte – nur im
+   Leerzustand, volle Boards bleiben unberührt. (Bewusst kein :has – breite Invalidierung.) */
+.bt-view .bt-sizer.is-empty {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 140px);
+}
+.bt-empty {
+  margin: auto;                       /* vertikal + horizontal im Restraum zentriert */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 24px 16px;
+  color: var(--interactive-accent);
+}
+/* Verstecktes File-Input für den OS-Dateidialog (muss im DOM hängen, siehe pickOsJsonFile). */
+.bt-hidden-file-input { display: none; }
+
+.bt-empty-ic { display: inline-flex; opacity: 0.9; }
+.bt-empty-ic .svg-icon { width: 44px; height: 44px; }
+/* Aktion im Leerzustand („Filter zurücksetzen"): der Ausweg gehört an die Stelle, an der man
+   feststeckt – nicht nur ins Anzeige-Panel, das man dafür erst finden müsste. */
+.bt-empty-btn {
+  margin-top: -2px; padding: 6px 14px; border-radius: 8px; cursor: pointer; box-shadow: none;
+  border: 1px solid var(--interactive-accent); background: transparent; color: var(--interactive-accent);
+  font-size: var(--font-ui-small); font-weight: 600;
+}
+.bt-empty-btn:hover { background: var(--interactive-accent); color: var(--text-on-accent); }
+.bt-empty-text {
+  font-size: 1.3em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--interactive-accent);
+}
+
+/* ── Aufgaben-Modal ── */
+.bt-task-modal { width: 800px; max-width: 92vw; padding-left: 0; padding-right: 0; }
+/* Damit die randlose Trennlinie den ECHTEN Modal-Rand erreicht: den horizontalen Innen-
+   abstand vom Modal auf .modal-content verlagern (oben: padding-left/right 0 am Modal, hier
+   der Abstand). So füllt .modal-content die volle Modalbreite; die Linie kann per negativer
+   Positionierung bis zum Rand laufen. overflow-x: clip kappt den Überstand (kein Scrollbalken),
+   lässt die vertikale Achse unberührt. Popover hängen an .modal → nicht betroffen. */
+.bt-task-modal .modal-content { padding-left: var(--size-4-4); padding-right: var(--size-4-4); overflow-x: clip; }
+.bt-task-modal .bt-titel {
+  width: 100%; border: none; background: transparent;
+  font-size: 1.25em; font-weight: 600; color: var(--text-normal);
+  padding: 4px 0 2px; box-shadow: none;
+}
+.bt-task-modal .bt-titel::placeholder { color: var(--text-faint); font-weight: 600; }
+.bt-task-modal .bt-titel:focus { box-shadow: none; outline: none; }
+
+.bt-task-modal .bt-beschr {
+  width: 100%; border: none; background: transparent; resize: none;
+  font-family: inherit; font-size: 0.95em; line-height: 1.4; color: var(--text-normal);
+  padding: 2px 0; margin-top: 2px; box-shadow: none; overflow: hidden;
+  min-height: 24px; max-height: 200px;
+}
+.bt-task-modal .bt-beschr::placeholder { color: var(--text-faint); }
+.bt-task-modal .bt-beschr:focus { box-shadow: none; outline: none; }
+
+.bt-task-modal .bt-chips {
+  display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0;
+  padding-bottom: 14px; position: relative;
+}
+/* Trennlinie randlos (bis an die Modal-Ränder) und dezent: über ein Pseudo gezeichnet,
+   damit die Chip-Box unangetastet bleibt. Die negativen Ränder entsprechen dem Modal-
+   Innenabstand (--size-4-8); bei Bedarf hier feinjustieren. */
+.bt-task-modal .bt-chips::after {
+  content: ""; position: absolute; bottom: 0;
+  /* Innenabstand (--size-4-4 = 16px) plus kleiner Sicherheitszuschlag; clip am .modal-content
+     trimmt die Linie exakt auf die Modalbreite (kein Spalt, kein Überstand). */
+  left: calc(-1 * var(--size-4-4) - 4px); right: calc(-1 * var(--size-4-4) - 4px);
+  border-bottom: 1px solid var(--bt-line);   /* Hell-Modus = #eee, wie die Listen-Trennlinien */
+}
+.bt-task-modal .bt-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  height: 28px; padding: 0 9px;
+  border: 1px solid var(--background-modifier-border); border-radius: 6px;
+  background: transparent; color: var(--text-muted); font-size: 0.85em; cursor: pointer; box-shadow: none;
+}
+.bt-task-modal .bt-chip:hover { background: var(--background-modifier-hover); color: var(--text-normal); }
+.bt-task-modal .bt-chip.is-set { color: var(--text-normal); border-color: var(--interactive-accent); }
+/* Details-Chip (Büroklammer): aktiver Zustand = Sektion offen. Eigene Klasse .is-open, damit
+   der Chip im Icon-only-Modus (dort greift :not(.is-set)) trotzdem stets kompakt bleibt. */
+.bt-task-modal .bt-chip-details.is-open { color: var(--text-normal); border-color: var(--interactive-accent); }
+/* „+"-Aktionsbutton (Menü rechts in der Chip-Leiste): quadratisch, nur Icon. */
+.bt-task-modal .bt-chip-actions { width: 28px; padding: 0; gap: 0; justify-content: center; }
+/* Verstecktes iframe fürs Drucken (Aufgabe drucken aus dem +-Menü). */
+.bt-print-frame { position: fixed; right: 0; bottom: 0; width: 0; height: 0; border: 0; }
+.bt-task-modal .bt-chip-ic { display: inline-flex; }
+.bt-task-modal .bt-chip-ic svg { width: 15px; height: 15px; }
+.bt-task-modal .bt-chip-lbl { white-space: nowrap; }
+/* Elternaufgaben-Chip: langer Titel wird auf ~22 Zeichen begrenzt. Grenze in „ch", damit sie
+   mit der Schriftgröße mitskaliert. Der volle Name erscheint per Tooltip (nur wenn tatsächlich
+   abgeschnitten – siehe addChip). */
+.bt-task-modal .bt-chip-truncate .bt-chip-lbl {
+  overflow: hidden; max-width: 22ch;
+}
+/* Statt harter „…"-Ellipsis läuft der Text am rechten Rand sanft in Transparenz aus (Fade-Maske,
+   wie bei Linear/Notion). Wird per JS nur gesetzt, wenn der Titel wirklich überläuft (.is-faded),
+   damit kurze, komplett sichtbare Namen keinen ausgeblendeten Rand bekommen. */
+.bt-task-modal .bt-chip-truncate.is-faded .bt-chip-lbl {
+  -webkit-mask-image: linear-gradient(to right, #000 78%, transparent 100%);
+          mask-image: linear-gradient(to right, #000 78%, transparent 100%);
+}
+.bt-task-modal .bt-chip-sep { color: var(--text-muted); }
+.bt-task-modal .bt-chip-x { display: inline-flex; opacity: 0.5; margin-left: 1px; }
+.bt-task-modal .bt-chip-x svg { width: 13px; height: 13px; }
+.bt-task-modal .bt-chip-x:hover { opacity: 1; }
+/* Status-Chip: Icon-Farbe kommt inline aus statusTint() (folgt der Editor-Einstellung). */
+
+/* Icon-only-Modus (Einstellung „Kompakte Chips"): leere Options-Chips zeigen nur das Icon
+   als quadratischen Button, der Name (Text) wird ausgeblendet und erscheint als Tooltip.
+   Chips mit gesetztem Wert bleiben unverändert und zeigen ihren Wert. */
+.bt-task-modal.bt-chips-icons-only .bt-chip:not(.is-set) {
+  width: 28px; padding: 0; gap: 0; justify-content: center;
+}
+.bt-task-modal.bt-chips-icons-only .bt-chip:not(.is-set) .bt-chip-lbl { display: none; }
+
+/* Breadcrumb über dem Titel: zu welcher Hauptaufgabe gehört diese Unteraufgabe. */
+.bt-task-modal .bt-parent-crumb {
+  display: inline-flex; align-items: center; gap: 5px; margin-bottom: 2px;
+  color: var(--text-muted); font-size: 0.82em; cursor: pointer; border-radius: 4px; padding: 1px 3px;
+}
+.bt-task-modal .bt-parent-crumb:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+.bt-task-modal .bt-parent-crumb:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 1px; }
+.bt-task-modal .bt-parent-ic { display: inline-flex; }
+.bt-task-modal .bt-parent-ic svg { width: 13px; height: 13px; }
+.bt-task-modal .bt-parent-lbl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 46ch; }
+
+/* Details = Unteraufgaben + Notiz-Link + Kommentar-Log (Timeline + Composer). */
+.bt-task-modal .bt-details { margin: 0 0 12px; }
+
+/* ── Unteraufgaben-Sektion (oberster Teil des Detailbereichs) ──
+   Luft zwischen der Trennlinie unter der Chip-Leiste und der Ueberschrift „Unteraufgaben".
+   Bewusst PADDING: .bt-st ist erstes Kind von .bt-details, und das hat weder Padding noch
+   Border – ein margin-top kollabierte durch den Elternteil hindurch und traefe dann auf das
+   margin-bottom der Chip-Leiste. Kollabierende Margins ADDIEREN sich nicht, es gewinnt der
+   groessere: aus 12px + 8px wurden nie 20px, sondern 12px. Padding kollabiert nie.
+   Gesamtabstand = 12px (margin-bottom der Chip-Leiste) + dieser Wert.
+   -> 12 + 8 = 20px (hier justieren). */
+.bt-task-modal .bt-st { padding-top: 8px; }
+/* ── Sektions-Kopfzeile (Unteraufgaben UND Kommentare) ──────────────────────────────────
+   EINE Regel fuer beide Sektionen des Detailbereichs: Chevron zum Ein-/Ausklappen, Titel,
+   Zaehler, optional eine Aktion rechts. Wer eine dritte Sektion baut, nimmt dieselben
+   Klassen und ist automatisch stimmig.
+   Trennlinie bewusst dieselbe wie zwischen den Unteraufgaben-Zeilen (.bt-st-row), damit die
+   Kopfzeile als erste Zeile derselben Liste liest. */
+.bt-task-modal .bt-sec-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding-bottom: 5px; border-bottom: 1px solid var(--bt-line-faint);
+}
+/* Schriftgroesse an BEIDEN Buttons, nicht an den Beschriftungen darin: `em` rechnet gegen
+   den Elternwert, und der ist fuer einen Span IM Button Obsidians Button-Schrift (13px),
+   fuer den Aktions-Button dagegen die Modal-Schrift der Kopfzeile (15px). Dieselbe Zahl
+   ergaebe so zwei verschiedene Pixelwerte. Hier haengt sie an derselben Ebene (.bt-sec-head)
+   -> beide 0.88em = 13.2px; Titel und Zaehler erben sie. */
+.bt-task-modal .bt-sec-toggle,
+.bt-task-modal .bt-sec-act {
+  display: inline-flex; align-items: center; gap: 5px; padding: 2px 5px;
+  background: transparent; box-shadow: none; border-radius: 5px; cursor: pointer;
+  height: auto; min-height: 0; line-height: 1.4;
+  font-size: 0.88em; color: var(--text-normal); font-weight: 600;
+}
+.bt-task-modal .bt-sec-toggle:hover, .bt-task-modal .bt-sec-act:hover { background: var(--background-modifier-hover); }
+.bt-task-modal .bt-sec-caret { display: inline-flex; color: var(--text-muted); }
+.bt-task-modal .bt-sec-caret svg { width: 18px; height: 18px; }
+.bt-task-modal .bt-sec-count { color: var(--text-muted); font-weight: 400; font-variant-numeric: tabular-nums; }
+
+.bt-task-modal .bt-st-body { margin-top: 2px; }
+.bt-task-modal .bt-st-row {
+  display: flex; align-items: flex-start; gap: 9px; padding: 6px 4px 6px 6px;
+  border-bottom: 1px solid var(--bt-line-faint);
+}
+.bt-task-modal .bt-st-row:hover { background: var(--background-modifier-hover); border-radius: 6px; }
+/* Checkbox wie in der Liste: dort verkleinert `.bt-task.bt-subtask .bt-check` die normale
+   Checkbox auf 13px statt die Kompakt-Variante zu nehmen. Genauso hier – dadurch stimmen
+   Randstaerke, Haekchen-Einzug und Status-Icon (11px) mit den Zeilen der Liste ueberein.
+   line-height explizit, damit die 1lh-Formel gegen dieselbe Zeilenhoehe rechnet wie der Titel. */
+.bt-task-modal .bt-st-row .bt-check {
+  width: 13px; height: 13px; flex: 0 0 auto;
+  line-height: 1.4; margin-top: calc((1lh - 13px) / 2);
+}
+/* Textblock = .bt-body der Liste: Titel als Block, Meta-Zeile darunter. */
+.bt-task-modal .bt-st-main { flex: 1; min-width: 0; cursor: pointer; border-radius: 4px; }
+.bt-task-modal .bt-st-main:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 2px; }
+.bt-task-modal .bt-st-lbl { font-size: 0.9em; line-height: 1.4; color: var(--text-normal); overflow-wrap: anywhere; }
+.bt-task-modal .bt-st-row.is-done .bt-st-lbl { color: var(--text-muted); text-decoration: line-through; }
+/* Werte wie .bt-meta in der Liste (gap 4px/10px, 5px Abstand zum Titel). */
+.bt-task-modal .bt-st-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin-top: 5px; }
+/* Eigene Chip-Basis: `.bt-chip` gehört im Modal den Eingabe-Chips (Button-Optik), die
+   Listen-Basis `.bt-view .bt-chip` greift hier nicht. Die Icon-Masken (.bt-due/.bt-recur/
+   .bt-label) sind global und werden mitbenutzt. */
+.bt-task-modal .bt-st-chip {
+  display: inline-flex; align-items: center; gap: 4px; line-height: 1.3;
+  font-size: 0.78em; color: var(--text-muted);
+}
+.bt-task-modal .bt-st-chip::before {
+  content: ""; display: inline-block; width: 13px; height: 13px; flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+}
+/* Meta-Theme-Variablen (--bt-c-*) wie in der Liste – NICHT die klassischen Festfarben:
+   bei „Minimalisdo"/„User" sind Wiederholung/Label grau, nur „Colorado" färbt sie. Die
+   Festfarben hier ließen das Modal bunt aussehen, obwohl das Theme grau vorgibt. */
+.bt-task-modal .bt-st-chip.bt-recur { color: var(--bt-c-recur); gap: 0; }
+.bt-task-modal .bt-st-chip.bt-label { color: var(--bt-c-label); gap: 0; }
+.bt-task-modal .bt-st-chip.bt-sched { color: var(--bt-c-sched); }
+/* Erinnerung/Anhänge: die globalen Klassen der Liste (Theme-Farben --bt-c-remind/--bt-c-comments
+   bringen sie mit) – hier nur aufs kompakte Modal-Maß der .bt-st-chips gebracht. */
+.bt-task-modal .bt-st-meta .bt-remind svg { width: 13px; height: 13px; }
+.bt-task-modal .bt-st-meta .bt-comments { font-size: 0.78em; }
+.bt-task-modal .bt-st-meta .bt-comments-ic svg { width: 13px; height: 13px; }
+.bt-task-modal .bt-st-kids {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 0.78em; color: var(--bt-c-subs); font-variant-numeric: tabular-nums;
+}
+.bt-task-modal .bt-st-kids-ic { display: inline-flex; }
+.bt-task-modal .bt-st-kids-ic svg { width: 13px; height: 13px; }
+/* align-self wie .bt-task-actions in der Liste: mittig zur GANZEN Zeile, nicht an der ersten
+   Textzeile – sonst haengt das ✕ oben, sobald darunter noch eine Meta-Zeile steht. */
+.bt-task-modal .bt-st-del {
+  flex: 0 0 auto; align-self: center; padding: 2px; border-radius: 5px; cursor: pointer; color: var(--text-muted);
+  background: transparent; box-shadow: none; display: inline-flex; align-items: center;
+  height: auto; min-height: 0; line-height: 1; opacity: 0; transition: opacity .12s;
+}
+.bt-task-modal .bt-st-row:hover .bt-st-del, .bt-task-modal .bt-st-del:focus-visible { opacity: 1; }
+.bt-task-modal .bt-st-del:hover { color: var(--text-error, var(--text-normal)); background: var(--background-modifier-hover); }
+.bt-task-modal .bt-st-del .svg-icon { width: 14px; height: 14px; }
+
+/* Inline-Erfassung: sieht wie eine Zeile aus, ist aber immer eingabebereit.
+   Sie gehoert zur Unteraufgaben-Sektion und bleibt darum oben dicht an der Liste (4px). Die Luft
+   liegt UNTER ihr und trennt die ganze Sektion von den Kommentaren.
+   Bewusst PADDING, nicht margin: die Zeile ist das letzte Kind eines Blocks ohne eigenes
+   Padding/Border, ein margin-bottom wuerde also nach aussen kollabieren und sich mit
+   `.bt-log { margin-top: 8px }` verrechnen statt zu addieren. Padding kollabiert nie und ist hier
+   optisch identisch (die Zeile hat weder Hintergrund noch Rahmen).
+   Unten 12px + die 8px des Kommentar-Blocks -> 20px bis zur Kommentar-Ueberschrift. */
+/* EINE Textkante fuer die ganze Sektion (28px vom linken Rand): Zeilen-Padding (6) + Icon (13,
+   genau die Breite der Checkbox in den Zeilen darueber) + gap (3) + Feld-Padding (6). Der
+   Fokus-Kasten beginnt 6px links davon – wie der Hover-Kasten der Zeilen, der auch ueber den
+   Text hinausreicht. */
+.bt-task-modal .bt-st-add { display: flex; align-items: center; gap: 3px; padding: 4px 4px 12px 6px; }
+.bt-task-modal .bt-st-add-ic { display: inline-flex; color: var(--text-faint); flex: 0 0 auto; }
+.bt-task-modal .bt-st-add-ic svg { width: 13px; height: 13px; }
+.bt-task-modal .bt-st-input {
+  flex: 1; min-width: 0; height: 30px; font-size: 0.9em;
+  background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 2px 6px;
+}
+.bt-task-modal .bt-st-input::placeholder { color: var(--text-faint); }
+.bt-task-modal .bt-st-input:focus {
+  background: var(--background-modifier-form-field);
+  border-color: var(--interactive-accent); box-shadow: none; outline: none;
+}
+.bt-task-modal .bt-st-add:focus-within .bt-st-add-ic { color: var(--interactive-accent); }
+/* Nachgestellte Aktion – gleiche Groesse und Optik wie die Aktionen der Kommentar-Zeile
+   (.bt-log-attach/.bt-log-add), damit beide Erfassungszeilen rechts gleich enden.
+   `padding: 0` ist PFLICHT, nicht Kosmetik: Obsidians Button-Default bringt reichlich Padding
+   mit, und mit `box-sizing: border-box` frisst das die feste 30px-Box von innen auf – das Icon
+   wird auf einen Rest zusammengedrueckt. Gleiches Muster wie .bt-qa-icon in der Schnelleingabe. */
+.bt-task-modal .bt-st-full {
+  flex: 0 0 auto; margin-left: 3px; cursor: pointer; color: var(--text-muted);
+  background: transparent; box-shadow: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; min-height: 0; padding: 0; border-radius: 6px; line-height: 1;
+}
+.bt-task-modal .bt-st-full:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+
+.bt-task-modal .bt-log { margin-top: 8px; }
+.bt-task-modal .bt-log-list { max-height: 260px; overflow-y: auto; padding: 2px 2px 2px 16px; position: relative; }
+.bt-task-modal .bt-log-list::before {            /* durchgehende Timeline-Linie */
+  content: ""; position: absolute; left: 5px; top: 6px; bottom: 6px;
+  width: 2px; background: var(--background-modifier-border);
+}
+.bt-task-modal .bt-log-entry { position: relative; padding: 5px 0 9px 14px; }
+.bt-task-modal .bt-log-entry::before {           /* Punkt auf der Linie */
+  content: ""; position: absolute; left: -13px; top: 9px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--interactive-accent); box-shadow: 0 0 0 2px var(--background-primary);
+}
+.bt-task-modal .bt-log-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 3px; }
+.bt-task-modal .bt-log-ts { font-size: 0.72em; font-weight: 600; letter-spacing: 0.02em; color: var(--text-accent, var(--interactive-accent)); }
+.bt-task-modal .bt-log-content { font-size: 0.9em; line-height: 1.45; color: var(--text-normal); }
+.bt-task-modal .bt-log-content > :first-child { margin-top: 0; }
+.bt-task-modal .bt-log-content > :last-child { margin-bottom: 0; }
+.bt-task-modal .bt-log-content img { max-width: 180px; max-height: 140px; border-radius: 8px; margin: 4px 0; cursor: zoom-in; }
+.bt-task-modal .bt-log-actions { flex: 0 0 auto; display: flex; gap: 2px; opacity: 0; transition: opacity .12s; }
+.bt-task-modal .bt-log-entry:hover .bt-log-actions { opacity: 1; }
+.bt-task-modal .bt-log-act {
+  padding: 1px; border-radius: 5px; cursor: pointer; color: var(--text-muted);
+  background: transparent; box-shadow: none; display: inline-flex; align-items: center;
+  height: auto; min-height: 0; line-height: 1;
+}
+.bt-task-modal .bt-log-act:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+.bt-task-modal .bt-log-act .svg-icon { width: 14px; height: 14px; }
+.bt-task-modal .bt-log-edit { width: 100%; resize: vertical; min-height: 48px; font-size: 0.9em; }
+.bt-task-modal .bt-log-edit-acts { display: flex; gap: 6px; justify-content: flex-end; margin-top: 4px; }
+.bt-task-modal .bt-log-edit-btn { font-size: 0.82em; padding: 3px 10px; }
+/* Erfassungszeile der Kommentare – baugleich zur Unteraufgaben-Erfassung (.bt-st-add):
+   dieselbe Anatomie [Icon] [Feld] [Aktion], dieselbe Textkante (28px, s. u.) und derselbe
+   leise Ruhezustand. Der einzige bewusste Unterschied bleibt textarea statt input: ein
+   Kommentar ist Fliesstext, ein Unteraufgaben-Titel einzeilig (er wird Dateiname + Ueberschrift). */
+.bt-task-modal .bt-log-composer {
+  display: flex; align-items: flex-end; gap: 3px; margin-top: 8px; padding-left: 6px;
+}
+/* Das „+" markiert die ERSTE Textzeile, nicht die letzte: bei einem mehrzeilig gewachsenen
+   Feld saesse es sonst unten neben dem Senden-Button. 10px = Feld-Padding (6) + Rahmen (1)
+   plus die halbe Zeilenhoehe abzueglich des halben Icons. */
+.bt-task-modal .bt-log-composer-ic {
+  display: inline-flex; align-self: flex-start; margin-top: 10px;
+  color: var(--text-faint); flex: 0 0 auto;
+}
+.bt-task-modal .bt-log-composer-ic svg { width: 13px; height: 13px; }
+.bt-task-modal .bt-log-composer:focus-within .bt-log-composer-ic { color: var(--interactive-accent); }
+/* KEINE Trennlinie mehr zwischen Kommentaren und Eingabefeld – die Trennung zur Fußzeile
+   liegt jetzt UNTER dem Eingabefeld (siehe .bt-foot::before weiter unten). */
+.bt-task-modal .bt-log-list:empty { display: none; }
+.bt-task-modal .bt-log-list:empty + .bt-log-composer { margin-top: 0; }
+/* Ruhezustand leise wie .bt-st-input: kein Kasten, solange nichts passiert. padding-left 6px
+   ergibt zusammen mit Icon (13) + gap (3) + Zeilen-Padding (6) die 28px Textkante der
+   Unteraufgaben-Zeilen. */
+.bt-task-modal .bt-log-input {
+  flex: 1; resize: none; min-height: 30px; max-height: 220px; font-size: 0.9em; line-height: 1.4;
+  background: transparent; border: 1px solid transparent;
+  border-radius: 6px; padding: 6px;
+}
+.bt-task-modal .bt-log-input::placeholder { color: var(--text-faint); }
+/* Traegt das Feld Text, ist es ein Kasten – aber ein ruhiger (neutraler Rahmen). */
+.bt-task-modal .bt-log-composer.has-text .bt-log-input {
+  background: var(--background-modifier-form-field); border-color: var(--background-modifier-border);
+}
+/* Fokus/Drop gewinnen (gleiche Spezifitaet, deshalb bewusst DANACH): Akzentrahmen, kein Glow. */
+.bt-task-modal .bt-log-composer:focus-within .bt-log-input,
+.bt-task-modal .bt-log-input.bt-drop {
+  background: var(--background-modifier-form-field); border-color: var(--interactive-accent);
+  box-shadow: none; outline: none;
+}
+.bt-task-modal .bt-log-input.bt-drop { box-shadow: 0 0 0 2px var(--interactive-accent) inset; }
+.bt-task-modal .bt-log-composer-actions { display: flex; gap: 4px; margin-left: 3px; }
+.bt-task-modal .bt-log-attach, .bt-task-modal .bt-log-add {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; padding: 0; border-radius: 6px; cursor: pointer;
+  background: transparent; box-shadow: none; color: var(--text-muted);
+}
+/* Eine Glyphengroesse fuer ALLE Aktions-Buttons der beiden Erfassungszeilen (⤢ · Anhang ·
+   Verknuepfen · Senden). Explizit statt Obsidians geerbtem --icon-size: der Wert haengt sonst
+   am Theme, und genau daraus entstand die Ungleichheit – das ⤢ war fest auf 14px gesetzt,
+   die drei Nachbarn liefen auf dem Default (~18px). 16px wie .bt-qa-icon. */
+.bt-task-modal .bt-st-full svg,
+.bt-task-modal .bt-log-attach svg,
+.bt-task-modal .bt-log-add svg { width: 16px; height: 16px; }
+.bt-task-modal .bt-log-attach:hover, .bt-task-modal .bt-log-add:hover {
+  color: var(--text-normal); background: var(--background-modifier-hover);
+}
+/* Senden faerbt sich erst, wenn es etwas zu senden gibt (Fokus oder Text) – vorher ist es ein
+   stilles Icon wie die beiden daneben. */
+.bt-task-modal .bt-log-composer:focus-within .bt-log-add,
+.bt-task-modal .bt-log-composer.has-text .bt-log-add {
+  background: var(--interactive-accent); color: var(--text-on-accent);
+}
+.bt-task-modal .bt-log-composer:focus-within .bt-log-add:hover,
+.bt-task-modal .bt-log-composer.has-text .bt-log-add:hover { background: var(--interactive-accent-hover); }
+
+/* ── Touch: Trefferflaechen im Detailbereich ────────────────────────────────────────────
+   Nur fuer grobe Zeiger (Finger/Stift) – `pointer: coarse` beschreibt das EINGABEGERAET, nicht
+   die Fensterbreite. Ein schmales Desktop-Fenster bleibt also fein, ein grosses Tablet nicht.
+   Die Maus-Optik ist damit unangetastet; 44px-Kaesten waeren dort unnoetig grob.
+   Zweiter, wichtigerer Punkt: auf Touch gibt es kein :hover. Aktionen, die am Desktop erst beim
+   Ueberfahren erscheinen (Unteraufgabe loeschen, Kommentar bearbeiten/loeschen), waeren sonst
+   nicht nur klein, sondern gar nicht erreichbar – sie werden hier dauerhaft sichtbar. */
+@media (pointer: coarse) {
+  /* Chip-Leiste: `height` ist fest gesetzt und muss deshalb ueberschrieben werden – min-height
+     allein bliebe wirkungslos. Der quadratische „+"-Button und die Icon-only-Chips wachsen
+     mit, sonst blieben sie 28px breit neben 44px hohen Nachbarn. */
+  .bt-task-modal .bt-chip { height: 44px; padding: 0 12px; }
+  .bt-task-modal .bt-chip-actions,
+  .bt-task-modal.bt-chips-icons-only .bt-chip:not(.is-set) { width: 44px; }
+  /* Das ✕ im Chip ist eine EIGENE Aktion (Wert leeren) innerhalb einer Aktion (Chip oeffnen).
+     44px wuerden hier den halben Chip verschlucken, darum die uebliche Technik: Padding zieht
+     die Trefferflaeche auf, negatives Margin nimmt sie aus dem Layout wieder heraus – optisch
+     unveraendert, aber ~29px statt 13px zum Treffen. */
+  .bt-task-modal .bt-chip-x { padding: 8px; margin: -8px -8px -8px -7px; }
+
+  .bt-task-modal .bt-log-attach,
+  .bt-task-modal .bt-log-add,
+  .bt-task-modal .bt-st-full { width: 44px; height: 44px; border-radius: 8px; }
+
+  .bt-task-modal .bt-st-del,
+  .bt-task-modal .bt-log-act {
+    width: 44px; height: 44px; padding: 0; justify-content: center; border-radius: 8px;
+  }
+  /* Kein :hover auf Touch -> die am Desktop eingeblendeten Aktionen dauerhaft zeigen. Die
+     Deckkraft liegt beim Kommentar am CONTAINER (.bt-log-actions), bei der Unteraufgabe am
+     Button selbst (.bt-st-del) – beide muessen gesetzt werden. */
+  .bt-task-modal .bt-log-actions,
+  .bt-task-modal .bt-st-del { opacity: 1; }
+
+  .bt-task-modal .bt-sec-toggle,
+  .bt-task-modal .bt-sec-act,
+  .bt-task-modal .bt-parent-crumb { min-height: 44px; }
+
+  .bt-task-modal .bt-st-input { height: 44px; }
+  .bt-task-modal .bt-log-input { min-height: 44px; }
+  /* Das fuehrende „+" sitzt am Desktop auf der ersten Textzeile des gewachsenen Feldes; bei
+     44px Mindesthoehe liegt diese Zeile tiefer. */
+  .bt-task-modal .bt-log-composer-ic { margin-top: 15px; }
+
+  /* Unteraufgaben-Zeile hoeher, damit die Trefferflaeche der Checkbox INNERHALB der eigenen
+     Zeile wachsen kann. Wuerde sie darueber hinausreichen, ueberlappten sich die Flaechen
+     benachbarter Zeilen und ein Tippen traefe mal die eine, mal die andere. */
+  .bt-task-modal .bt-st-row { padding-top: 12px; padding-bottom: 12px; }
+  /* Die 13px-Checkbox bleibt sichtbar wie sie ist (sie gehoert zum Listen-Design) – vergroessert
+     wird nur die Trefferflaeche ueber ein Pseudo. Nach rechts bewusst knapp: reichte sie bis an
+     den Titel, wuerde ein Tippen auf den Textanfang die Aufgabe abhaken statt sie zu oeffnen. */
+  .bt-task-modal .bt-st-row .bt-check { position: relative; }
+  .bt-task-modal .bt-st-row .bt-check::before {
+    content: ""; position: absolute; top: -12px; bottom: -12px; left: -6px; right: -6px;
+  }
+}
+
+.bt-task-modal .bt-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; }
+/* Bei offenem Detailbereich: volle Trennlinie ÜBER der Fußzeile (unter dem Eingabefeld),
+   randlos wie .bt-chips::after. NUR wenn Details offen ist – sonst liefert die chips::after-Linie
+   die Trennung zur Fußzeile schon, und es gäbe zwei Linien. `.bt-details` und `.bt-foot` sind
+   im Modal direkte Nachbarn. */
+/* margin-top 24px (statt 8): schafft ober- UND unterhalb der Linie je 12px – die Linie sitzt
+   damit mittig zwischen Eingabefeld und Fußzeile (unten 12px zu den Buttons wie im Modal ohne
+   Details, oben 12px zum Eingabefeld). Nur bei offenem Detailbereich. */
+/* Die Linie gehoert dorthin, wo zwischen Chip-Leiste und Fusszeile UEBERHAUPT etwas steht –
+   nicht nur bei offenem Detailbereich. Seit die Unteraufgaben eine eigene, immer sichtbare
+   Sektion sind, gibt es den Fall „Kommentare zu, Unteraufgaben da": ohne diese zweite Bedingung
+   klebten die Buttons an der Erfassungszeile. `~` statt `+`, weil .bt-st nicht direkter
+   Vorgaenger der Fusszeile ist (der Detailbereich liegt dazwischen). */
+.bt-task-modal .bt-st:not(.bt-hidden) ~ .bt-foot,
+.bt-task-modal .bt-details:not(.bt-hidden) + .bt-foot { position: relative; margin-top: 24px; }
+.bt-task-modal .bt-st:not(.bt-hidden) ~ .bt-foot::before,
+.bt-task-modal .bt-details:not(.bt-hidden) + .bt-foot::before {
+  content: ""; position: absolute; top: -12px;   /* mittig: 12px zum Eingabefeld, 12px zu den Buttons */
+  left: calc(-1 * var(--size-4-4) - 4px); right: calc(-1 * var(--size-4-4) - 4px);
+  border-top: 1px solid var(--bt-line);
+}
+.bt-task-modal .bt-projekt,
+.bt-tpl-modal .bt-projekt {
+  display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px;
+  border: 1px solid var(--background-modifier-border); border-radius: 6px;
+  background: transparent; color: var(--text-normal); font-size: 0.88em; font-weight: 600; cursor: pointer; box-shadow: none;
+}
+/* `.bt-hidden` (0-1-0) verliert gegen die Knopf-Regel darueber (0-2-0) und ihr
+   `display: inline-flex` – der ausgeblendete Knopf blieb dadurch stehen. Diese Zeile stellt das
+   Ausblenden wieder her (0-3-0). Betrifft im Anwenden-Dialog den Projekt-Waehler: Bei „Neues
+   Projekt" gibt es nichts auszuwaehlen, dort zaehlt allein das Namensfeld. */
+.bt-task-modal .bt-projekt.bt-hidden,
+.bt-tpl-modal .bt-projekt.bt-hidden { display: none; }
+
+.bt-task-modal .bt-projekt:hover,
+.bt-tpl-modal .bt-projekt:hover { background: var(--background-modifier-hover); }
+.bt-task-modal .bt-projekt-ic, .bt-task-modal .bt-projekt-car,
+.bt-tpl-modal .bt-projekt-ic, .bt-tpl-modal .bt-projekt-car { display: inline-flex; }
+.bt-task-modal .bt-projekt-ic svg,
+.bt-tpl-modal .bt-projekt-ic svg { width: 15px; height: 15px; }
+.bt-task-modal .bt-projekt-car,
+.bt-tpl-modal .bt-projekt-car { opacity: 0.6; }
+.bt-task-modal .bt-projekt-car svg,
+.bt-tpl-modal .bt-projekt-car svg { width: 14px; height: 14px; }
+.bt-task-modal .bt-actions { display: inline-flex; gap: 8px; }
+.bt-task-modal .bt-actions button { font-weight: 600; }   /* Abbrechen / Speichern fett */
+
+/* ── Schnell-Erfassung (kompaktes Quick-Add-Modal) ────────────────────────────────────────
+   Teilt sich .bt-task-modal (Titel-/Projekt-/Chip-Styles); hier nur die kompakte Anordnung. */
+/* Schmaler als das volle Aufgaben-Modal (800px) – die Quick-Erfassung braucht keine so breite
+   Fläche. Etwas kompakter, aber weiter responsiv gedeckelt. */
+.bt-quickadd { width: 660px; }
+.bt-quickadd .bt-titel { font-size: 1.1em; }
+/* Eine Zeile: Projekt-Chip + Attribut-Chips links, Aktionen rechts (margin-left:auto). Umbruch
+   erlaubt, falls viele Labels -> Buttons rutschen dann in die nächste Zeile. */
+.bt-quickadd .bt-qa-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 10px; }
+.bt-quickadd .bt-qa-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; }
+.bt-quickadd .bt-qa-chips::after { display: none; }   /* kein randloser Trennstrich im Quick-Add */
+.bt-quickadd .bt-qa-foot-right { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; }
+.bt-quickadd .bt-qa-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; padding: 0; border-radius: 6px;
+  border: 1px solid var(--background-modifier-border); background: transparent;
+  color: var(--text-muted); cursor: pointer; box-shadow: none;
+}
+.bt-quickadd .bt-qa-icon:hover { background: var(--background-modifier-hover); color: var(--text-normal); }
+.bt-quickadd .bt-qa-icon svg { width: 16px; height: 16px; }
+.bt-quickadd .bt-qa-submit {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; padding: 0; border-radius: 6px;
+}
+.bt-quickadd .bt-qa-submit svg { width: 17px; height: 17px; }
+
+
+/* Popover (Chip-Picker) */
+/* max-height auch am Fenster deckeln: bei kleinem Fenster oder großer Schrift ragte das
+   Popover sonst unten aus dem Viewport (die Positionierung kann es nur noch an den Rand
+   klemmen, nicht kleiner machen). */
+.bt-pop {
+  position: fixed; z-index: var(--layer-menu, 9999); min-width: 190px; max-height: min(320px, calc(100vh - 16px)); overflow-y: auto;
+  padding: 5px; background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border); border-radius: 8px;
+  box-shadow: var(--shadow-s, 0 4px 16px rgba(0, 0, 0, 0.4));
+}
+.bt-pop .bt-row { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 5px; cursor: pointer; font-size: 0.88em; color: var(--text-normal); }
+.bt-pop .bt-row:hover, .bt-pop .bt-row.is-active { background: var(--background-modifier-hover); }
+.bt-pop .bt-row-ic { display: inline-flex; }
+.bt-pop .bt-row-ic svg { width: 15px; height: 15px; }
+
+/* ── Datums-Picker (Eingabe + Schnellzeilen + Monatskalender) ── */
+/* Feste Breite: verhindert, dass die (breite) Dauer-Zeile das Popover verbreitert und
+   damit die aspect-ratio-Kalenderzellen aufbläht. */
+/* Vorschlagsliste fuer „[[…]]" in den mehrzeiligen Feldern (Beschreibung, Kommentare).
+   Sitzt unter dem Feld, so wie Obsidian es bei seinen eigenen Eingabefeldern macht. Die
+   Treffer-Hervorhebung darin kommt von renderMatches und traegt Obsidians eigene Klasse. */
+.bt-pop.bt-linksuggest { min-width: 260px; max-width: 420px; overflow-y: auto; }
+.bt-pop.bt-linksuggest .bt-row-lbl { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bt-pop.bt-linksuggest .bt-suggest-dir {
+  margin-left: auto; padding-left: 10px; flex-shrink: 0; max-width: 45%;
+  color: var(--text-faint); font-size: 0.85em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.bt-pop.bt-date { width: 268px; max-height: min(560px, calc(100vh - 16px)); overflow-y: auto; }
+.bt-pop .bt-date-input, .bt-pop .bt-pop-input {
+  width: 100%; box-sizing: border-box; margin: 1px 0 6px; padding: 6px 8px; font-size: 0.88em;
+  color: var(--text-normal); background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border); border-radius: 5px;
+}
+.bt-pop .bt-date-input::placeholder, .bt-pop .bt-pop-input::placeholder { color: var(--text-faint); }
+.bt-pop .bt-date-input:focus, .bt-pop .bt-pop-input:focus { border-color: var(--interactive-accent); box-shadow: none; outline: none; }
+.bt-pop .bt-date-input.is-invalid { border-color: var(--text-error); }
+.bt-pop .bt-row-lbl { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bt-pop .bt-date-hint { padding-left: 10px; color: var(--text-faint); font-size: 0.9em; white-space: nowrap; }
+
+/* Label-Picker (Eingabe + Liste mit rechtsbündiger Häkchen-Box) */
+/* Wiederholung: Fuenf Vorlagen, das Regel-Feld samt Beispielen und die Basis-Zeile ergeben mehr
+   als die 320px, die fuer ein schlichtes Menue reichen. Ohne eigene Grenze waere die letzte Zeile
+   ("Naechstes Datum ab") abgeschnitten und nur durch Scrollen erreichbar - man saehe nicht
+   einmal, dass sie existiert. Wie beim Datums-Popover also eine eigene, groessere Grenze; der
+   Bildschirm bleibt die harte Schranke. */
+.bt-pop.bt-recur { min-width: 240px; max-height: min(520px, calc(100vh - 16px)); }
+.bt-pop.bt-tags { min-width: 240px; }
+.bt-pop.bt-tags .bt-tag-add { width: 100%; box-sizing: border-box; margin-bottom: 6px; padding: 5px 7px; border-radius: 5px; border: 1px solid var(--background-modifier-border); background: var(--background-primary); color: var(--text-normal); }
+.bt-pop.bt-tags .bt-tag-list { max-height: 220px; overflow-y: auto; }
+.bt-pop .bt-tag-row { gap: 0; }
+.bt-pop .bt-tag-row .bt-row-ic { margin-right: -1px; transform: translateY(-1px); }
+.bt-pop .bt-tag-row .bt-row-ic svg { width: 14px; height: 14px; }
+.bt-pop .bt-tag-row.is-active { background: transparent; }
+.bt-pop .bt-tag-row:hover { background: var(--background-modifier-hover); }
+.bt-pop .bt-tag-box {
+  margin-left: 8px; width: 17px; height: 17px; flex-shrink: 0;
+  border: 1px solid var(--background-modifier-border); border-radius: 4px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.bt-pop .bt-tag-row.is-active .bt-tag-box { background: var(--interactive-accent); border-color: var(--interactive-accent); }
+.bt-pop .bt-tag-box svg { width: 12px; height: 12px; color: var(--text-on-accent); }
+
+/* Gruppen-Überschrift + Aktion-Zeilen (Projekt-Picker) */
+/* Farbe/Gewicht wie die Abschnitts-Überschriften im Filter-Modal (text-muted + fett), aber in
+   normaler Schreibweise statt VERSALIEN (Nutzer-Feedback; Sperrung nur bei Versalien sinnvoll). */
+.bt-pop .bt-pop-head { font-size: 0.84em; font-weight: 700; color: var(--text-muted); padding: 8px 8px 3px; }
+.bt-pop .bt-row-action .bt-row-lbl, .bt-pop .bt-row-action .bt-row-ic { color: var(--interactive-accent); }
+
+/* Erinnerungs-Popover: Liste bestehender Erinnerungen + Presets */
+.bt-pop.bt-rem { min-width: 240px; }
+.bt-pop .bt-pop-sub { font-size: 0.84em; font-weight: 700; color: var(--text-muted); padding: 6px 8px 2px; }
+.bt-pop .bt-rem-item .bt-rem-x { display: inline-flex; flex-shrink: 0; color: var(--text-faint); cursor: pointer; }
+.bt-pop .bt-rem-item .bt-rem-x:hover { color: var(--text-normal); }
+.bt-pop .bt-rem-item .bt-rem-x svg { width: 15px; height: 15px; }
+.bt-pop .bt-rem-hint { padding: 3px 8px 6px; color: var(--text-faint); font-size: 0.85em; }
+.bt-pop .bt-rem-sep { height: 1px; background: var(--background-modifier-border); margin: 5px 6px; }
+.bt-pop .bt-row.is-disabled { opacity: 0.45; pointer-events: none; }
+
+/* ── Linke Navigation ── */
+.bt-nav { padding: 6px 6px 16px; }
+.bt-nav-item { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: calc(0.9em * var(--bt-nav-scale, 1)); color: var(--text-normal); }
+/* Hover & Aktiv sind aus der Akzentfarbe abgeleitet. Der Hover ist bewusst schwächer als der
+   aktive Eintrag, damit beide Zustände unterscheidbar bleiben. */
+.bt-nav-item:hover { background: color-mix(in srgb, var(--interactive-accent) 10%, transparent); }
+.bt-nav-item.is-active { background: color-mix(in srgb, var(--interactive-accent) 18%, transparent); font-weight: 600; }
+/* Ablage beim Ziehen einer Aufgabe hierher: deutlicher als „aktiv", damit man beim Loslassen
+   sicher ist, welchen Eintrag man trifft – gefüllt UND umrandet, in der Akzentfarbe. */
+.bt-nav-item.is-drop-task {
+  background: color-mix(in srgb, var(--interactive-accent) 26%, transparent);
+  box-shadow: inset 0 0 0 1px var(--interactive-accent);
+  border-radius: 6px;
+}
+.bt-nav-ic { display: inline-flex; flex-shrink: 0; }
+.bt-nav-ic svg { width: 16px; height: 16px; }
+/* Seitenleisten-Icon-Farben: Boards einzeln, Labels/Bereiche/Projekte je gemeinsam.
+   Eine per-Item-Frontmatter-Farbe (inline gesetzt) sticht die Gruppenfarbe. */
+/* „Aufgabe hinzufügen" ganz oben: das Icon bt-add-task (siehe registerIcons in
+   main.ts) ist ein gefüllter Kreis mit ausgestanztem Plus. currentColor färbt den Kreis, also
+   reicht hier color. Text bleibt --text-normal (Schwarz im hellen, Weiß im dunklen Theme). */
+.bt-nav-add-task { color: var(--text-normal); font-weight: 700; }
+.bt-nav-add-task:hover { color: var(--text-normal); }
+.bt-nav-add-task .bt-nav-ic { color: var(--interactive-accent); }
+.bt-nav-add-task .bt-nav-ic svg { display: block; width: 16px; height: 16px; }
+.bt-nav-search .bt-nav-ic { color: var(--bt-nav-search); }
+.bt-nav-inbox .bt-nav-ic { color: var(--bt-nav-inbox); }
+.bt-nav-heute .bt-nav-ic { color: var(--bt-nav-heute); }
+.bt-nav-demnaechst .bt-nav-ic { color: var(--bt-nav-demnaechst); }
+.bt-nav-wiederkehrend .bt-nav-ic { color: var(--bt-nav-wiederkehrend); }
+.bt-nav-erledigt .bt-nav-ic { color: var(--bt-nav-erledigt); }
+.bt-nav-manage .bt-nav-ic { color: var(--bt-nav-manage); }
+.bt-nav-label .bt-nav-ic { color: var(--bt-nav-label); }
+.bt-nav-area .bt-nav-ic { color: var(--bt-nav-area); }
+.bt-nav-project .bt-nav-ic { color: var(--bt-nav-project); }
+/* Bereich-Icon (circle-small) als gefüllten Punkt darstellen. */
+.bt-nav-area .bt-nav-ic svg { fill: currentColor; }
+.bt-nav-lbl { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bt-nav-count { color: var(--text-muted); font-size: 0.82em; flex-shrink: 0; }
+/* Sichtbarer Tastatur-Fokus (Regel 40) – nur bei Keyboard-Fokus, nicht bei Maus. */
+.bt-nav-item:focus-visible,
+.bt-nav-head-toggle:focus-visible,
+.bt-nav-head-add:focus-visible,
+.bt-nav-head-chevron:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: -2px; border-radius: 6px; }
+
+/* Abschnittsüberschrift: Label links (füllt die Zeile), „+" (nur bei Hover) und Chevron rechts. */
+.bt-nav-head { display: flex; align-items: center; gap: 6px; padding: 12px 8px 4px; }
+.bt-nav-head-toggle {
+  flex: 1; min-width: 0; cursor: pointer;
+  font-size: calc(0.78em * var(--bt-head-scale, 1)); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);
+}
+.bt-nav-head-toggle:hover { color: var(--text-normal); }
+.bt-nav-head-lbl { display: block; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bt-nav-head-add {
+  display: inline-flex; align-items: center; flex-shrink: 0;
+  padding: 1px; border-radius: var(--radius-s); cursor: pointer; opacity: 0;
+  color: var(--text-muted);   /* wie die Sektionstitel-Textfarbe (nicht rot) */
+}
+/* „+" erscheint nur beim Hover der Überschriftenzeile – oder bei Tastatur-Fokus (A11y). */
+.bt-nav-head:hover .bt-nav-head-add,
+.bt-nav-head-add:focus-visible { opacity: 1; }
+.bt-nav-head-add:hover { background: var(--background-modifier-hover); }
+.bt-nav-head-add svg { width: 14px; height: 14px; }
+/* Chevron ganz rechts, grob über der Badge-Spalte der Einträge. */
+/* Chevron: gleiche Farbe wie das Label, aber leicht dezenter (etwas geringere Deckkraft). */
+.bt-nav-head-chevron { display: inline-flex; align-items: center; flex-shrink: 0; cursor: pointer; color: var(--text-muted); opacity: 0.7; padding: 5px; margin: -5px; border-radius: 6px; }
+.bt-nav-head-chevron:hover { color: var(--text-normal); opacity: 1; }
+.bt-nav-head-chevron svg { width: 16px; height: 16px; }
+/* Nur Layout – Hintergrund/Rahmen/Radius/Fokus-Ring kommen aus Obsidians nativem
+   Input-Styling (wie .bt-manage-input), damit Theme-Vorgaben respektiert werden. */
+.bt-nav-add-input { width: calc(100% - 16px); margin: 2px 8px 4px; font-size: var(--font-ui-small); }
+.bt-pop .bt-date-cal { border-top: 1px solid var(--background-modifier-border); margin-top: 5px; padding-top: 6px; }
+.bt-pop .bt-cal-head { display: flex; align-items: center; justify-content: space-between; padding: 2px 6px 8px; }
+.bt-pop .bt-cal-title { font-weight: 600; font-size: 0.9em; }
+.bt-pop .bt-cal-nav { display: inline-flex; cursor: pointer; opacity: 0.6; padding: 2px; border-radius: 4px; }
+.bt-pop .bt-cal-nav:hover { opacity: 1; background: var(--background-modifier-hover); }
+.bt-pop .bt-cal-nav svg { width: 16px; height: 16px; }
+.bt-pop .bt-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; padding: 0 4px 4px; }
+.bt-pop .bt-cal-wd { text-align: center; font-size: 0.68em; color: var(--text-faint); padding: 2px 0; text-transform: uppercase; }
+.bt-pop .bt-cal-day {
+  display: flex; align-items: center; justify-content: center; aspect-ratio: 1;
+  font-size: 0.82em; border-radius: 50%; cursor: pointer; color: var(--text-normal);
+}
+.bt-pop .bt-cal-day:hover { background: var(--background-modifier-hover); }
+.bt-pop .bt-cal-day.is-other { color: var(--text-faint); opacity: 0.5; }
+.bt-pop .bt-cal-day.is-today { box-shadow: inset 0 0 0 1.5px var(--text-error); color: var(--text-error); font-weight: 600; border-radius: 7px; }
+.bt-pop .bt-cal-day.is-sel { background: var(--interactive-accent); color: var(--text-on-accent); box-shadow: none; font-weight: 600; }
+
+/* ── Uhrzeit + Dauer im Date-Picker ── */
+.bt-pop .bt-time-wrap { border-top: 1px solid var(--background-modifier-border); margin-top: 6px; padding-top: 6px; }
+.bt-pop .bt-time-toggle {
+  display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 5px;
+  cursor: pointer; font-size: 0.88em; color: var(--text-normal);
+}
+.bt-pop .bt-time-toggle:hover { background: var(--background-modifier-hover); }
+.bt-pop .bt-time-row, .bt-pop .bt-dur-row { display: flex; align-items: center; gap: 8px; padding: 4px 4px; }
+.bt-pop .bt-time-label { flex: 0 0 52px; font-size: 0.8em; color: var(--text-muted); }
+.bt-pop .bt-time-field { position: relative; flex: 1; min-width: 0; }
+.bt-pop .bt-time-input, .bt-pop .bt-dur-input {
+  width: 100%; box-sizing: border-box; padding: 5px 7px; border-radius: 5px; font-size: 0.88em;
+  border: 1px solid var(--background-modifier-border); background: var(--background-primary); color: var(--text-normal);
+}
+.bt-pop .bt-time-input:focus, .bt-pop .bt-dur-input:focus { border-color: var(--interactive-accent); box-shadow: none; outline: none; }
+.bt-pop .bt-time-input.is-invalid { border-color: var(--text-error); }
+.bt-pop .bt-time-clear { display: inline-flex; opacity: 0.5; cursor: pointer; padding: 2px; flex-shrink: 0; }
+.bt-pop .bt-time-clear:hover { opacity: 1; }
+.bt-pop .bt-time-clear svg { width: 14px; height: 14px; }
+/* Vorschlags-Dropdown: absolut über der Eingabe (nach OBEN), overlappt den Kalender.
+   Standard versteckt; nur mit .is-open sichtbar (kein flackerndes JS-hide/show). */
+.bt-pop .bt-time-drop {
+  display: none; position: absolute; left: 0; right: 0; bottom: calc(100% + 4px); z-index: 5;
+  max-height: 186px; overflow-y: auto; padding: 4px;
+  background: var(--background-primary); border: 1px solid var(--background-modifier-border);
+  border-radius: 6px; box-shadow: var(--shadow-s, 0 4px 16px rgba(0, 0, 0, 0.4));
+}
+.bt-pop .bt-time-drop.is-open { display: block; }
+.bt-pop .bt-time-opt { padding: 5px 8px; border-radius: 5px; cursor: pointer; font-size: 0.88em; color: var(--text-normal); }
+.bt-pop .bt-time-opt:hover { background: var(--background-modifier-hover); }
+.bt-pop .bt-time-opt.is-sel { color: var(--interactive-accent); font-weight: 600; }
+.bt-pop .bt-dur-input { flex: 1; min-width: 0; }
+/* Bestätigen-Fuß: nur im confirm-Modus (Erinnerung hinzufügen). Erst dieser Klick gibt den
+   Wert heraus – im live-Modus (Fälligkeit/Termin) existiert der Fuß gar nicht. */
+.bt-pop .bt-date-foot:empty { display: none; }
+.bt-pop .bt-date-foot {
+  border-top: 1px solid var(--background-modifier-border); margin-top: 6px; padding-top: 8px;
+}
+.bt-pop .bt-date-commit { width: 100%; font-size: 0.88em; font-weight: 600; }
+.bt-pop .bt-date-commit:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* klickbare Datums-Chips in der Liste */
+.bt-view .bt-due, .bt-view .bt-sched { cursor: pointer; }
+
+/* Sektionen */
+.bt-section { margin-top: 2.2em; }
+/* Seiten MIT Beschreibungszeile (Projekt, Bereich, Filter) gleichen deren Höhe an EINER Stelle
+   wieder aus. Die Rechnung, und die beiden Zahlen unten MÜSSEN zusammenpassen:
+     6px Rand + 20px Zeilenhöhe − 1px (engerer Abstand zur Bar) = 25px Zuwachs
+   also verliert die erste Sektion genau 25px. Beide Zustände ergeben damit dieselbe Summe – ohne
+   Beschreibung 2.2em, mit Beschreibung 25px + (2.2em − 25px). Die erste Sektionsüberschrift sitzt
+   in Systemansichten und auf Projektseiten auf derselben Höhe, unabhängig von Theme und Zoom.
+   Zwischen zwei Sektionen bleibt es überall bei 2.2em, das gliedert die Liste. */
+.bt-has-desc .bt-board-bar { margin-top: 19px; }   /* 1px enger an die Beschreibung */
+.bt-has-desc .bt-section:first-child { margin-top: calc(2.2em - 25px); }
+.bt-section-title {
+  font-size: calc(0.9em * var(--bt-section-scale, 1)); font-weight: 700; margin: 8px 0 0;   /* Basis = Faktor der Seitenleisten-Einträge; über Einstellungen skalierbar */
+  color: var(--text-normal);
+}
+/* Einklappbare Sektion (z. B. „Erledigt"): Titel + Anzahl + Chevron rechts, klickbar. */
+.bt-collapsible .bt-section-title { display: flex; align-items: center; cursor: pointer; }
+/* Anzahl direkt neben dem Titel, mit dezentem „·"-Trenner. */
+.bt-section-count { font-weight: 400; letter-spacing: 0; color: var(--text-faint); }
+.bt-section-count::before { content: "·"; margin: 0 0.4em; opacity: 0.7; }
+.bt-collapse-ic { display: inline-flex; align-items: center; margin-left: auto; color: var(--text-muted); }
+.bt-collapse-ic svg { width: 14px; height: 14px; }
+.bt-collapsible .bt-section-title:hover .bt-collapse-ic { color: var(--text-normal); }
+.bt-section.is-collapsed .bt-list { display: none; }
+/* Kopf-Aktion ganz rechts in der Sektions-Überschrift („Verschieben" bei „Überfällig").
+   Erbt Schriftgröße und -schnitt der Überschrift – die Aktion soll als Teil des Kopfes lesen,
+   unterschieden allein durch die Akzentfarbe des Themes. Marker-Klasse statt :has(), das eine
+   breite Style-Invalidierung auslöst (gleiche Begründung wie bei annotateSubtaskTree). */
+.bt-section-title.bt-has-action { display: flex; align-items: center; }
+/* Reiner Text in der Akzentfarbe – kein Rahmen, kein Hintergrund. Schrift und Größe erbt der
+   Span von der Überschrift, unterschieden wird allein über die Farbe. Erst beim Hover (und
+   für die Tastatur beim Fokus) kommt die dezente Fläche dazu. Das seitliche Polster gibt ihr
+   Luft, die negative Marge nimmt sie am rechten Rand wieder zurück – so bleibt die
+   Beschriftung bündig mit der Inhaltskante und springt beim Hover nicht. */
+.bt-sec-action {
+  color: var(--text-accent);
+  /* Polster in Button-Größe. Rechts KEINE negative Marge: so endet die Fläche exakt an der
+     Inhaltskante, bündig mit der Trennlinie darunter (die Beschriftung rückt dafür um das
+     Polster nach innen – wie bei Todoist). Oben/unten heben die negativen Margen das Polster
+     im LAYOUT auf: die Fläche wächst über den Text hinaus, belegt aber nur dessen Kasten, und
+     die Kopfzeile behält die Höhe der übrigen Sektionsköpfe. */
+  padding: 9px 4px; margin: -9px 0 -9px auto; border-radius: 5px;
+  line-height: 1; cursor: pointer;
+}
+.bt-sec-action:hover, .bt-sec-action:focus-visible {
+  color: var(--text-accent-hover); background: var(--background-modifier-hover); outline: none;
+}
+.bt-list { border-top: 1px solid var(--bt-line); margin-top: 6px; padding-top: 0.9em; }
+/* Platzhalter für noch nicht gezeichnete Zeilen: hält die Höhe, damit der Rollbalken stimmt und
+   nur das nachlädt, was wirklich in die Nähe kommt (s. section/observeSentinel in heuteView).
+   Die Höhe kommt als Variable von dort – hier steht, WIE sie wirkt. */
+.bt-lazy-sentinel { height: var(--bt-lazy-h, 0px); pointer-events: none; }
+
+/* Aufgaben-Zeile */
+.bt-task {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 6px 2px;
+  cursor: pointer;
+}
+/* Trennlinie beginnt am Titel (rechts neben der Checkbox), nicht darunter.
+   Versatz = padding-left 2px + Checkbox 16px + gap 10px = 28px. */
+.bt-task::after {
+  content: "";
+  position: absolute;
+  left: 28px;
+  right: 0;
+  bottom: 0;
+  /* Echter Border statt height:1px-Block → wird wie die Sektions-Linie
+     (.bt-list border-top) aufs Pixelraster gesnapped und rendert uniform 1px. */
+  border-top: 1px solid var(--bt-line-faint);
+}
+/* Auch die letzte Aufgabe einer Sektion bekommt ihre Trennlinie (bewusst nicht
+   ausgeschaltet – zuvor: .bt-task:last-child::after { display: none; }). */
+/* .bt-menu-hold: die Zeile behält ihr Hover, solange ihr Kontextmenü offen ist (taskMenu.ts). */
+.bt-task:hover, .bt-task.bt-menu-hold { background: color-mix(in srgb, var(--background-modifier-hover) 50%, transparent); border-radius: 6px; }
+/* Aus der Suche angesprungene Aufgabe hervorheben – in der Akzentfarbe (dezent getönt,
+   damit der Text lesbar bleibt) mit feinem Akzent-Rahmen. */
+.bt-task.is-focus {
+  background: hsla(var(--interactive-accent-hsl), 0.2);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px hsla(var(--interactive-accent-hsl), 0.5);
+}
+/* Eigene Trennlinie(n) des hervorgehobenen Eintrags ausblenden – sonst übermalt das
+   ::after (bzw. der border-bottom der letzten Unteraufgabe) den unteren Akzent-Rahmen. */
+.bt-task.is-focus::after { display: none; }
+.bt-task.is-focus.bt-last-sub { border-bottom-color: transparent; }
+
+/* Runde Checkbox */
+.bt-check {
+  width: 16px; height: 16px; flex-shrink: 0;
+  align-self: start;          /* an der ERSTEN Textzeile, auch wenn der Text umbricht */
+  margin-top: 2px;            /* Fallback, falls die lh-Einheit fehlt (s. @supports unten) */
+  border: 1.5px solid var(--text-faint);
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+/* Vertikale Ausrichtung GERECHNET statt geschätzt: (Zeilenhöhe − Kreisdurchmesser) / 2.
+   1lh ist die Zeilenhöhe des Elements selbst – die Checkbox sitzt damit exakt auf der Mitte der
+   ersten Textzeile, unabhängig von Schriftgröße, Zeilenhöhe und Fallback-Schriften (die die
+   Zeilenbox vergrößern, z. B. bei typografischen Anführungszeichen im Titel).
+   Vorher standen hier vier verschiedene margin-top-Handwerte – jeder galt nur für genau einen Fall. */
+@supports (height: 1lh) {
+  /* Liste: .bt-title hat line-height 1.4, die Checkbox erbt sie NICHT -> hier explizit setzen,
+     sonst rechnet die Formel gegen die falsche Zeilenhöhe. */
+  .bt-task > .bt-check { line-height: 1.4; margin-top: calc((1lh - 16px) / 2); }
+  /* Kalender: Block und Panel-Karte vererben ihre Zeilenhöhe an die Checkbox -> 1lh stimmt bereits. */
+  .bt-calview-block .bt-check.bt-check-sm,
+  .bt-calview-panel-card .bt-check.bt-check-sm { margin-top: calc((1lh - 13px) / 2); }
+}
+.bt-check:hover { border-color: var(--text-muted); }
+/* Hover-Hinweis: dezentes Häkchen im Kreis (nur bei offenen Aufgaben ohne Status-Icon). */
+.bt-check:not(.is-done):not(.bt-check-status):hover::after {
+  content: ""; position: absolute; inset: 3px;
+  background-color: var(--text-muted);
+  -webkit-mask: var(--bt-check) center / 100% no-repeat;
+  mask: var(--bt-check) center / 100% no-repeat;
+}
+/* Offene Phase (außer To-Do): Status-Icon in der Status-Farbe im Ring – generalisiert für
+   beliebige (auch user-definierte) Status. „In Arbeit" nutzt das halb gefüllte `contrast`. */
+.bt-check.bt-check-status { display: inline-flex; align-items: center; justify-content: center; }
+.bt-check.bt-check-status svg { width: 11px; height: 11px; color: var(--bt-status-col, var(--interactive-accent)); }
+/* Das `contrast`-Icon füllt standardmäßig die RECHTE Hälfte – spiegeln, damit die gefüllte
+   Seite überall (Checkbox, Chip, Menü, Editor) LINKS liegt. */
+.lucide-contrast { transform: scaleX(-1); }
+/* Priorität: farbiger Checkbox-Ring (wie altes BeautyTasks). */
+.bt-check[data-prio="highest"] { border-color: var(--bt-prio-1); box-shadow: 0 0 0 1px var(--bt-prio-1); }
+.bt-check[data-prio="high"]    { border-color: var(--bt-prio-2); box-shadow: 0 0 0 1px var(--bt-prio-2); }
+.bt-check[data-prio="medium"]  { border-color: var(--bt-prio-3); box-shadow: 0 0 0 1px var(--bt-prio-3); }
+.bt-check.is-done { background-color: var(--text-muted); border-color: var(--text-muted); }
+.bt-check.is-done::after {
+  content: ""; position: absolute; inset: 2px;
+  background-color: var(--background-primary);
+  -webkit-mask: var(--bt-check) center / 100% no-repeat;
+  mask: var(--bt-check) center / 100% no-repeat;
+}
+
+/* Titel + Metadaten */
+.bt-body { flex: 1; min-width: 0; }
+.bt-title { line-height: 1.4; }
+/* Inline gerenderter Markdown (Titel/Beschreibung mit Links): <p> inline + randlos,
+   damit die Zeile/Ellipsis passt. */
+.bt-md-inline p { display: inline; margin: 0; }
+/* Beschreibungs-Vorschau: einzeilig, gekürzt, gedämpft */
+.bt-desc {
+  font-size: 0.85em; color: var(--text-muted); line-height: 1.3; margin-top: 1px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-height: 1.3em;   /* Sicherung: selbst gerenderter Blockinhalt kann die Zeile nie sprengen */
+}
+.bt-task.is-done .bt-desc { text-decoration: line-through; }
+/* Unteraufgaben im Board: eingerückt nach Tiefe + etwas kleinerer Text zur
+   besseren Unterscheidung von Hauptaufgaben (Titel/Beschreibung/Meta skalieren
+   proportional per em; Checkbox & Einrückung sind px-basiert, bleiben gleich). */
+.bt-task.bt-subtask { margin-left: calc(var(--bt-depth, 1) * 24px); font-size: 0.9em; }
+/* ── Unteraufgaben als Baum abheben (Variante 2: Elbow) + kleinere Checkbox + gedämpfter
+   Titel. Gilt nur für VERSCHACHTELTE Unteraufgaben (.bt-subtask). Promotete Unteraufgaben
+   werden auf Ebene 0 ohne diese Klasse gerendert → volle, normale Darstellung. ──────── */
+
+/* Keine Trennlinie zwischen Hauptaufgabe und ihren Unteraufgaben: Parent + Kinder lesen
+   sich als ein Block. Trifft nur die oberste Ebene (Parent), nicht Subtask→Subtask. */
+.bt-task.bt-has-sub::after { display: none; }
+
+/* Rail bis zur Hauptaufgaben-Checkbox hochziehen: Segment auf der Parent-Zeile, von 4px
+   unter der Checkbox (top: 28px = padding 6 + margin 2 + Checkbox 16 + 4px Abstand, gleicher
+   Abstand wie der Subtask-Haken zur Checkbox) bis zum Zeilenende. Fluchtet mit der Subtask-
+   Rail (beide bei absolut 10px = Checkbox-Mitte); bottom:0 macht es höhenunabhängig. */
+.bt-task.bt-has-sub::before {
+  content: ""; position: absolute; pointer-events: none;
+  left: 10px; top: 28px; bottom: 0;
+  border-left: 1.5px solid var(--background-modifier-border);
+}
+
+/* Elbow-Konnektor: vertikale Rail (::before) + horizontaler Haken zur Checkbox (::after),
+   an der Checkbox-Mitte des Parents (Zeilenrand − 14px). Mittlere Kinder = ├, letztes = └.
+   Das ::after ersetzt bei Unteraufgaben die frühere Zeilentrennlinie (daher kein Kreuzen). */
+.bt-task.bt-subtask::before {
+  content: ""; position: absolute; pointer-events: none;
+  left: -14px; top: -2px; bottom: 0;
+  border-left: 1.5px solid var(--background-modifier-border);
+}
+.bt-task.bt-subtask::after {
+  content: ""; position: absolute; pointer-events: none;
+  left: -14px; right: auto; top: 14.5px; bottom: auto; width: 12px;
+  border-top: 1.5px solid var(--background-modifier-border);
+}
+/* Letztes Kind: Rail endet an der Ecke (└) und eine dezente Linie schließt die Gruppe ab. */
+.bt-task.bt-subtask.bt-last-sub::before { bottom: auto; height: 16.5px; }
+.bt-task.bt-subtask.bt-last-sub { border-bottom: 1px solid var(--bt-line-faint); }
+
+/* C – gedämpfter Titel: Hauptaufgaben treten hervor, Unteraufgaben zurück. */
+.bt-task.bt-subtask .bt-title { color: var(--text-muted); }
+
+/* B – kleinere Checkbox (13px statt 16px) als feines Unterordnungssignal. */
+.bt-task.bt-subtask .bt-check { width: 13px; height: 13px; }
+
+.bt-task.is-done .bt-title { color: var(--text-muted); text-decoration: line-through; }
+.bt-task .bt-check.is-done ~ .bt-body .bt-title { color: var(--text-muted); }
+/* Abgebrochen (Papierkorb): wie erledigt gedämpft/durchgestrichen; Checkbox inaktiv. */
+.bt-task.is-cancelled .bt-title { color: var(--text-muted); text-decoration: line-through; }
+.bt-task.is-cancelled .bt-desc { text-decoration: line-through; }
+/* Papierkorb: alter Kreis bleibt, X sitzt zentriert darin. */
+.bt-check.bt-check-x {
+  cursor: default;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.bt-check.bt-check-x .svg-icon { width: 11px; height: 11px; color: var(--text-muted); }
+.bt-check.bt-check-x:hover { border-color: var(--text-faint); }   /* kein Hover-Effekt */
+.bt-check.bt-check-x:hover::after { display: none; }              /* kein Häkchen-Hover */
+/* Konfigurierbare BeautyTasks-Meta-Farben. Defaults auf `body` (niedrige Spezifität) – der Nutzer
+   überschreibt sie per Einstellung (applyColors setzt Inline-Vars auf body, gewinnen dann). --bt-meta-
+   gray auf body, damit ihn auch der @Projekt-Backlink (in .bt-extras) erbt. --bt-dist-far = Icon-Grau. */
+body {
+  --bt-meta-gray: color-mix(in srgb, var(--text-faint) 40%, var(--text-muted) 60%);
+  --bt-dist-overdue: var(--bt-overdue);
+  --bt-dist-today: var(--bt-nav-erledigt);
+  --bt-dist-d1:    var(--bt-nav-demnaechst);
+  --bt-dist-d2:    var(--bt-nav-project);
+  --bt-dist-week:  var(--bt-label);
+  --bt-dist-far:   var(--bt-meta-gray);
+  --bt-accent:     var(--interactive-accent);
+  /* Icon-Farben – Basis = grau (gilt für „Minimalisdo" UND „User"; Colorado überschreibt einige unten).
+     Auf `body`, damit sie IMMER auflösen (auch im Settings-Vorschau-Probe-Element). */
+  --bt-c-recur: var(--bt-meta-gray); --bt-c-remind: var(--bt-meta-gray); --bt-c-sched: var(--bt-meta-gray);
+  --bt-c-label: var(--bt-meta-gray); --bt-c-comments: var(--bt-meta-gray); --bt-c-subs: var(--bt-meta-gray);
+  --bt-c-parent: var(--bt-meta-gray); --bt-c-backlink: var(--bt-meta-gray);
+}
+/* Akzent NUR innerhalb des Plugins überschreiben (nicht global in Obsidian). Default = Obsidian-Akzent. */
+.bt-view, .bt-nav { --interactive-accent: var(--bt-accent); }
+.bt-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin-top: 5px; }
+/* Meta-Chips symmetrisch: nur vertikales Padding vereinheitlichen (überstimmt bt-chip 2px / bt-subs 1px /
+   SVG-Chips 0). Zentriert wird über align-items:center der inline-flex-Chips – die Zeilenhöhe wird BEWUSST
+   NICHT angefasst (kein line-height-Override), damit die Schrift-Darstellung exakt wie zuvor bleibt. */
+.bt-meta > * { padding-top: 1px; padding-bottom: 1px; }
+/* Feinjustage einzelner Icons (Masken-Glyphen sitzen im SVG leicht außermittig): */
+.bt-view .bt-sched { transform: translateY(1px); }          /* Deadline-Chip: Icon sitzt danach gut auf Linie */
+/* Nur die Text-Teile feinjustieren (Icons bleiben, wo sie sind): Datum/Label-Text tiefer, „Morgen" auch. */
+.bt-view .bt-due .bt-meta-txt { transform: translateY(2px); }
+.bt-view .bt-label .bt-meta-txt { transform: translateY(2px); }
+.bt-view .bt-sched .bt-meta-txt { transform: translateY(1px); }
+/* Zahlen bei Dokumente/Anhänge und Unteraufgaben-Badge ebenfalls leicht tiefer (Icons bleiben). */
+.bt-view .bt-comments-n { transform: translateY(1px); }
+.bt-view .bt-subs-n { transform: translateY(1px); }
+.bt-view .bt-label::before { transform: translateY(1px); }   /* Hashtag-Icon etwas tiefer */
+
+/* Chips (Basis) – nur in der Liste; Modal-Chips nutzen .bt-task-modal .bt-chip */
+.bt-view .bt-chip {
+  font-size: 0.85em;
+  font-family: var(--font-interface);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1.3;
+  padding: 2px 0;
+  color: var(--text-muted);
+}
+.bt-view .bt-chip::before {
+  content: ""; display: inline-block;
+  width: 14px; height: 14px; flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+}
+
+/* Fälligkeit – Kalender-Icon + Farbe je Zeitbezug */
+.bt-due::before { -webkit-mask-image: var(--bt-calendar); mask-image: var(--bt-calendar); }
+.bt-due[data-when="past"]   { color: var(--bt-dist-overdue); }
+.bt-due[data-when="today"]  { color: var(--bt-today); }
+.bt-due[data-when="future"] { color: var(--text-muted); }
+
+/* „Colorado" färbt Wiederholung/Deadline/Label/Anhänge in die klassischen Farben; Erinnerung, Badge,
+   Herkunft und Projekt bleiben bewusst grau (= Body-Basis). „Minimalisdo"/„User" nutzen die Body-Basis
+   (grau); im „User"-Theme überschreibt applyColors die einzeln gewählten Farben (Inline auf body). */
+body.bt-meta-colorado {
+  --bt-c-recur: var(--bt-recur); --bt-c-sched: var(--bt-sched);
+  --bt-c-label: var(--bt-label); --bt-c-comments: var(--bt-attach);
+}
+/* Kompakt + flache Liste (Gruppierung „Keine"): Datum nach Tages-Distanz in den Seitenleisten-
+   Menüfarben – heute grün, morgen orange, übermorgen gelb, Tag 3–7 lila. Überfällig/>7 Tage behalten
+   ihre data-when-Farbe. data-dist wird nur in genau diesem Fall gesetzt (s. renderTask).
+   Gilt AUCH für die Unteraufgaben-Zeilen im Aufgaben-Modal (.bt-st-chip, s. subtaskList):
+   gleiche Variablen, damit dasselbe Datum auf beiden Flächen dieselbe Farbe trägt – vorher
+   blieb das Modal beim alten data-when-Orange.
+   Bewusst auf `[data-dist]` gescopet statt auf `.bt-due`: Das Attribut TRÄGT die Bedeutung, und
+   es setzt es nur, wer eine Tages-Distanz meint (Fälligkeit UND Deadline). So färben beide
+   Datumsangaben dieselbe Nähe gleich ein, ohne dass die Regeln je Chip verdoppelt werden. */
+.bt-view .bt-chip[data-dist="today"], .bt-task-modal .bt-st-chip[data-dist="today"] { color: var(--bt-dist-today); }
+.bt-view .bt-chip[data-dist="d1"],    .bt-task-modal .bt-st-chip[data-dist="d1"]    { color: var(--bt-dist-d1); }
+.bt-view .bt-chip[data-dist="d2"],    .bt-task-modal .bt-st-chip[data-dist="d2"]    { color: var(--bt-dist-d2); }
+.bt-view .bt-chip[data-dist="week"],  .bt-task-modal .bt-st-chip[data-dist="week"]  { color: var(--bt-dist-week); }
+.bt-view .bt-chip[data-dist="far"],   .bt-task-modal .bt-st-chip[data-dist="far"]   { color: var(--bt-dist-far); }
+
+/* Geplant/Deadline – Uhr-Icon. `.bt-view`-Präfix (Spezifität 0,2,0), sonst gewinnt die
+   Chip-Basis `.bt-view .bt-chip { color: var(--text-muted) }` und die Farbe greift nicht. */
+.bt-sched::before { -webkit-mask-image: var(--bt-clock); mask-image: var(--bt-clock); }
+.bt-view .bt-sched { color: var(--bt-c-sched); }
+/* Dringlichkeit tagesgenau (wie der Datums-Chip, nicht minutengenau): verstrichen rot – die
+   Nähe-Abstufung für heute/morgen/übermorgen/Tag 3–7 kommt aus den [data-dist]-Regeln weiter
+   oben, die Fälligkeit und Deadline gemeinsam bedienen. Jenseits einer Woche bleibt es bei der
+   Deadline-Farbe. Vorher sah eine gerissene Deadline genauso ruhig aus wie eine in drei Wochen. */
+.bt-view .bt-sched[data-when="past"],
+.bt-task-modal .bt-st-chip.bt-sched[data-when="past"] { color: var(--bt-dist-overdue); }
+
+/* Wiederholung – nur Icon. `.bt-view`-Präfix nötig (s. o.), sonst überschreibt die Chip-Basis. */
+.bt-view .bt-recur { color: var(--bt-c-recur); gap: 0; }
+.bt-recur::before { -webkit-mask-image: var(--bt-refresh); mask-image: var(--bt-refresh); }
+
+/* Label – Tag-Icon (liefert das „#"). `.bt-view`-Präfix nötig (s. o.). */
+.bt-view .bt-label { color: var(--bt-c-label); }
+.bt-label { gap: 0; }
+.bt-label::before {
+  width: 13px; height: 13px; margin-right: -1px;
+  -webkit-mask-image: var(--bt-tag); mask-image: var(--bt-tag);
+}
+
+/* Erinnerungs-Indikator (alarm-clock) – nur Icon, Details im Tooltip; gleiches Glyph wie der
+   Reminder-Chip im Editor, damit „Erinnerung" überall dasselbe Symbol trägt. */
+.bt-remind { display: inline-flex; align-items: center; color: var(--bt-c-remind); }
+.bt-remind svg { width: 16px; height: 16px; }
+
+/* Kommentar-/Anhang-Chip (Büroklammer + dezente Anzahl) */
+.bt-comments { display: inline-flex; align-items: center; gap: 3px; color: var(--bt-c-comments); font-size: 0.85em; }
+.bt-comments-ic { display: inline-flex; }
+.bt-comments-ic svg { width: 14px; height: 14px; }
+.bt-comments-n { font-size: 0.92em; }
+/* Unteraufgaben-Fortschritt (wenn „Unteraufgaben anzeigen" aus): list-checks + erledigt/gesamt.
+   Klickbar – klappt diese eine Aufgabe auf/zu. Dezent wie die anderen Meta-Chips (Datum/Deadline),
+   die auch keinen Hover-Hintergrund haben; im aufgeklappten Zustand (is-open) in der Akzentfarbe. */
+.bt-subs {
+  display: inline-flex; align-items: center; gap: 3px;
+  color: var(--bt-c-subs);
+  font-size: 0.85em;
+  padding: 1px 5px; border-radius: 5px; cursor: pointer;
+}
+/* Einfüge-Markierung beim Umsortieren (nur bei Sortierung „Manuell"): eine Linie an der Kante, an
+   der die Zeile bzw. Karte landen würde. Inset-Schatten statt Border – verschiebt kein Layout.
+   Gilt für Board UND Liste; beide benutzen dieselbe Geste. */
+.bt-task.is-drop-before { box-shadow: inset 0 2px 0 0 var(--interactive-accent); }
+.bt-task.is-drop-after { box-shadow: inset 0 -2px 0 0 var(--interactive-accent); }
+.bt-task.is-dragging { opacity: 0.5; }
+/* Zugbild (s. attachDragGhost): undurchsichtige Karte mit einer Kopie der Zeile. Außerhalb des
+   Sichtfelds, weil der Browser sie gerendert im Dokument braucht, um sein Bild davon zu ziehen.
+   Die Klasse `bt-view` liefert der Kopie ihre Gestaltung – deren Maße hier bewusst neutralisiert.
+
+   Der Abzug endet exakt an der Außenkante der Hülle – deshalb ist die Hülle DURCHSICHTIG und
+   trägt nur einen Rand (padding: GHOST_PAD in heuteView.ts). Alles Sichtbare liegt in der Karte
+   darin, also mit Abstand zur Kante:
+   • Kein Schlagschatten. Er läge außerhalb der Karte und würde hart abgeschnitten – sichtbar als
+     kantiger grauer Keil an der unteren Ecke statt als weiches Auslaufen.
+   • Die Umrandung sitzt als Ring INNERHALB der Karte. Läge sie auf der Abzugskante, verschwände
+     sie bei jeder Bewegung neu: Auf einer skalierten Anzeige sitzt das Bild an gebrochenen
+     Gerätepixeln, und die äußerste Pixelreihe fällt dann mal weg und mal nicht. */
+.bt-drag-ghost {
+  position: fixed; top: -9999px; left: -9999px;
+  padding: 4px;                /* == GHOST_PAD */
+  background: transparent;
+  scrollbar-gutter: auto;      /* .bt-view reserviert sonst Scrollbalken-Platz auf beiden Seiten */
+}
+.bt-drag-ghost-card {
+  box-sizing: border-box; padding: 4px 10px; overflow: hidden;
+  background: var(--background-primary);
+  box-shadow: inset 0 0 0 1px var(--background-modifier-border);
+  border-radius: 8px;
+}
+.bt-drag-ghost .bt-task { cursor: grabbing; }
+/* Die Trennlinie gehört zur Liste, nicht auf eine einzelne Karte. */
+.bt-drag-ghost .bt-task::after { display: none; }
+/* Während des Ziehens: Zeilen, die nicht zur Geschwistergruppe der gezogenen Aufgabe gehören.
+   Sie sind keine gültigen Einfügestellen – ausgegraut sagt „gehört nicht dazu" statt „gesperrt". */
+.bt-task.is-drop-inert { opacity: 0.35; }
+
+/* Griff zum Einsortieren: links außerhalb der Zeile, erscheint beim Überfahren. Absolut
+   positioniert, damit die Zeile ohne Griff exakt gleich aussieht (kein Layout-Sprung). */
+.bt-row-grip {
+  position: absolute; left: -18px; top: 50%; transform: translateY(-50%);
+  display: inline-flex; align-items: center;
+  opacity: 0; cursor: grab; color: var(--text-faint); touch-action: none;
+}
+.bt-row-grip svg { width: 14px; height: 14px; }
+.bt-task:hover .bt-row-grip { opacity: 0.8; }
+.bt-task.is-dragging .bt-row-grip { cursor: grabbing; opacity: 1; }
+
+/* „is-open" färbt bewusst NICHT mehr um – der Badge behält in jedem Zustand denselben Grauton. */
+/* Auf einer Kanban-Karte ist das Badge reine Anzeige (aufklappen ginge dort nicht) – es darf
+   deshalb auch nicht klickbar aussehen. Der Zeiger bleibt der der Karte selbst. */
+.bt-subs.is-static { cursor: inherit; }
+.bt-subs-ic { display: inline-flex; }
+.bt-subs-ic svg { width: 14px; height: 14px; }
+.bt-subs-n { font-size: 0.92em; font-variant-numeric: tabular-nums; }
+
+/* Hauptaufgaben-Link: normales Meta-Icon ganz vorn (corner-left-up), grau, kein Hover-Hintergrund –
+   konsistent zu den übrigen Meta-Icons. An Unteraufgaben, die auf Top-Level stehen. Tooltip = Titel,
+   Klick öffnet die Hauptaufgabe. */
+.bt-view .bt-parent-link { display: inline-flex; align-items: center; color: var(--bt-c-parent); cursor: pointer; }
+/* Kein Hover-Effekt – konsistent zu den übrigen Meta-Icons. Fokus-Outline bleibt für Tastatur. */
+.bt-view .bt-parent-link:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 1px; border-radius: 3px; }
+.bt-parent-link-ic { display: inline-flex; }
+.bt-parent-link-ic svg { width: 15px; height: 15px; }
+
+/* Rechte Gruppe: Projekt-Backlink + Stift */
+.bt-extras {
+  margin-left: auto;
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+/* ── „Aufgabennotiz bearbeiten" – Aktion rechts in der Kommentar-Kopfzeile ──
+   Sitzt an derselben Stelle wie „Erledigte ausblenden" bei den Unteraufgaben und holt Groesse,
+   Farbe, Abstaende und Hover aus .bt-sec-act. Frueher ein eigener Kasten mit Hintergrund und
+   Rahmen zwischen den Sektionen – der ist hier aufgeloest, sonst haette dieselbe Zeile zwei
+   verschiedene Aktions-Optiken. Der Button ist die Treffer- UND Ankerflaeche (daran richtet
+   Obsidian die Seitenvorschau aus); Hover loest die Vorschau aus, Klick oeffnet die Notiz. */
+/* Die native Seitenvorschau (--layer-popover = 30) liegt sonst UNTER dem Modal (--layer-modal
+   = 50) und erscheint dahinter. Solange ein Aufgaben-Modal offen ist (Klasse von onOpen/onClose
+   gesetzt), über das Modal heben. Feste Klasse statt :has(), damit der z-index vom ersten Frame
+   an steht und die Vorschau beim Hovern nicht kurz dahinter aufblitzt. */
+body.bt-task-modal-open .popover.hover-popover { z-index: calc(var(--layer-modal) + 5); }
+.bt-notes-edit:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 1px; }
+.bt-notes-edit-ic { display: inline-flex; align-items: center; color: var(--text-muted); }
+/* Gleiche Glyphengroesse wie der Chevron der Kopfzeile (.bt-sec-caret) – die beiden stehen
+   in derselben Zeile links und rechts gegenueber. */
+.bt-notes-edit-ic svg { width: 18px; height: 18px; }
+
+.bt-backlink { font-size: 0.82em; color: var(--bt-c-backlink); text-decoration: none; white-space: nowrap; }
+/* Beim Überfahren bewusst UNVERÄNDERT: Der @Projekt-Verweis gehört zur Meta-Zeile, und deren
+   übrige Angaben (Datum, Deadline, Labels, Anhänge) reagieren ebenfalls nicht auf die Maus.
+   Ein <a> bringt Unterstrich und Textfarbe von sich aus mit – beides hier abbestellt.
+   Der Zeiger bleibt die Hand, das genügt als Hinweis auf die Klickbarkeit. */
+.bt-backlink:hover { color: var(--bt-c-backlink); text-decoration: none; }
+/* Papierkorb-Zeilenaktionen (Wiederherstellen/Löschen) rechts – wie Manage-Aktionen. */
+.bt-task-actions { margin-left: auto; align-self: center; display: inline-flex; align-items: center; gap: 2px; flex-shrink: 0; }
+
+/* ── Lucide-Icon-Masken (als CSS-Variablen, einmal definiert) ──
+   `.bt-task-modal` gehoert dazu, seit die Unteraufgaben-Sektion dieselben Bausteine benutzt:
+   .bt-check zeichnet sein Haekchen und die Meta-Chips ihr Icon ueber `mask: var(--bt-…)`.
+   Fehlt die Variable, ist die Maske ungueltig und das Pseudo-Element rendert als VOLLER Kasten –
+   ein weisses Quadrat im Erledigt-Kreis, ein farbiger Block statt des Kalender-Icons.
+   `.bt-pop` gehoert ebenfalls dazu: Popovers haengen am body, NICHT in der View – und mehrere
+   von ihnen zeigen echte Aufgabenzeilen mit Checkbox (Deadline-Aufklappfeld, „+N weitere“ im
+   Kalender). Ohne die Variablen zeigte deren Haekchen genau dieses Quadrat. */
+.bt-view, .bt-add, .bt-task-modal, .bt-pop {
+  --bt-calendar: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='4' rx='2'/%3E%3Cpath d='M16 2v4M8 2v4M3 10h18'/%3E%3C/svg%3E");
+  --bt-clock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='12 6 12 12 16 14'/%3E%3C/svg%3E");
+  --bt-refresh: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8'/%3E%3Cpath d='M21 3v5h-5'/%3E%3Cpath d='M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16'/%3E%3Cpath d='M8 16H3v5'/%3E%3C/svg%3E");
+  --bt-tag: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='4' x2='20' y1='9' y2='9'/%3E%3Cline x1='4' x2='20' y1='15' y2='15'/%3E%3Cline x1='10' x2='8' y1='3' y2='21'/%3E%3Cline x1='16' x2='14' y1='3' y2='21'/%3E%3C/svg%3E");
+  --bt-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  --bt-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='M12 5v14'/%3E%3C/svg%3E");
+  --bt-pencil: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z'/%3E%3Cpath d='m15 5 4 4'/%3E%3C/svg%3E");
+}
+
+/* Verstecktes Datei-Input (Anhang-Auswahl) – Style per Klasse statt JS (R34). */
+.bt-hidden-file { display: none; }
+.bt-hidden { display: none; }
+
+/* Projekt→Bereich-Umschalter im Board-Header (Häkchen links). */
+/* ── Verwaltung (ListManager): Kopf + Tabs + Zeilen ── */
+/* Kategorie-Buttons rechts, auf gleicher Höhe wie die Überschrift (wie altes BeautyTasks). */
+.bt-view .bt-manage-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.bt-view .bt-manage-header h1 { margin: 6px 0 2px; }   /* identisch zu .bt-view h1 (Board/Inbox) */
+.bt-view .bt-manage-header .bt-tabs { margin: 0; }
+.bt-view .bt-manage-add { margin: 20px 0 18px; }   /* Überschrift→„Add project" wie Inbox: Titel→„Add task" */
+.bt-view .bt-manage-add .bt-add { margin-top: 0; }   /* Verwaltung: kein Zusatz-Abstand wie im Board */
+.bt-view .bt-manage-add .bt-input, .bt-view .bt-manage-add .bt-manage-input { max-width: 320px; }
+.bt-view .bt-tabs { display: flex; gap: 6px; margin: 10px 0 14px; }
+.bt-view .bt-tab {
+  cursor: pointer; padding: 4px 14px; border-radius: 6px; font-size: var(--font-ui-small);
+  border: 1px solid var(--background-modifier-border); background: transparent; color: var(--text-muted); box-shadow: none;
+}
+.bt-view .bt-tab:hover { color: var(--text-normal); }
+.bt-view .bt-tab.is-active { background: var(--interactive-accent); color: var(--text-on-accent); border-color: var(--interactive-accent); }
+
+/* Aktiv/Archiv unter „Projekte" – Pill-Buttons wie die Kategorie-Tabs (altes BeautyTasks). */
+.bt-view .bt-subtabs { display: flex; gap: 8px; margin: 0 0 18px; }
+.bt-view .bt-subtab {
+  cursor: pointer; padding: 4px 14px; border-radius: 6px; font-size: var(--font-ui-small);
+  border: 1px solid var(--background-modifier-border); background: transparent; color: var(--text-muted); box-shadow: none;
+}
+.bt-view .bt-subtab:hover { color: var(--text-normal); }
+.bt-view .bt-subtab.is-active { background: var(--interactive-accent); color: var(--text-on-accent); border-color: var(--interactive-accent); }
+
+/* Papierkorb: globale Aktionen im Plugin-Idiom (wie .bt-add / Modal-„Löschen") –
+   transparent, randlos, gedämpfter Text + Icon; destruktiv in Plugin-Rot. */
+
+.bt-view .bt-manage-head {
+  margin-top: 1.8em;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  font-size: 0.8em; color: var(--text-muted);
+  padding-bottom: 5px; border-bottom: 2px solid var(--bt-line);
+}
+.bt-view .bt-manage-list { margin: 4px 0 10px; }
+.bt-view .bt-manage-row {
+  display: flex; align-items: center; gap: 10px; padding: 7px 2px;
+  border-bottom: 1px solid var(--bt-line-faint);
+}
+.bt-view .bt-manage-row:last-child { border-bottom: none; }
+.bt-view .bt-manage-name { flex: 1; min-width: 0; cursor: pointer; color: var(--text-normal); }
+.bt-view .bt-manage-name:hover { text-decoration: underline; }
+.bt-view .bt-manage-count { color: var(--text-faint); font-size: 0.82em; flex-shrink: 0; }
+.bt-view .bt-manage-row.is-archived .bt-manage-name { color: var(--text-muted); }
+.bt-view .bt-manage-input { flex: 1; }
+/* Eigene Wiederholungsregel im Popover: Feld auf volle Breite, darunter Vorschau bzw. Beispiele.
+   Die Vorschau wird kraeftiger, sobald die Eingabe verstanden wurde - so sieht man den Unterschied
+   zwischen "noch nichts erkannt" und "so wuerde es gespeichert", ohne einen zweiten Text. */
+/* Zwei Zustaende in EINEM Element: unerkannt = Beispiele (klein und zurueckhaltend), erkannt =
+   die gedeutete Regel. Letztere ist die Auskunft, auf die es ankommt – deshalb groesser und
+   kraeftiger. Das Beispiel aus dem Platzhalter wiederholt sich hier bewusst nicht. */
+/* Ohne Breitengrenze zoege die lange Beispielzeile das ganze Popover auseinander - es hat kein
+   max-width und waechst mit seinem laengsten Kind. */
+.bt-pop-hint { max-width: 320px; font-size: 0.78em; color: var(--text-faint); padding: 0 4px 4px; line-height: 1.35; white-space: normal; }
+.bt-pop-hint.is-set { font-size: 0.9em; color: var(--text-normal); }
+/* Gespeicherten Status-Wert bearbeiten: Der erklärende Hinweis gehört UNTER das Feld, nicht
+   daneben – deshalb darf genau diese Zeile umbrechen (eigene Klasse statt :has, damit sie auch
+   in älteren Umgebungen greift). Volle Breite erzwingt den Umbruch nach den Aktionsknöpfen. */
+.bt-status-row.is-editing-id { flex-wrap: wrap; }
+.bt-status-row .bt-manage-hint { flex: 1 0 100%; margin-top: 4px; font-size: 0.85em; color: var(--text-muted); }
+.bt-view .bt-manage-actions { display: inline-flex; align-items: center; gap: 2px; flex-shrink: 0; }
+.bt-view .bt-manage-btn {
+  display: inline-flex; align-items: center; padding: 4px; border-radius: 5px; cursor: pointer;
+  background: transparent; border: none; box-shadow: none; color: var(--text-muted);
+  height: auto; min-height: 0; line-height: 1;
+}
+.bt-view .bt-manage-btn:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+.bt-view .bt-manage-btn .svg-icon { width: 15px; height: 15px; }
+.bt-view .bt-manage-btn.is-active { color: var(--interactive-accent); }
+.bt-view .bt-manage-btn.is-active:hover { color: var(--interactive-accent); }
+.bt-view .bt-manage-btn.is-locked { opacity: 0.3; cursor: not-allowed; }
+.bt-view .bt-manage-btn.is-locked:hover { color: var(--text-muted); background: transparent; }
+.bt-view .bt-manage-actions.bt-confirm { gap: 6px; }
+.bt-view .bt-confirm-q { font-size: 0.85em; color: var(--bt-overdue); }
+
+/* ── Aufgeräumte ListManager-Zeile: Farbpunkt · Sichtbarkeits-Schalter · Hover-Aktionen ── */
+/* Farbpunkt: ohne eigene Farbe zeigt --c die Kategorie-Default-Farbe (vom Aufrufer gesetzt). */
+.bt-view .bt-mrow-dot {
+  width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; cursor: pointer;
+  background: var(--c, var(--text-muted)); box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+}
+/* Sichtbarkeits-Schalter: bewusst kompakt & ruhig, damit die Spalte nicht dominiert. */
+.bt-mrow-switch {
+  position: relative; width: 28px; height: 16px; border-radius: 999px; flex: 0 0 auto; cursor: pointer;
+  background: var(--background-modifier-border);
+}
+.bt-mrow-switch.is-on { background: var(--interactive-accent); }
+.bt-mrow-switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: #fff; transition: left 0.12s; }
+.bt-mrow-switch.is-on::after { left: 14px; }
+/* Selten-Aktionen erst bei Hover/Fokus (Platz reserviert -> kein Umbruch); Reorder-Griff genauso.
+   Bei aktiver Löschen-Bestätigung sichtbar halten. Status-Zeilen behalten ihren Griff dauerhaft. */
+.bt-view .bt-manage-actions.bt-hover-acts { opacity: 0; pointer-events: none; transition: opacity 0.12s; }
+/* Griff im Ruhezustand ganz aus dem Layout nehmen (nicht nur unsichtbar) -> kein Einzug links,
+   der Punkt startet wie im Name/Anzahl-Modus ganz links. Bei Hover erscheint er. */
+.bt-view .bt-manage-row:not(.bt-status-row) .bt-status-move { display: none; }
+.bt-view .bt-manage-row:hover .bt-hover-acts,
+.bt-view .bt-manage-row:focus-within .bt-hover-acts,
+.bt-view .bt-manage-actions.bt-hover-acts.bt-confirm { opacity: 1; pointer-events: auto; }
+.bt-view .bt-manage-row:not(.bt-status-row):hover .bt-status-move,
+.bt-view .bt-manage-row:not(.bt-status-row):focus-within .bt-status-move { display: inline-flex; }
+@media (prefers-reduced-motion: reduce) { .bt-mrow-switch::after, .bt-view .bt-manage-actions.bt-hover-acts, .bt-view .bt-status-move { transition: none; } }
+
+/* „Verwalten" am Fuß der Nav, leicht abgesetzt. */
+.bt-nav-manage { margin-top: 10px; }
+
+/* Empty-State-Zeile unter einem leeren Sektionskopf (Filter/Labels): dezent, gestrichelt,
+   Hover -> Akzent. Verschwindet automatisch, sobald ein Eintrag existiert. */
+.bt-nav-hint {
+  display: flex; align-items: center; gap: 8px; margin: 1px 4px 3px; padding: 6px 8px; line-height: 1;
+  border: 1px dashed var(--background-modifier-border); border-radius: 7px;
+  color: var(--text-muted); cursor: pointer; font-size: var(--font-ui-small);
+}
+.bt-nav-hint-lbl { line-height: 1; }
+.bt-nav-hint:hover { color: var(--interactive-accent); border-color: var(--interactive-accent); background: var(--background-modifier-hover); }
+.bt-nav-hint-ic { display: grid; place-items: center; flex: 0 0 auto; position: relative; top: 0; }
+.bt-nav-hint-ic svg { display: block; width: 13px; height: 13px; }
+
+/* Bild-Lightbox: schwebt über dem Modal, dunkler Scrim (bewusst themenunabhängig). */
+.bt-lightbox {
+  position: fixed; inset: 0; z-index: var(--layer-modal, 100);
+  display: flex; align-items: center; justify-content: center;
+  padding: 4vh 5vw; background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(2px); cursor: zoom-out;
+}
+.bt-lightbox .bt-lb-stage { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+.bt-lightbox .bt-lb-img {
+  max-width: 90vw; max-height: 92vh; border-radius: var(--radius-m);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); cursor: pointer;
+}
+.bt-lightbox .bt-lb-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--bt-overlay-bg); color: var(--bt-overlay-fg);
+  border: none; box-shadow: none; cursor: pointer; transition: background 0.15s;
+}
+.bt-lightbox .bt-lb-nav:hover { background: var(--bt-overlay-bg-hover); }
+.bt-lightbox .bt-lb-nav:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 2px; }
+.bt-lightbox .bt-lb-nav .svg-icon { width: 26px; height: 26px; }
+.bt-lightbox .bt-lb-prev { left: 2.5vw; }
+.bt-lightbox .bt-lb-next { right: 2.5vw; }
+.bt-lightbox .bt-lb-close, .bt-lightbox .bt-lb-copy {
+  position: absolute; top: 14px;
+  display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: var(--radius-m);
+  background: var(--bt-overlay-bg); color: var(--bt-overlay-fg);
+  border: none; box-shadow: none; cursor: pointer;
+}
+.bt-lightbox .bt-lb-close { right: 18px; }
+.bt-lightbox .bt-lb-copy { right: 70px; }   /* links neben Schließen */
+.bt-lightbox .bt-lb-close:hover, .bt-lightbox .bt-lb-copy:hover { background: var(--bt-overlay-bg-hover); }
+.bt-lightbox .bt-lb-close:focus-visible, .bt-lightbox .bt-lb-copy:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 2px; }
+.bt-lightbox .bt-lb-close .svg-icon, .bt-lightbox .bt-lb-copy .svg-icon { width: 18px; height: 18px; }
+.bt-lightbox .bt-lb-counter {
+  position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.85); font-size: 0.85em; letter-spacing: 0.03em;
+}
+
+/* ── Board-Kopf + Layout-Umschalter (Liste ⇆ Kanban) ── */
+.bt-view .bt-board-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.bt-view .bt-board-head h1 { margin: 6px 0 2px; }
+/* Layout-Umschalter „Liste | Board": bewusst leise – nur Text, aktiv in Akzentfarbe
+   (kein Rahmen/Hintergrund/Pill, damit er die Board-Kopfzeile nicht dominiert). */
+.bt-view .bt-layout-toggle { margin: 6px 0 2px; flex-shrink: 0; gap: 16px; }
+.bt-view .bt-layout-toggle .bt-tab {
+  background: none; border: none; box-shadow: none; border-radius: 0;
+  padding: 4px 0; color: var(--text-muted); font-weight: 500;
+}
+.bt-view .bt-layout-toggle .bt-tab:hover { color: var(--text-normal); }
+.bt-view .bt-layout-toggle .bt-tab.is-active { background: none; color: var(--interactive-accent); font-weight: 650; }
+
+/* ── Kanban-Board (Spalten = Status) ── */
+/* Board nutzt volle Pane-Breite statt der Lesebreite (die Liste bleibt schmal). */
+.bt-view .bt-sizer.bt-sizer-board { max-width: calc(100% - 48px); }
+.bt-kanban { display: flex; align-items: flex-start; gap: 14px; overflow-x: auto; padding: 10px 2px 16px; }
+.bt-kanban-col {
+  flex: 0 0 300px; width: 300px;
+  display: flex; flex-direction: column; max-height: calc(100vh - 220px);
+  background: var(--background-secondary); border: 1px solid var(--bt-line);
+  border-radius: 10px; padding: 10px 0;   /* horizontaler Abstand liegt an Kopf/Liste/„+" (Scrollbar-Gutter-Ausrichtung) */
+}
+.bt-kanban-col.is-drop { border-color: var(--interactive-accent); background: hsla(var(--interactive-accent-hsl), 0.06); }
+.bt-kanban-head { display: flex; align-items: center; gap: 8px; padding: 2px 10px 10px; }
+.bt-kanban-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); flex-shrink: 0; }
+.bt-kanban-title { font-weight: 600; font-size: var(--font-ui-small); color: var(--text-normal); }
+.bt-kanban-count { margin-left: auto; color: var(--text-faint); font-size: var(--font-ui-smaller); }
+/* scrollbar-gutter: stable reserviert den (10px-)Leistenplatz IMMER -> kein Reflow, alle Spalten
+   gleich; padding-left 10px balanciert den rechten Gutter -> Karten symmetrisch, Zahl bündig. */
+.bt-kanban-list { display: flex; flex-direction: column; gap: 6px; flex: 1; min-height: 40px; overflow-y: auto; padding-left: 10px; scrollbar-gutter: stable; }
+
+/* Karten: kompakte Kacheln statt Listenzeilen (keine Trennlinie, eigener Rahmen). */
+.bt-kanban-list .bt-task {
+  background: var(--background-primary); border: 1px solid var(--bt-line-faint);
+  border-radius: 8px; padding: 8px 10px; cursor: grab;
+}
+.bt-kanban-list .bt-task:hover, .bt-kanban-list .bt-task.bt-menu-hold { background: var(--background-primary); border-color: var(--bt-line); }
+.bt-kanban-list .bt-task::after { display: none; }
+.bt-kanban-list .bt-task:active { cursor: grabbing; }
+.bt-kanban-list .bt-task.is-dragging { opacity: 0.45; }
+
+.bt-kanban-add {
+  display: flex; align-items: center; gap: 6px; margin-top: 8px; padding: 6px 10px;
+  color: var(--text-muted); font-size: var(--font-ui-small); cursor: pointer; border-radius: 6px;
+}
+.bt-kanban-add:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+
+/* Mobil / schmale Pane: Spalten vertikal stapeln statt nebeneinander scrollen. */
+@media (max-width: 700px) {
+  .bt-view .bt-sizer.bt-sizer-board { max-width: calc(100% - 24px); }
+  .bt-kanban { flex-direction: column; overflow-x: visible; }
+  .bt-kanban-col { flex: 1 1 auto; width: 100%; max-height: none; }
+}
+
+/* ── Status-Editor (ListManager-Tab „Status") ── */
+.bt-view .bt-manage-hint { color: var(--text-faint); font-size: var(--font-ui-smaller); margin: 2px 2px 14px; }
+.bt-view .bt-status-row { gap: 8px; }
+.bt-status-move { display: inline-flex; flex-direction: column; flex-shrink: 0; }
+.bt-status-move .bt-manage-btn { padding: 0; height: 13px; box-shadow: none; }
+.bt-status-move .bt-manage-btn svg { width: 13px; height: 13px; }
+.bt-status-move .bt-manage-btn:disabled { opacity: 0.3; cursor: default; }
+.bt-status-dot { display: inline-flex; flex-shrink: 0; color: var(--bt-status-col, var(--text-muted)); }
+.bt-status-dot svg { width: 16px; height: 16px; }
+/* Der Kind-Button IST ein .bt-tab (erbt Rahmen, 6px-Radius und Schatten der Kopf-Tabs) –
+   hier nur etwas kompakter und ohne den Aktiv-Akzent. */
+.bt-view .bt-status-kind { padding: 3px 12px; }
+/* Status-Editor in den Einstellungen: als Karte wie die übrigen Settings-Einträge (dezent
+   dunkler) und mit an Obsidian angelehnten Abständen oben/unten. */
+.bt-status-editor {
+  background: var(--background-secondary);
+  border-radius: var(--radius-m);
+  padding: 10px 16px 12px;
+  margin: 0.75em 0;
+}
+.bt-status-editor .bt-manage-add { margin: 4px 0 6px; }
+.bt-status-editor .bt-manage-hint { margin: 0 0 8px; }
+.bt-status-editor .bt-manage-list { margin: 0; }
+
+/* Icon-/Farb-Picker-Popover. min-width:0 + width:max-content überschreiben die 190px des
+   Basis-Popovers, damit das Raster genau zu seinen festen Spalten passt (kein Quetschen). */
+.bt-pop.bt-icon-grid, .bt-pop.bt-color-grid { min-width: 0; width: max-content; display: grid; gap: 6px; padding: 8px; }
+.bt-pop.bt-icon-grid { grid-template-columns: repeat(4, 36px); }
+.bt-pop.bt-color-grid { grid-template-columns: repeat(4, 30px); justify-items: center; align-items: center; }
+
+.bt-pop .bt-icon-cell {
+  width: 36px; height: 36px; padding: 0; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 7px; border: 1px solid var(--background-modifier-border); background: var(--background-primary);
+  box-shadow: none; cursor: pointer; color: var(--text-normal);
+}
+.bt-pop .bt-icon-cell:hover { background: var(--background-modifier-hover); }
+.bt-pop .bt-icon-cell.is-active { border-color: var(--interactive-accent); color: var(--interactive-accent); }
+.bt-pop .bt-icon-cell svg, .bt-pop .bt-icon-cell .svg-icon { width: 20px; height: 20px; }
+
+/* Runde Farbkreise: Button selbst ist die Fläche (gleiche Breite/Höhe + 50 %). */
+:is(.bt-pop, .bt-swatch-row) .bt-color-cell {
+  width: 26px; height: 26px; padding: 0; border-radius: 50%; box-shadow: none; cursor: pointer;
+  border: 2px solid transparent; background: var(--bt-swatch, transparent);
+}
+:is(.bt-pop, .bt-swatch-row) .bt-color-cell.is-active { border-color: var(--text-normal); box-shadow: 0 0 0 2px var(--background-secondary), 0 0 0 3px var(--interactive-accent); }
+:is(.bt-pop, .bt-swatch-row) .bt-color-none {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--background-primary); border: 1px solid var(--background-modifier-border);
+}
+:is(.bt-pop, .bt-swatch-row) .bt-color-none svg, :is(.bt-pop, .bt-swatch-row) .bt-color-none .svg-icon { width: 15px; height: 15px; color: var(--text-faint); }
+/* „Custom"-Kachel: Regenbogen als Hinweis auf freie Farbwahl; bei gesetzter freier Farbe
+   zeigt sie diese (--bt-swatch) statt des Regenbogens. Der native Farb-Input ist versteckt. */
+:is(.bt-pop, .bt-swatch-row) .bt-color-custom {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  background: conic-gradient(from 0deg, #e05c4a, #f59e0b, #4caf50, #3b82f6, #7c5cff, #ec4899, #e05c4a);
+}
+:is(.bt-pop, .bt-swatch-row) .bt-color-custom[style*="--bt-swatch"] { background: var(--bt-swatch); }
+:is(.bt-pop, .bt-swatch-row) .bt-color-custom svg, :is(.bt-pop, .bt-swatch-row) .bt-color-custom .svg-icon { width: 14px; height: 14px; color: #fff; filter: drop-shadow(0 0 1px rgba(0,0,0,0.5)); }
+/* Nativer Farb-Input füllt die Kachel (opak transparent) -> OS-Picker öffnet genau hier. */
+:is(.bt-pop, .bt-swatch-row) .bt-color-input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: none; opacity: 0; cursor: pointer; }
+
+/* ── Sortier-Umschalter im ListManager (Manuell · Name · Anzahl) ── */
+/* Rechtsbündig wie eine Filterleiste; an der Textlinie ausgerichtet (Baseline), damit
+   „Sortieren" nicht höher sitzt als die Optionen daneben. */
+.bt-view .bt-sort-control { display: flex; align-items: baseline; justify-content: flex-end; gap: 10px; margin: 2px 2px 16px; flex-wrap: wrap; }
+.bt-view .bt-sort-lbl { color: var(--text-faint); font-size: var(--font-ui-smaller); }
+.bt-view .bt-sort-control .bt-layout-toggle { margin: 0; gap: 12px; }
+
+/* ── „Neu in dieser Version"-Modal ── */
+.bt-whatsnew { max-width: 460px; }
+.bt-whatsnew .bt-wn-eyebrow { font-size: 0.72em; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; color: var(--text-accent, var(--interactive-accent)); }
+.bt-whatsnew .bt-wn-title { margin: 4px 0 18px; font-size: 1.5em; font-weight: 700; letter-spacing: -0.01em; }
+.bt-whatsnew .bt-wn-list { display: flex; flex-direction: column; gap: 15px; }
+.bt-whatsnew .bt-wn-item { display: flex; gap: 12px; align-items: flex-start; }
+.bt-whatsnew .bt-wn-ic { flex-shrink: 0; display: inline-flex; color: var(--interactive-accent); margin-top: 1px; }
+.bt-whatsnew .bt-wn-ic svg { width: 20px; height: 20px; }
+.bt-whatsnew .bt-wn-item-t { font-weight: 600; }
+.bt-whatsnew .bt-wn-item-d { color: var(--text-muted); font-size: 0.9em; line-height: 1.45; margin-top: 1px; }
+.bt-whatsnew .bt-wn-foot { display: flex; justify-content: flex-end; margin-top: 22px; }
+
+/* ── Filter (Smart Lists) ───────────────────────────────────────── */
+/* Board-Kopf: Titel + Bearbeiten-Button nebeneinander. */
+.bt-filter-title { display: flex; align-items: center; gap: 8px; }
+/* Gleiche Spezifität wie „.bt-view .bt-board-head h1" (margin 6px 0 2px), aber später im
+   File -> gewinnt. Symmetrischer Rand, damit der Edit-Button mittig zur Textzeile sitzt. */
+.bt-view .bt-filter-title h1 { margin: 0; line-height: 1; }
+/* Optische Textmitte liegt unter der Em-Box-Mitte -> Icon ein paar px nach unten nudgen. */
+.bt-filter-title .bt-manage-btn { align-self: center; position: relative; top: 1px; }
+.bt-filter-title .bt-manage-btn .svg-icon { width: 18px; height: 18px; }
+/* Editor-Modal: kompakt, KEINE Trennlinien zwischen den Zeilen (nur unter Sektionsköpfen).
+   border wird beidseitig genullt, weil Themes die Zeilenlinie mal als border-top,
+   mal border-bottom setzen. */
+.bt-filter-modal { width: 440px; max-width: 92vw; }
+.bt-filter-modal h3 { margin: 0 0 4px; }
+/* Zeilen des Filter-Modals – eigenes Markup (s. filterModal.filterRow), NICHT Obsidians
+   .setting-item. Damit gehören Abstände und Trennlinien uns: kein Standard-Padding, das wir von
+   außen wegräumen müssten, und keine Linie, die wir per Spezifität bekämpfen. */
+.bt-filter-modal .bt-filter-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 3px 0;
+}
+.bt-filter-modal .bt-filter-k { font-size: var(--font-ui-small); color: var(--text-normal); }
+.bt-filter-modal .bt-filter-ctl { display: flex; align-items: center; flex: 0 0 auto; }
+/* Text-Eingaben (Name, Suche) auf dieselbe Breite wie die Facetten-Knöpfe. */
+.bt-filter-modal .bt-filter-input {
+  width: 200px; font-size: var(--font-ui-small);
+  border: 1px solid var(--background-modifier-border);
+  background-color: var(--background-modifier-form-field);
+  box-shadow: none;
+}
+.bt-filter-modal .setting-item-name { font-size: var(--font-ui-small); }
+/* Alle Steuerelemente im Modal flach (kein Schatten) UND mit sichtbarem Rand –
+   native Dropdowns haben von Haus aus keinen Rand, daher hier angleichen. WICHTIG:
+   background-COLOR (nicht background-Shorthand), sonst wird das native Chevron-Hintergrundbild
+   des <select> mitgelöscht -> Dropdown ohne Pfeil (z. B. „Zeitraum"). */
+.modal.bt-filter-modal .bt-facet-dd, .modal.bt-filter-modal .dropdown { box-shadow: none; }
+.bt-filter-modal .dropdown {
+  border: 1px solid var(--background-modifier-border);
+  background-color: var(--background-modifier-form-field);
+}
+/* margin-bottom 14px: zusammen mit dem 3px-Padding der ersten Zeile ergibt das 17px unter der
+   Linie – genau so viel, wie unten zwischen der letzten Zeile und der Linie über dem Zähler
+   steht (dort 14px margin-top + 3px padding-bottom). Die Facetten sitzen damit symmetrisch
+   zwischen ihren beiden Trennlinien. */
+/* Abschnittsüberschrift IN einem Modal: gedämpft, fett, in normaler Schreibweise.
+
+   KEINE Versalien, kein `letter-spacing`, keine Trennlinie – dieselbe Entscheidung, die
+   2d48ffd (2026-07-27) schon für die Popover-Überschriften getroffen hat, mit exakt diesen
+   Werten. Diese Regel war der letzte Rest davon; die Schriftgrösse folgt jetzt ebenfalls
+   `.bt-pop-head` (0.84em), damit die beiden Überschriften-Arten nicht unterschiedlich gross
+   sind.
+   Hiess bis 2026-08-14 `bt-filter-h` und hing am Filter-Dialog – der Anwenden-Dialog der
+   Vorlagen braucht dieselbe Gestalt, und zwei Regeln mit demselben Aussehen liefen frueher
+   oder spaeter auseinander. Bewusst ohne Modal-Praefix im Selektor: der Klassenname ist
+   eindeutig genug, und so gilt er in jedem Dialog, der ihn benutzt.
+
+   Das Element im Filter-Dialog traegt den alten Namen ZUSAETZLICH weiter (s. filterModal.ts):
+   `bt-filter-h` ist seit 1.40.0 veroeffentlicht, und fremde Snippets koennen daran haengen. */
+.bt-modal-h {
+  margin: 6px 0 10px; font-size: 0.84em; font-weight: 700; color: var(--text-muted);
+}
+
+/* Nur im Filter-Editor: Versalien und Trennlinie bleiben, wie sie seit 1.40.0 aussehen.
+   Ausdrücklich so entschieden – dort steht die Überschrift über einer langen Reihe
+   gleichförmiger Kriterien-Zeilen und trennt sie vom Namens-/Farbteil darüber. Im
+   Anwenden-Dialog gliedern drei kurze Blöcke sich auch ohne.
+
+   `letter-spacing` und die kleinere Schriftgrösse gehören zu den Versalien: Grossbuchstaben
+   ohne Sperrung wirken gedrängt, und 0.84em war für die gemischte Schreibweise gewählt. Beide
+   Werte sind deshalb dieselben wie vor der Umstellung. */
+.bt-filter-modal .bt-modal-h {
+  font-size: 0.72em; text-transform: uppercase; letter-spacing: 0.06em;
+  padding-bottom: 3px; border-bottom: 1px solid var(--background-modifier-border);
+}
+/* Fußzeile & Buttons wie im TaskModal (schlicht + mod-cta primär). */
+.bt-filter-modal .bt-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; }
+.bt-filter-modal .bt-actions { display: inline-flex; gap: 8px; }
+/* Mehrfachauswahl als kompaktes Dropdown (Priorität/Labels/Listen) – optisch wie die
+   Sort/Group/Time-Dropdowns; öffnet ein Popover mit Häkchen-Zeilen. */
+/* Trigger-Button aller Facetten (Zeitraum/Priorität/Labels/Listen): einheitlich als
+   Formularfeld gestylt – gleiche Höhe/Rand/Hintergrund wie ein natives Obsidian-Dropdown. */
+.bt-facet-dd {
+  display: inline-flex; align-items: center; gap: 6px; min-width: 168px; max-width: 220px;
+  height: var(--input-height); padding: 0 10px; border-radius: var(--radius-s); cursor: pointer; box-shadow: none;
+  border: 1px solid var(--background-modifier-border); background: var(--background-modifier-form-field);
+  color: var(--text-normal); font-size: var(--font-ui-small);
+}
+.bt-facet-dd:hover { background: var(--background-modifier-hover); }
+.bt-facet-dd-lbl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bt-facet-dd-chev { display: inline-flex; color: var(--text-muted); margin-left: auto; }
+.bt-facet-dd-chev svg { width: 14px; height: 14px; }
+.bt-facet-pop { max-height: 320px; overflow-y: auto; min-width: 180px; }
+.bt-facet-pop .bt-row-ic { width: 16px; display: inline-flex; flex-shrink: 0; }
+.bt-facet-pop .bt-row-ic svg { width: 15px; height: 15px; }
+/* Facetten-Button färbt sich nach Modus (Ausschluss rot, positives UND im Akzent). */
+.bt-facet-dd.is-exclude { color: var(--text-error); border-color: var(--text-error); }
+.bt-facet-dd.is-exclude .bt-facet-dd-chev { color: var(--text-error); }
+.bt-facet-dd.is-all { color: var(--interactive-accent); border-color: var(--interactive-accent); }
+.bt-facet-dd.is-all .bt-facet-dd-chev { color: var(--interactive-accent); }
+/* Facette enthält ein Kriterium, dessen Ziel es nicht mehr gibt (gelöschtes Label/Projekt/Status).
+   Gestrichelt statt durchgezogen, weil durchgezogenes Rot oben schon den AUSSCHLUSS markiert –
+   beides muss auf einen Blick unterscheidbar bleiben. Steht nach is-exclude/is-all, gewinnt also. */
+/* Kurzbeschreibung unter dem Seitentitel (Projekt/Bereich/Filter). Zwei Zeilen, dann Ellipse –
+   der Kopf soll die Aufgabenliste nicht nach unten drücken. */
+.bt-page-desc {
+  /* Bewusst blass: Die Beschreibung ist Beiwerk und soll dem Aufgabentext nicht die Aufmerksamkeit
+     nehmen. Platzhalter und echter Text tragen dieselbe Farbe – der Unterschied liegt im Inhalt. */
+  color: var(--text-faint); font-size: var(--font-ui-medium);
+  /* Feste Zeilenhöhe statt eines Faktors: 1.45 mal Schriftgröße ergibt einen gebrochenen Wert,
+     den kein ganzzahliger Ausgleich unten trifft. So ist der Block exakt 6 + 20 = 26px hoch.
+     Kein unterer Rand – er würde ohnehin mit den 20px über der Bar kollabieren und nichts tun. */
+  line-height: 20px; margin: 6px 0 0; max-width: 70ch;
+  /* EINE Zeile: Nur so ist der Block immer 26px hoch und der Ausgleich unten stimmt in jedem Fall.
+     Bei zwei erlaubten Zeilen verschöbe eine lange Beschreibung die Liste um 20px. */
+  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+}
+/* Beschreibung UND Platzhalter führen in den Bearbeiten-Dialog – im Ruhezustand sieht man das
+   nicht (Text ist Inhalt, kein Link), beim Überfahren schon. */
+.bt-page-desc[role="button"] { cursor: pointer; width: fit-content; }
+.bt-page-desc[role="button"]:hover { color: var(--bt-meta-gray); text-decoration: underline; }
+.bt-page-desc[role="button"]:focus-visible { outline: 1px solid var(--background-modifier-border-focus); outline-offset: 2px; border-radius: 3px; }
+
+.bt-facet-dd.is-stale { border-color: var(--text-error); border-style: dashed; }
+/* … und die Zeile im Popover, die den Grund nennt. */
+.bt-facet-pop .bt-row.is-stale .bt-row-lbl { color: var(--text-error); }
+/* Modus-Popover: feste Breite, damit der Live-Satz das Popover nicht breiter macht. */
+.bt-facet-pop.bt-mode-pop { width: 240px; }
+/* Modus-Segment oben im Facetten-Popover: „Aufgabe hat … eines | alle | keines".
+   Randbündig (kein Seitenrand, kein Track-Hintergrund), Zellen ohne eigenen Rand. */
+.bt-mode-lead { padding: 4px 8px 5px; font-size: var(--font-smallest); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: var(--font-semibold); }
+/* Segment als eine Box (Track), drei Buttons darin; aktiv = Akzentfarbe + heller Text. */
+.bt-mode-seg { display: flex; margin: 0 4px 6px; border: 1px solid var(--background-modifier-border-hover); border-radius: var(--radius-s); background: var(--background-modifier-form-field); overflow: hidden; }
+.bt-mode-opt { flex: 1; text-align: center; padding: 6px 4px; font-size: var(--font-ui-smaller); color: var(--text-muted); cursor: pointer; }
+.bt-mode-opt + .bt-mode-opt { border-left: 1px solid var(--background-modifier-border-hover); }   /* Trennlinie zwischen den Buttons */
+.bt-mode-opt:hover { background: var(--background-modifier-hover); }
+.bt-mode-opt.is-on { background: var(--interactive-accent); color: var(--text-on-accent); font-weight: var(--font-semibold); }
+/* Mitlaufender Klartext-Satz – direkt unter dem Segment. */
+.bt-mode-sentence { padding: 0 8px 7px; margin-bottom: 4px; border-bottom: 1px solid var(--background-modifier-border); font-size: var(--font-smallest); color: var(--text-muted); line-height: 1.35; }
+/* Live-Trefferzahl im Fuß des Editors. */
+/* Trennlinie über dem Zähler – gleiche Linie wie unter den Sektionsköpfen. */
+.bt-filter-count {
+  margin: 14px 0 2px; padding-top: 12px; font-weight: 600; color: var(--text-normal);
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+/* ── „Neu"-Modal (Projekt/Bereich/Label anlegen, Variante B) ─────── */
+.bt-new-modal { width: 440px; max-width: 92vw; }
+.bt-new-modal h3 { margin: 0 0 14px; font-size: 17px; letter-spacing: -0.01em; }
+.bt-new-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.bt-new-field > label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+.bt-new-input {
+  width: 100%; padding: 8px 11px; font: inherit; font-size: 14px; color: var(--text-normal);
+  background: var(--background-modifier-form-field); border: 1px solid var(--background-modifier-border); border-radius: 8px;
+}
+.bt-new-input:focus { outline: none; border-color: var(--interactive-accent); box-shadow: 0 0 0 3px var(--background-modifier-border-hover); }
+.bt-swatch-row { display: flex; flex-wrap: wrap; gap: 7px; }
+/* Farbbereich (Filter-Editor UND Neu/Bearbeiten-Modal): eigener, zentrierter Container mit
+   mehr Padding und Rahmen – einheitlicher Stil über alle Modals. */
+.bt-color-box {
+  justify-content: center; gap: 9px; padding: 14px;
+  border: 1px solid var(--background-modifier-border); border-radius: 10px;
+  background: var(--background-secondary);
+}
+.bt-filter-modal .bt-filter-color { margin-top: 14px; margin-bottom: 14px; }
+/* Live-Vorschau des Eintrags (Icon in der gewählten Farbe + Name). */
+/* Sichtbarkeits-Zeile im Neu/Bearbeiten-Modal: Label links, größerer Schalter rechts, mehr Luft. */
+.bt-new-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 20px 0; }
+.bt-new-row > label { font-size: 13px; color: var(--text-normal); font-weight: 600; }
+:is(.bt-new-modal, .bt-filter-modal) .bt-mrow-switch { width: 38px; height: 22px; }
+:is(.bt-new-modal, .bt-filter-modal) .bt-mrow-switch::after { width: 16px; height: 16px; top: 3px; left: 3px; }
+:is(.bt-new-modal, .bt-filter-modal) .bt-mrow-switch.is-on::after { left: 19px; }
+.bt-new-preview { display: flex; align-items: center; gap: 9px; margin: 4px 0 2px; padding: 8px 10px; border-radius: 8px; background: var(--background-secondary); font-size: 13.5px; }
+.bt-new-preview-ic { display: inline-flex; }
+.bt-new-preview-ic svg, .bt-new-preview-ic .svg-icon { width: 16px; height: 16px; }
+.bt-new-preview-nm { color: var(--text-normal); }
+.bt-new-preview-hint { margin-left: auto; color: var(--text-faint); font-size: 11.5px; }
+.bt-new-modal .bt-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+.bt-new-modal .bt-actions { display: inline-flex; gap: 8px; }
+
+/* ── Kopf-Aktionsgruppe (Stift · ListManager-Link · Anzeige), rechts gebündelt ── */
+.bt-view .bt-board-head .bt-head-actions,
+.bt-view .bt-manage-header .bt-head-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+/* Icon-Buttons als eigenständige Buttons – gleiche Höhe/Rand/Radius wie „Anzeige" (nur icon-only, quadratisch).
+   Gilt auch für den Papierkorb-Kopf (bt-manage-header), damit sein Kebab identisch zum Board-Kebab ist. */
+.bt-view .bt-board-head .bt-head-actions .bt-manage-btn,
+.bt-view .bt-manage-header .bt-head-actions .bt-manage-btn {
+  display: grid; place-items: center; line-height: 0;
+  width: 32px; height: 32px; padding: 0; border-radius: 8px; color: var(--text-muted);
+  border: 1px solid var(--background-modifier-border); background: var(--background-primary);
+}
+.bt-view .bt-board-head .bt-head-actions .bt-manage-btn:hover,
+.bt-view .bt-manage-header .bt-head-actions .bt-manage-btn:hover { background: var(--background-modifier-hover); color: var(--text-normal); }
+.bt-view .bt-board-head .bt-head-actions .bt-manage-btn > span,
+.bt-view .bt-manage-header .bt-head-actions .bt-manage-btn > span { display: grid; place-items: center; margin: 0; }
+.bt-view .bt-board-head .bt-head-actions .bt-manage-btn svg,
+.bt-view .bt-manage-header .bt-head-actions .bt-manage-btn svg { display: block; width: 16px; height: 16px; }
+
+/* ── „Anzeige"-Knopf + Panel (pro Seite, Alternative C) ─────────────── */
+.bt-view .bt-anzeige {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 11px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--background-modifier-border); background: var(--background-primary); color: var(--text-normal);
+  font-size: var(--font-ui-small); font-weight: 600; box-shadow: none; white-space: nowrap;
+}
+.bt-view .bt-anzeige:hover { background: var(--background-modifier-hover); }
+.bt-anzeige-ic { display: inline-flex; }
+.bt-anzeige-ic svg, .bt-anzeige-ic .svg-icon { width: 15px; height: 15px; }
+.bt-anzeige-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--interactive-accent); }
+/* Anzahl aktiver Filter-Kriterien – ersetzt den Punkt (s. anzeigeButton). Kräftiger als er:
+   ein Filter NIMMT etwas weg, eine geänderte Sortierung nicht. */
+.bt-anzeige-n {
+  min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center;
+  background: var(--interactive-accent); color: var(--text-on-accent); font-size: 10.5px; font-weight: 700; line-height: 1;
+}
+
+/* Eigene Höhe statt der 320px, die für Zeilenlisten gedacht sind: das Panel hat im Board mit
+   Richtungs-Zeile rund 350px Inhalt und wurde sonst gekappt – sichtbar wurde das an einem halb
+   abgeschnittenen „Zurücksetzen". Passt der Bildschirm nicht, klemmt openPopover zusätzlich auf
+   den tatsächlich freien Platz (nur nach unten, diese Grenze bleibt die Obergrenze). */
+.bt-pop.bt-view-panel { min-width: 240px; padding: 10px 12px; max-height: 480px; }
+/* Layout-Segmentierung: das Popover hängt an body (nicht in .bt-view), daher hier eigene
+   Tab-Styles. Buttons füllen gleichmäßig die Breite; aktiv = Akzentfarbe (wie im ListManager). */
+.bt-view-panel .bt-tabs { display: flex; gap: 6px; margin: 2px 0 0; }
+.bt-view-panel .bt-tab {
+  flex: 1; text-align: center; cursor: pointer; padding: 5px 10px; border-radius: 6px; box-shadow: none;
+  font-size: var(--font-ui-small); border: 1px solid var(--background-modifier-border-hover); background: transparent; color: var(--text-muted);
+}
+.bt-view-panel .bt-tab:hover { color: var(--text-normal); }
+.bt-view-panel .bt-tab.is-active { background: var(--interactive-accent); color: var(--text-on-accent); border-color: var(--interactive-accent); font-weight: 600; }
+.bt-view-panel .bt-panel-cap { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); margin: 2px 0 6px; }
+.bt-view-panel .bt-panel-cap:not(:first-child) { margin: 0 -12px 6px; padding: 10px 12px 0; border-top: 1px solid var(--background-modifier-border-hover); }
+/* Klappbare Abschnitts-Überschrift: Titel · Zähler · Pfeil. Der Zähler steht direkt hinter dem
+   Titel (nicht rechts außen) – sonst läse man ihn als Wert einer Zeile statt als Anzahl. */
+.bt-view-panel .bt-panel-cap.is-toggle { display: flex; align-items: center; gap: 7px; cursor: pointer; user-select: none; }
+.bt-view-panel .bt-panel-cap-chev { display: inline-flex; margin-left: auto; color: var(--text-muted); }
+.bt-view-panel .bt-panel-cap-chev svg { width: 14px; height: 14px; }
+.bt-view-panel .bt-panel-cap-n:not(:empty) {
+  min-width: 15px; height: 15px; padding: 0 4px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center;
+  background: var(--interactive-accent); color: var(--text-on-accent); font-size: 10px; font-weight: 700; letter-spacing: 0; line-height: 1;
+}
+.bt-view-panel .bt-panel-cap.is-toggle:hover .bt-panel-cap-t,
+.bt-view-panel .bt-panel-cap.is-toggle:hover .bt-panel-cap-chev { color: var(--text-normal); }
+.bt-view-panel .bt-panel-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; font-size: 13px; }
+.bt-view-panel .bt-panel-k { color: var(--text-normal); }
+/* Die Dropdowns sind dieselben Trigger-Buttons wie im Filter-Modal (.bt-facet-dd) – kein <select>,
+   dessen aufgeklapptes Menü das Betriebssystem zeichnen würde. Hier nur die Panel-Maße. */
+/* box-shadow: none MUSS hier gescopet stehen: Obsidians button:not(.clickable-icon) hat (0,1,1)
+   und schlüge eine einfache .bt-facet-dd-Regel (0,1,0) – die Knöpfe bekämen einen Schatten.
+   (Das Filter-Modal macht es aus demselben Grund über .modal.bt-filter-modal .bt-facet-dd.) */
+.bt-view-panel .bt-panel-dd {
+  font-size: 12.5px; min-width: 132px; max-width: 168px; box-shadow: none;
+}
+/* Sortieren · Gruppieren · Richtung als zusammengehöriger Block: engere Zeilen (6px wie die
+   .setting-item-Zeilen im Filter-Modal, statt der 10px der einzelstehenden Panel-Zeilen). */
+.bt-view-panel .bt-panel-tight .bt-panel-row { padding: 6px 0; }
+.bt-view-panel .bt-panel-switch,
+.bt-search-bar .bt-panel-switch { position: relative; width: 34px; height: 19px; border-radius: 999px; background: var(--background-modifier-border); cursor: pointer; flex: 0 0 auto; transition: background 0.15s; }
+.bt-view-panel .bt-panel-switch::after,
+.bt-search-bar .bt-panel-switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 15px; height: 15px; border-radius: 50%; background: #fff; transition: left 0.15s; }
+.bt-view-panel .bt-panel-switch.is-on,
+.bt-search-bar .bt-panel-switch.is-on { background: var(--interactive-accent); }
+.bt-view-panel .bt-panel-switch.is-on::after,
+.bt-search-bar .bt-panel-switch.is-on::after { left: 17px; }
+/* „+ Als Filter speichern": dezenter Textknopf unter den Facetten – keine Trennlinie, er gehört
+   noch zum Filter-Abschnitt (die trennt erst „Zurücksetzen" darunter ab). Plus + Text wie in
+   „+ Aufgabe hinzufügen" (.bt-add-icon), deshalb Flex mit demselben Abstand von 6px. */
+.bt-view-panel .bt-panel-save {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  width: 100%; margin: 8px 0 2px; padding: 6px 0;
+  /* Normalgewichtig – im Gegensatz zu „Zurücksetzen" darunter: Das Speichern ist ein Angebot,
+     kein Abschluss des Panels, und tritt deshalb bewusst zurück. */
+  border: none; background: transparent; color: var(--text-muted); font: inherit; font-size: 12.5px; font-weight: 400;
+  cursor: pointer; box-shadow: none;
+}
+.bt-view-panel .bt-panel-save:hover { color: var(--interactive-accent); }
+.bt-view-panel .bt-panel-reset {
+  /* volle Breite bis an die Panel-Ränder (Innenpadding via negative Ränder überziehen). */
+  display: block; width: calc(100% + 24px); margin: 10px -12px 0; padding: 10px 12px 0;
+  border: none; border-top: 1px solid var(--background-modifier-border-hover);
+  background: transparent; color: var(--interactive-accent); font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; box-shadow: none; text-align: center;
+}
+@media (prefers-reduced-motion: reduce) { .bt-view-panel .bt-panel-switch, .bt-view-panel .bt-panel-switch::after { transition: none; } }
+
+/* ── Bestätigungs-/Prompt-Modal ── */
+.bt-confirm-modal { width: 360px; max-width: 92vw; }
+.bt-confirm-modal h3 { margin: 0 0 10px; font-size: 17px; letter-spacing: -0.01em; }
+.bt-confirm-modal .bt-confirm-msg { margin: 0 0 14px; color: var(--text-muted); }
+.bt-confirm-modal .bt-confirm-check { display: flex; align-items: center; gap: 8px; margin: 0 0 4px; cursor: pointer; color: var(--text-normal); }
+.bt-confirm-modal .bt-confirm-check input { margin: 0; }
+.bt-confirm-modal .bt-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+.bt-confirm-modal .bt-actions { display: inline-flex; gap: 8px; }
+
+/* ── Seitenleisten-Sortiermodus (Drag, nur sichtbare Einträge) ── */
+.bt-reorder-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 4px 8px; margin: 2px 0 4px; border-radius: 6px; background: var(--background-modifier-hover); }
+.bt-reorder-lbl { font-size: 0.82em; color: var(--text-muted); }
+.bt-reorder-list { display: flex; flex-direction: column; gap: 2px; }
+.bt-reorder-row { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 6px; font-size: 0.9em; color: var(--text-normal); background: var(--background-secondary); }
+.bt-reorder-row.is-dragging { background: var(--background-modifier-hover); box-shadow: var(--shadow-s); }
+.bt-reorder-row .bt-nav-ic svg { width: 16px; height: 16px; }
+/* ── Zieh-Griff (Sidebar-Sortiermodus UND Reihenfolge per Drag in der Übersicht) ── */
+.bt-nav-grip { display: inline-flex; flex-shrink: 0; cursor: grab; color: var(--text-faint); touch-action: none; }
+.bt-nav-grip:active { cursor: grabbing; }
+.bt-nav-grip svg { width: 16px; height: 16px; }
+.bt-nav-grip:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 2px; border-radius: 4px; }
+/* Griff in der Verwaltungs-Zeile: dauerhaft sichtbar (kein Hover-Sprung), links leicht eingezogen. */
+.bt-view .bt-manage-row > .bt-nav-grip { margin-left: -4px; }
+.bt-view .bt-manage-row > .bt-nav-grip:hover { color: var(--text-muted); }
+.bt-view .bt-manage-row.is-dragging { background: var(--background-modifier-hover); border-radius: 6px; }
+
+/* Bereich-Icon (circle-small) auch im Kontextmenü gefüllt – in Standard-Icon-Farbe (wie der
+   Menütext, currentColor). Nur dieses eine Icon; Umriss-Icons im Menü bleiben unberührt. */
+.menu-item-icon .lucide-circle-small,
+.menu-item-icon.lucide-circle-small { fill: currentColor; }
+
+/* ── Chip-„+"-Menü (Weitere Aktionen) ──────────────────────────────────────
+   Eigenes Popover (bt-plus): ausgeblendete Chips mit Umrandung + Wert-Vorschau,
+   im Editor zusätzlich die Aufgabenaktionen. */
+/* Plus-Menü darf höher werden als die 320px-Basis (viele Aktionen) -> kein Scrollbalken, solange
+   es auf den Bildschirm passt; openPopover positioniert es so, dass es in den Viewport passt. */
+.bt-pop.bt-plus { min-width: 240px; max-height: calc(100vh - 24px); }
+/* Randlos wie im nativen Obsidian-Menü: das negative Margin hebt das 5px-Padding des Popovers
+   auf – die Linie läuft von Kante zu Kante und endet nicht positionsabhängig im Inhalt
+   (Scrollbalken bei geklemmter Höhe). Gilt für Kontextmenü UND Modal-„+"-Menü. */
+.bt-pop.bt-plus .bt-plus-sep { height: 1px; background: var(--background-modifier-border); margin: 4px -5px; }
+/* Haarlinien bei FRAKTIONALER Displayskalierung (125 %/150 %/175 % bzw. Zoom): 1 CSS-Pixel
+   entspricht dort z. B. 1,5 Gerätepixeln – je nach Position wird die Linie mal 1, mal 2 Pixel
+   dick gerundet. Eine Höhe knapp unter 1px landet nach der Umrechnung immer bei genau EINEM
+   Gerätepixel (0.75 × 1.25…1.75 = 0.94…1.31). Ganzzahlige Skalierung (100 %, 200 %) ist
+   ausgenommen – dort ist 1px bereits überall gleich dick. */
+@media (min-resolution: 1.05dppx) and (max-resolution: 1.95dppx) {
+  .bt-pop.bt-plus .bt-plus-sep, .bt-pop .bt-rem-sep { height: 0.75px; }
+}
+.bt-pop.bt-plus .bt-row-danger .bt-row-lbl,
+.bt-pop.bt-plus .bt-row-danger .bt-row-ic { color: var(--text-error); }
+/* „ist gesetzt"-Signal (v. a. Status): Umrandung + gedämpfte Wert-Vorschau rechts */
+.bt-pop.bt-plus .bt-row.bt-row-set { border: 1px solid var(--interactive-accent); }
+.bt-pop.bt-plus .bt-row-val { margin-left: auto; padding-left: 10px; color: var(--text-muted); font-size: 0.92em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 55%; }
+
+/* ── Aufgaben-Kontextmenü (Rechtsklick/Long-Press auf Zeile, Karte, Kalenderblock) ──
+   Zeilen wie das +-Menü (bt-plus wird mitgesetzt: Trenner, Danger-Zeile), dazu zwei
+   Icon-Schnellzeilen: Datum (Icons/Farben des Datums-Pickers) und Priorität (die
+   Checkbox-Ringe der Aufgabenliste). */
+.bt-pop.bt-taskmenu { min-width: 250px; }
+.bt-pop.bt-taskmenu .bt-menu-icons { display: flex; gap: 3px; padding: 1px 4px 5px; }
+.bt-pop.bt-taskmenu .bt-icbtn {
+  display: inline-flex; align-items: center; justify-content: center; flex: 1 1 0;
+  height: 30px; padding: 0; border: none; border-radius: 5px;
+  background: transparent; box-shadow: none; cursor: pointer;
+}
+/* Hover in Akzent-Tönung wie die Seitenleisten-Einträge (bt-nav-item:hover, 10 %). */
+.bt-pop.bt-taskmenu .bt-icbtn:hover { background: color-mix(in srgb, var(--interactive-accent) 10%, transparent); }
+/* Gewählter Wert: Akzent-Rahmen (= „ist gesetzt"-Signal wie bt-row-set im „+"-Menü) plus
+   dauerhafte Akzent-Tönung wie der aktive Seitenleisten-Eintrag (bt-nav-item.is-active, 18 %). */
+.bt-pop.bt-taskmenu .bt-icbtn.is-active {
+  box-shadow: inset 0 0 0 1px var(--interactive-accent);
+  background: color-mix(in srgb, var(--interactive-accent) 18%, transparent);
+}
+.bt-pop.bt-taskmenu .bt-icbtn:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 1px; }
+.bt-pop.bt-taskmenu .bt-icbtn-ic { display: inline-flex; }
+.bt-pop.bt-taskmenu .bt-icbtn-ic svg { width: 17px; height: 17px; }
+/* Prioritäts-Kreis: dieselbe .bt-check-Optik wie in der Liste, aber ohne deren Zeilen-Feinjustage
+   und ohne das Hover-Häkchen (hier wird eine PRIORITÄT gewählt, nichts erledigt). */
+.bt-pop.bt-taskmenu .bt-icbtn .bt-check { margin: 0; align-self: center; }
+.bt-pop.bt-taskmenu .bt-icbtn .bt-check:hover::after { display: none; }
+
+/* „+"-Chip: kleiner Punkt, wenn dauerhaft ausgeblendete Chips einen Wert tragen */
+.bt-task-modal .bt-chip-actions.has-set { position: relative; }
+.bt-task-modal .bt-chip-actions.has-set::after {
+  content: ""; position: absolute; top: 3px; right: 3px;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--interactive-accent);
+}
+
+
+/* ── Einstellungen: Aufgabenaktionen (Chips in drei Tier-Zonen sortieren) ──── */
+.bt-chip-actions-desc { margin-bottom: 8px; }
+.bt-chip-zones { display: flex; flex-direction: column; gap: 12px; margin-bottom: 12px; }
+.bt-chip-zone-title { font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint); margin-bottom: 4px; }
+.bt-chip-zone { display: flex; flex-direction: column; gap: 4px; min-height: 34px; padding: 6px; border: 1px dashed var(--background-modifier-border); border-radius: 8px; }
+.bt-chip-row { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 6px; background: var(--background-secondary); }
+.bt-chip-row.is-dragging { opacity: 0.6; }
+.bt-chip-grip { display: inline-flex; cursor: grab; color: var(--text-faint); touch-action: none; }
+.bt-chip-grip svg { width: 15px; height: 15px; }
+.bt-chip-row-ic { display: inline-flex; color: var(--text-muted); }
+.bt-chip-row-ic svg { width: 15px; height: 15px; }
+.bt-chip-row-lbl { flex: 1; min-width: 0; }
+
+/* Aufgabenaktionen: Flächen-Umschalter (Normale Eingabe | Schnelleingabe) – Unterstrich-Tabs.
+   Element-Selektor (0,1,1) schlägt Obsidians Default-Button-Styling, ohne !important. */
+.bt-chip-surface-bar { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; margin: 4px 0 14px; border-bottom: 1px solid var(--background-modifier-border); }
+.bt-chip-surface-tabs { display: flex; gap: 4px; }
+/* Reset-Icon (clickable-icon übernimmt Optik/Hover); hier nur die Ausrichtung in der Leiste. */
+.bt-chip-reset { margin-bottom: 2px; }
+.bt-chip-surface-tabs button {
+  padding: 6px 12px; margin-bottom: -1px;
+  border: none; border-bottom: 2px solid transparent; border-radius: 0;
+  background: transparent; box-shadow: none;
+  color: var(--text-muted); font-size: 0.88em; cursor: pointer;
+}
+.bt-chip-surface-tabs button:hover { color: var(--text-normal); background: transparent; box-shadow: none; }
+.bt-chip-surface-tabs button.is-active { color: var(--text-accent); border-bottom-color: var(--interactive-accent); font-weight: var(--font-semibold); }
+
+/* Status-Editor: Rollen-Badge („Neue Aufgaben" · „Beim Erledigen" · „Papierkorb") */
+.bt-view .bt-status-role {
+  font-size: 0.7em; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--text-muted); background: var(--background-modifier-border);
+  border-radius: 4px; padding: 1px 6px; flex-shrink: 0; white-space: nowrap;
+}
+
+/* Status-Editor: Kategorie-Gruppen (Offen / Erledigt / Papierkorb) */
+.bt-status-editor .bt-status-group { margin-top: 10px; }
+.bt-status-editor .bt-status-group-title { font-size: 0.72em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint); margin: 6px 2px 4px; }
+
+/* Status-Editor: Kopfzeile (Hinweis links, „Auf Standard zurücksetzen" rechts) */
+.bt-status-editor .bt-status-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.bt-status-editor .bt-status-head .bt-manage-hint { margin: 0; flex: 1; }
+.bt-status-editor .bt-status-reset-wrap { flex-shrink: 0; }
+
+/* Kanban-Scrollleisten: dünn (10px-Spur, 3px transparenter Rand -> ~4px sichtbarer Kern), rein
+   kosmetisch. Die HORIZONTALE Board-Leiste bleibt IMMER sichtbar (Orientierung bei vielen Spalten);
+   die VERTIKALEN Spalten-Leisten sind transparent und erscheinen erst beim Überfahren der Spalte. */
+.bt-kanban, .bt-kanban-list { scrollbar-width: thin; }
+.bt-kanban::-webkit-scrollbar, .bt-kanban-list::-webkit-scrollbar { width: 10px; height: 10px; }
+.bt-kanban::-webkit-scrollbar-track, .bt-kanban-list::-webkit-scrollbar-track { background: transparent; }
+.bt-kanban::-webkit-scrollbar-thumb, .bt-kanban-list::-webkit-scrollbar-thumb {
+  border-radius: 10px; border: 3px solid transparent; background-clip: padding-box;
+}
+
+/* Horizontal (Board unten): immer sichtbar */
+.bt-kanban { scrollbar-color: var(--scrollbar-thumb-bg, var(--background-modifier-border)) transparent; }
+.bt-kanban::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb-bg, var(--background-modifier-border)); background-clip: padding-box; }
+.bt-kanban::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-active-thumb-bg, var(--background-modifier-border-hover)); background-clip: padding-box; }
+
+/* Vertikal (Spalten): transparent, blenden bei Hover über der Spalte ein */
+.bt-kanban-list { scrollbar-color: transparent transparent; }
+.bt-kanban-list::-webkit-scrollbar-thumb { background: transparent; }
+.bt-kanban-col:hover .bt-kanban-list { scrollbar-color: var(--scrollbar-thumb-bg, var(--background-modifier-border)) transparent; }
+.bt-kanban-col:hover .bt-kanban-list::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb-bg, var(--background-modifier-border)); background-clip: padding-box; }
+.bt-kanban-list::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-active-thumb-bg, var(--background-modifier-border-hover)); background-clip: padding-box; }
+
+/* Kanban: Spaltenkopf als Ziehgriff zum Umsortieren der Spalten (nicht Priorität/Sentinel).
+   Grip-Dots-Icon als Hover-Signal: absolut im linken Kopf-Abstand -> kein Layout-Versatz. */
+.bt-kanban-head.bt-col-draggable { position: relative; cursor: grab; user-select: none; touch-action: none; }
+.bt-kanban-head.bt-col-draggable:active,
+.bt-kanban-col.is-col-dragging .bt-kanban-head { cursor: grabbing; }
+.bt-kanban-col.is-col-dragging { opacity: 0.55; }
+.bt-kanban-head .bt-kanban-grip {
+  /* auf Textmitte: der Kopf hat oben 2px / unten 10px Padding -> Inhalt liegt 4px über der Box-Mitte. */
+  position: absolute; left: -4px; top: calc(50% - 4px); transform: translateY(-50%);
+  display: inline-flex; color: var(--text-muted); pointer-events: none;
+  opacity: 0; transition: opacity 0.12s ease;
+}
+.bt-kanban-head .bt-kanban-grip svg { width: 15px; height: 15px; }
+/* Nur wenn die Kopfzeile selbst überfahren wird – nicht beim Überfliegen der Karten. */
+.bt-kanban-head.bt-col-draggable:hover .bt-kanban-grip { opacity: 0.9; }
+
+/* ── Google-Kalender-Einstellungen ────────────────────────────────────────── */
+/* Grüner „Verbunden"-Punkt vor der E-Mail im Sektionskopf. */
+.bt-gcal-dot {
+  display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%;
+  background: var(--color-green, #4caf50); vertical-align: middle;
+}
+/* „Erweitert"-Aufklappblock: dezenter Titel, klickbar. */
+.bt-gcal-advanced { margin: 6px 0 2px; }
+.bt-gcal-advanced > summary {
+  cursor: pointer; color: var(--text-muted); font-size: var(--font-ui-small);
+  padding: 6px 0; list-style-position: inside;
+}
+.bt-gcal-advanced > summary:hover { color: var(--text-normal); }
+/* Statusleisten-Element: Icon, klickbar; Fehler = rot. */
+.bt-gcal-sb { cursor: pointer; display: inline-flex; align-items: center; }
+.bt-gcal-sb .bt-gcal-sb-ic { display: inline-flex; }
+.bt-gcal-sb.mod-error { color: var(--text-error); }
+/* Sync-Schalter je Zeile in der Verwaltungsliste (Zustand + Klick). */
+.bt-mrow-sync {
+  display: inline-flex; align-items: center; cursor: pointer;
+  color: var(--text-muted); padding: 2px; border-radius: 4px;
+}
+.bt-mrow-sync svg { width: 16px; height: 16px; }
+.bt-mrow-sync:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+.bt-mrow-sync.is-off { opacity: 0.45; }
+/* Hinweis in den Einstellungen, wenn kein Ziel-Kalender gewählt ist. */
+.bt-gcal-warn {
+  margin: 8px 0; padding: 8px 12px; border-radius: 6px;
+  border-left: 3px solid var(--text-warning, #e0a030);
+  background: var(--background-modifier-error-hover, rgba(224, 160, 48, 0.12));
+  color: var(--text-normal); font-size: var(--font-ui-small);
+}
+
+/* ══ Kalender-Layout (drittes Layout neben Liste und Board) ═══════════════════════════════
+   Präfix bt-calview- (NICHT bt-cal-: das gehört dem Mini-Kalender im Datumswähler, .bt-pop). */
+/* Kopf in drei Zonen: Navigation links (‹ Heute ›), Titel mittig, Monat/Woche rechts.
+   Die drei gleich breiten Außenzonen halten den Titel exakt mittig, auch wenn die Buttons
+   unterschiedlich breit sind. */
+.bt-calview-head { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; }
+.bt-calview-nav { flex: 1 1 0; display: flex; align-items: center; gap: 4px; }
+.bt-calview-title { flex: 0 0 auto; text-align: center; }
+/* .bt-view .bt-tabs setzt margin: 10px 0 14px (höhere Spezifität) -> hier zurücknehmen,
+   sonst kann sich das Segment nicht nach rechts schieben. */
+.bt-view .bt-calview-head .bt-calview-seg { flex: 1 1 0; justify-content: flex-end; margin: 0; }
+/* Unter .bt-view gescopet (0,2,0): Obsidians button:not(.clickable-icon) { box-shadow: var(--input-shadow) }
+   hat (0,1,1) und würde eine einfache Klassenregel schlagen – die Knöpfe bekämen einen Schatten,
+   den die .bt-tab-Knöpfe (ebenfalls .bt-view-gescopet) nicht haben. */
+.bt-view .bt-calview-nav-btn {
+  display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px;
+  padding: 0; border-radius: 6px; background: transparent; box-shadow: none;
+  border: 1px solid var(--background-modifier-border); color: var(--text-muted); cursor: pointer;
+}
+.bt-view .bt-calview-nav-btn:hover { background: var(--background-modifier-hover); color: var(--text-normal); }
+.bt-view .bt-calview-nav-btn svg { width: 16px; height: 16px; }
+.bt-view .bt-calview-today {
+  padding: 4px 14px; border-radius: 6px; font-size: var(--font-ui-small); font-weight: 600;
+  background: transparent; border: 1px solid var(--background-modifier-border); color: var(--text-muted);
+  box-shadow: none; cursor: pointer;
+}
+.bt-view .bt-calview-today:hover { background: var(--background-modifier-hover); color: var(--text-normal); }
+.bt-calview-title { font-size: 1.05em; font-weight: 650; color: var(--text-normal); white-space: nowrap; }
+
+/* ── Monat ── */
+.bt-calview-weekdays { flex: 0 0 auto; }
+.bt-calview-weekdays, .bt-calview-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.bt-calview-wd {
+  padding: 4px 6px; font-size: 0.72em; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.04em; color: var(--text-faint);
+}
+.bt-calview-grid {
+  flex: 1 1 auto; min-height: 0; overflow-y: auto;
+  grid-auto-rows: minmax(96px, 1fr);          /* Zeilen teilen sich die freie Höhe */
+  border: 1px solid var(--background-modifier-border); border-radius: 8px;
+  background: var(--background-modifier-border);
+  gap: 1px;                                   /* die Lücke IST das Raster (Hintergrund scheint durch) */
+}
+.bt-calview-cell {
+  display: flex; flex-direction: column; gap: 2px; padding: 4px; overflow: hidden;
+  background: var(--background-primary); cursor: pointer;
+}
+/* Deckend über die Zellen-Grundfarbe mischen (NICHT transparent): sonst scheint das dunkle
+   Raster (.bt-calview-grid background) durch und der Hover wirkt dunkler. Heller Ton (30%). */
+.bt-calview-cell:hover { background: color-mix(in srgb, var(--background-modifier-hover) 30%, var(--background-primary)); }
+/* Etwas kräftigerer Wochenend-Ton als --background-primary-alt (das kaum sichtbar ist). Als eigene
+   Variable, damit der Hover sauber darüber mischen kann. */
+.bt-calview-cell.is-weekend { --bt-weekend-bg: color-mix(in srgb, var(--background-modifier-border) 22%, var(--background-primary)); background: var(--bt-weekend-bg); }
+/* Wochenendzellen bekommen sonst KEINEN Hover: .is-weekend steht nach :hover und hat gleiche
+   Spezifität → gewinnt. Eigene, spezifischere Regel; heller Ton über der Wochenend-Grundfarbe. */
+.bt-calview-cell.is-weekend:hover { background: color-mix(in srgb, var(--background-modifier-hover) 30%, var(--bt-weekend-bg)); }
+.bt-calview-cell.is-other { opacity: 0.45; }
+.bt-calview-cell.is-drop { box-shadow: inset 0 0 0 2px var(--interactive-accent); }
+.bt-calview-daynum {
+  align-self: flex-start; min-width: 22px; height: 22px; padding: 0 5px; border-radius: 11px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 0.8em; font-weight: 600; color: var(--text-muted);
+}
+.bt-calview-cell.is-today .bt-calview-daynum { background: var(--interactive-accent); color: var(--text-on-accent); }
+/* Aufgaben-Teil einer Monatszelle: eigener Container, damit er in einem Zug geleert werden kann
+   (inkrementelles Nachzeichnen). Spalte mit demselben gap wie die Zelle, damit er sich im Layout
+   so verhält, als wären Chips und „+N" direkte Kinder der Zelle.
+   flex: 1 (+ min-height: 0) -> er füllt die Zelle unter der Tagesnummer aus, seine clientHeight ist
+   damit der freie Platz. GENAU DEN misst calendarView.ts, um die Chip-Zahl zu bestimmen. */
+.bt-calview-cell-body {
+  display: flex; flex-direction: column; gap: 2px;
+  flex: 1 1 auto; min-height: 0; overflow: hidden;
+}
+/* Mess-Probe: ein echter Chip + eine „+N"-Zeile, kurz im Raster, aber aus dem Layout genommen
+   (position: absolute) und unsichtbar. Nur zum Höhe-Messen – s. measureChips(). */
+.bt-calview-probe { position: absolute; visibility: hidden; pointer-events: none; }
+.bt-calview-chips { display: flex; flex-direction: column; gap: 2px; min-height: 0; }
+.bt-calview-more { padding: 1px 5px; font-size: 0.72em; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+.bt-calview-more:hover { color: var(--text-normal); text-decoration: underline; }
+
+/* ── Aufgaben-Chip (Monatszelle, Ganztägig-Zeile, „+N"-Popover) ── */
+.bt-calview-chip {
+  display: flex; align-items: center; gap: 5px; padding: 3px 7px; border-radius: 4px;
+  font-size: 0.84em; line-height: 1.4; cursor: pointer; overflow: hidden;
+  background: color-mix(in srgb, var(--bt-cal-tint) 16%, transparent);
+  border-left: 2px solid var(--bt-cal-tint); color: var(--text-normal);
+}
+.bt-calview-chip:hover, .bt-calview-chip.bt-menu-hold { background: color-mix(in srgb, var(--bt-cal-tint) 28%, transparent); }
+.bt-calview-chip.is-done { opacity: 0.55; }
+.bt-calview-chip.is-done .bt-calview-chip-title { text-decoration: line-through; }
+.bt-calview-chip.is-dragging { opacity: 0.4; }
+.bt-calview-chip-time { flex-shrink: 0; font-weight: 600; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.bt-calview-chip-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bt-calview-pop { min-width: 240px; max-width: 320px; display: flex; flex-direction: column; gap: 2px; }
+
+/* ── Woche: Kopf, Ganztägig-Zeile, Zeitraster ── */
+.bt-calview-week {
+  border: 1px solid var(--background-modifier-border); border-radius: 8px;
+  overflow-y: auto; overflow-x: hidden;      /* EINE Scrollbar für den ganzen Block (s. calendarView.ts) */
+  display: block;                            /* kein Flex: sticky-Kinder brauchen normalen Fluss */
+}
+/* Kopf + Ganztägig bleiben beim Scrollen stehen und sind exakt so breit wie das Raster darunter. */
+.bt-calview-week-top { position: sticky; top: 0; z-index: 5; background: var(--background-primary); }
+.bt-calview-gutter {
+  flex: 0 0 58px; font-size: 0.76em; color: var(--text-faint); text-align: right;
+  padding-right: 6px; box-sizing: border-box;
+}
+.bt-calview-week-head { flex: 0 0 auto; display: flex; border-bottom: 1px solid var(--background-modifier-border); }
+/* Tageskopf: Wochentag über dem Datum, zentriert. „Heute" ist die hinterlegte Spalte
+   (kein Kreis-Badge) – der Kopf zeigt damit dieselbe Spur wie die Tagesspalte darunter. */
+.bt-calview-dayhead {
+  flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 1px;
+  padding: 8px 4px 10px; cursor: pointer;
+  border-left: 1px solid var(--background-modifier-border);
+}
+.bt-calview-dayhead:first-of-type { border-left: none; }
+.bt-calview-dayhead:hover { background: var(--background-modifier-hover); }
+.bt-calview-dayhead-wd { font-size: 0.82em; color: var(--text-muted); font-weight: 500; line-height: 1.2; }
+.bt-calview-dayhead-num { font-size: 1.3em; font-weight: 700; color: var(--text-normal); line-height: 1.2; }
+.bt-calview-dayhead.is-today { background: color-mix(in srgb, var(--interactive-accent) 10%, transparent); }
+.bt-calview-dayhead.is-today .bt-calview-dayhead-wd,
+.bt-calview-dayhead.is-today .bt-calview-dayhead-num { color: var(--text-accent, var(--interactive-accent)); }
+/* Die Zeile trägt ein aria-label („Ganztägig") NUR für Screenreader. Weil Obsidian aber jedem
+   Element mit aria-label automatisch einen Tooltip gibt, klappte über der ganzen Zeile ein
+   „Ganztägig" auf und verdeckte das Raster darunter. `--no-tooltip` ist Obsidians eigener
+   Schalter dagegen; fiele er weg, käme lediglich der Tooltip zurück. */
+.bt-calview-allday { display: flex; border-bottom: 1px solid var(--background-modifier-border); min-height: 34px; --no-tooltip: true; }
+/* ACHTUNG: Custom Properties VERERBEN. Ohne diese Rücknahme wären auch die Chips IN der Zeile
+   stumm – also genau die Aufgaben- und Termin-Tooltips, um die es hier geht. */
+.bt-calview-allday-cell { --no-tooltip: initial; }
+.bt-calview-allday .bt-calview-gutter { display: flex; align-items: center; justify-content: flex-end; }
+.bt-calview-allday-cell {
+  flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; padding: 3px;
+  border-left: 1px solid var(--background-modifier-border);
+}
+.bt-calview-allday-cell.is-today { background: color-mix(in srgb, var(--interactive-accent) 5%, transparent); }
+.bt-calview-allday-cell.is-drop { box-shadow: inset 0 0 0 2px var(--interactive-accent); }
+
+/* Höhe: der Kalender füllt die Pane bis zum unteren Rand. Die Kette .bt-view -> .bt-sizer ->
+   .bt-calview -> Raster muss dafür durchgehend flex sein (jeweils min-height: 0, sonst wächst
+   ein Flex-Kind nie kleiner als sein Inhalt und der Deckel greift nicht). */
+.bt-view.bt-view-calendar { display: flex; flex-direction: column; overflow: hidden; padding-bottom: 12px; }
+/* width: 100% ist Pflicht, nicht Kosmetik: .bt-sizer hat margin: 0 auto, und ein horizontales
+   auto-Margin schlägt in einem Flex-Container das stretch – ohne die feste Breite schrumpft die
+   Seite auf Inhaltsbreite (die Wochenansicht wurde dadurch schmal und zentriert). */
+.bt-view .bt-sizer.bt-calview-host { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; width: 100%; }
+.bt-calview { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+.bt-calview-timegrid { display: flex; position: relative; }
+.bt-calview-hours { position: relative; }
+.bt-calview-hour { position: relative; }
+.bt-calview-hour span { position: absolute; top: -6px; right: 0; font-variant-numeric: tabular-nums; }
+.bt-calview-daycol {
+  flex: 1; min-width: 0; position: relative;
+  border-left: 1px solid var(--background-modifier-border);
+  /* Stundenraster als Gradient statt als 161 Divs (s. renderTimeGrid). --bt-hour setzt der
+     Zeichner; die Linie sitzt jeweils am UNTEREN Rand einer Stunde. */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0, transparent calc(var(--bt-hour) - 1px),
+    var(--background-modifier-border) calc(var(--bt-hour) - 1px), var(--background-modifier-border) var(--bt-hour)
+  );
+  background-repeat: repeat-y;
+}
+.bt-calview-daycol.is-today { background-color: color-mix(in srgb, var(--interactive-accent) 4%, transparent); }
+.bt-calview-daycol.is-drop { box-shadow: inset 0 0 0 2px var(--interactive-accent); }
+.bt-calview-now { position: absolute; left: 0; right: 0; height: 2px; background: var(--text-error); z-index: 3; }
+.bt-calview-now::before {
+  content: ""; position: absolute; left: -3px; top: -3px; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--text-error);
+}
+.bt-calview-block {
+  position: absolute; z-index: 2; display: flex; flex-direction: row; align-items: flex-start; gap: 5px;
+  overflow: hidden; padding: 3px 6px; border-radius: 4px; cursor: pointer; box-sizing: border-box;
+  background: color-mix(in srgb, var(--bt-cal-tint) 22%, var(--background-primary));
+  border-left: 3px solid var(--bt-cal-tint); font-size: 0.84em; line-height: 1.35;
+}
+.bt-calview-block:hover, .bt-calview-block.bt-menu-hold { background: color-mix(in srgb, var(--bt-cal-tint) 32%, var(--background-primary)); }
+.bt-calview-block.is-done { opacity: 0.55; }
+.bt-calview-block.is-done .bt-calview-block-title { text-decoration: line-through; }
+.bt-calview-block.is-dragging { opacity: 0.4; }
+.bt-calview-block-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-normal); font-weight: 500; }
+.bt-calview-block-time {
+  flex-shrink: 0; font-size: 0.88em; color: var(--text-muted);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.bt-calview-block-in { display: flex; flex-direction: column; min-width: 0; flex: 1 1 auto; }
+/* Flacher Block (Standarddauer 30 min): Uhrzeit + Titel nebeneinander statt untereinander –
+   sonst schiebt der Titel aus dem Block heraus und wird unsichtbar. */
+.bt-calview-block.is-compact { align-items: center; padding-top: 1px; }
+.bt-calview-resize { position: absolute; left: 0; right: 0; bottom: 0; height: 6px; cursor: ns-resize; }
+.bt-calview-resize:hover { background: var(--bt-cal-tint); opacity: 0.6; }
+/* Während aktivem Größe-Ziehen: Optik am Zustand festmachen, nicht am Cursor-Hover – sonst flackern
+   Hintergrund und Griff-Balken, weil die Kachelhöhe in 15-Min-Stufen springt, der Cursor aber stetig. */
+.bt-calview-block.is-resizing { background: color-mix(in srgb, var(--bt-cal-tint) 32%, var(--background-primary)); }
+.bt-calview-block.is-resizing .bt-calview-resize:hover { background: none; opacity: 0; }
+
+/* ── Google-Termine (read-only) ──────────────────────────────────────────────────
+   Bewusst ANDERS als der Aufgaben-Block: eine Aufgabe ist eine getönte Fläche mit Abhak-Kreis,
+   ein Termin eine NEUTRALE Fläche (Seitenhintergrund + dezenter Rahmen) mit kräftigem Farbbalken
+   links (Kalenderfarbe). So liest sich auf einen Blick „gehört nicht mir, ist nur belegt" – kein
+   Kreis, kein Ziehen, kein Griff. Eigene Fläche statt transparent, damit der Termin im Raster als
+   abgegrenzte Kachel steht und die Stundenlinien nicht durch ihn hindurchlaufen. */
+.bt-calview-ev {
+  position: absolute; z-index: 1; display: flex; overflow: hidden; box-sizing: border-box;
+  padding: 2px 5px 2px 8px; border-radius: 4px; cursor: pointer;   /* Radius wie .bt-calview-block */
+  /* Deckende Fläche in Grundfarbe (hell = weiß, dunkel = Themehintergrund) + neutraler Rahmen.
+     Rahmen bewusst NICHT in der Kalenderfarbe: sonst hätte jeder Kalender eine andere Kantenstärke –
+     die Farbe trägt allein der Balken links. Der 1px-Rahmen frisst je Seite 1px, deshalb ist das
+     Padding gegenüber der randlosen Fassung um 1px kleiner: Text bleibt an gleicher Stelle. */
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  font-size: 0.84em; line-height: 1.35;
+}
+/* Farbbalken (echte Google-Kalenderfarbe) bündig innen am linken Rahmen. Oben/unten bis zum Beginn
+   des Eckbogens (Innenradius = 4px − 1px Rahmen = 3px) einrücken, damit die Enden symmetrisch sind
+   und nicht in die gebogene Ecke laufen; runde Enden wie beim Ganztags-Balken. */
+.bt-calview-ev::before {
+  content: ""; position: absolute; left: 0; top: 3px; bottom: 3px; width: 3px;
+  border-radius: 999px;
+  background: var(--bt-ev-color);   /* Grundfall; Aufhellung siehe @supports weiter unten */
+}
+/* Hover deckend mischen statt --background-modifier-hover (halbtransparent) darüberzulegen –
+   sonst schimmern Stundenraster und „Heute"-Tönung durch die Kachel. */
+.bt-calview-ev:hover {
+  background: color-mix(in srgb, var(--text-normal) 6%, var(--background-primary));
+  border-color: var(--background-modifier-border-hover);
+}
+.bt-calview-ev-in { display: flex; flex-direction: column; min-width: 0; flex: 1 1 auto; }
+.bt-calview-ev.is-compact .bt-calview-ev-in { flex-direction: row; align-items: center; gap: 5px; }
+.bt-calview-ev-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-normal); font-weight: 500; }
+.bt-calview-ev-time { flex-shrink: 0; font-size: 0.88em; font-weight: 400; color: color-mix(in srgb, var(--text-faint) 50%, var(--text-muted)); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Termin-Chip (Monatszelle / Ganztägig-Zeile / Popover): Farbpunkt statt Abhak-Kreis. */
+/* Google-Termin-Chip = konsistent zum Listen-Band: transparent, die Farbe trägt allein der schlanke
+   senkrechte Balken links (echte Google-Kalenderfarbe). Kein getönter Kasten, kein linker Rand. */
+/* padding-left 0: der Balken sitzt bündig an der Chip-Kante (wie die Farbkante der Aufgaben-Chips),
+   statt hinter dem 7px-Innenabstand nach rechts eingerückt. */
+.bt-calview-evchip { cursor: pointer; background: transparent; border-left: 0; padding-left: 0; }
+.bt-calview-evchip:hover { background: var(--background-modifier-hover); }
+.bt-calview-evbar {
+  flex-shrink: 0; align-self: stretch; width: 3px; min-height: 14px;
+  border-radius: 999px;
+  background: var(--bt-ev-color);   /* Grundfall; Aufhellung siehe @supports weiter unten */
+}
+/* Uhrzeit der Termine heller und NICHT fett (die Aufgaben-Chip-Zeit bleibt kräftig/fett). */
+.bt-calview-evchip .bt-calview-chip-time { font-weight: 400; color: color-mix(in srgb, var(--text-faint) 50%, var(--text-muted)); }
+
+/* Termine eines Tages gebündelt in einer dezenten Box oben in der Tagesgruppe – so heben sie sich
+   als „schon belegt" von den Aufgaben ab. Theme-adaptiv: Grundfarbe + etwas Textfarbe → in Light
+   dunkelt die Box minimal ab, in Dark hellt sie minimal auf, sodass sie sich in BEIDEN Modi vom
+   Seiteninhalt absetzt (reines --background-secondary war in Dark kaum unterscheidbar). */
+.bt-gcal-daybox {
+  background: color-mix(in srgb, var(--background-primary), var(--text-normal) 7%);
+  border-radius: 8px; padding: 4px 6px; margin: 2px 0 10px;
+}
+/* In Light reicht ein dezenterer Ton (dunkle Textfarbe schlägt stärker durch); Dark bleibt bei 7%. */
+.theme-light .bt-gcal-daybox { background: color-mix(in srgb, var(--background-primary), var(--text-normal) 4%); }
+.bt-gcal-daybox .bt-gcal-band { margin: 0; }
+.bt-gcal-daybox .bt-gcal-band:hover, .bt-gcal-daybox .bt-gcal-band:focus-visible { background: var(--background-modifier-hover); }
+/* „+N weitere" / „Weniger anzeigen": klappt die restlichen Termine des Tages auf/zu. */
+.bt-gcal-more {
+  display: flex; align-items: center; gap: 6px; cursor: pointer;
+  padding: 4px 8px; margin-top: 1px; border-radius: 6px;
+  font-size: 0.85em; font-weight: 500; color: var(--text-muted);
+}
+.bt-gcal-more:hover, .bt-gcal-more:focus-visible { background: var(--background-modifier-hover); color: var(--text-normal); outline: none; }
+.bt-gcal-more-ic { display: inline-flex; }
+.bt-gcal-more-ic .svg-icon { width: 15px; height: 15px; }
+
+/* Termin-Band in der Liste (Heute/Demnächst): eine ruhige Zeile ohne Tönung – die Farbe trägt
+   allein der schlanke, runde Balken links (echte Google-Kalenderfarbe). Kein Listeneintrag. */
+.bt-gcal-band {
+  display: flex; align-items: center; gap: 8px; min-width: 0;
+  padding: 4px 8px; margin: 1px 0; border-radius: 6px; cursor: pointer;
+  font-size: 0.9em; color: var(--text-muted);
+}
+.bt-gcal-band:hover, .bt-gcal-band:focus-visible { background: var(--background-modifier-hover); outline: none; }
+.bt-gcal-band-bar {
+  flex-shrink: 0; align-self: stretch; width: 3px; min-height: 16px;
+  border-radius: 999px;
+  background: var(--bt-ev-color);   /* Grundfall; Aufhellung siehe @supports direkt darunter */
+}
+/* Die drei Farbbalken (Wochen-/Monatsansicht, Chip, Listen-Band) tragen dieselbe echte
+   Google-Kalenderfarbe und dieselbe Korrektur: nur die WAHRGENOMMENE Helligkeit begrenzen
+   (Light UND Dark lesbar), Farbton und Buntheit bleiben.
+
+   Als Feature-Abfrage statt als zweite `background`-Zeile über der ersten: Wer relative Farben
+   nicht kann, bekommt die rohe Kalenderfarbe von oben – dasselbe Ergebnis wie beim
+   Überschreiben, aber ohne doppelte Eigenschaft (die der CSS-Linter des Community-Stores
+   anmerkt und die man beim Lesen leicht für einen Versehen-Doppler hält). Steht bewusst NACH
+   allen drei Regeln: gleiche Spezifität, also entscheidet die Reihenfolge. */
+@supports (color: oklch(from red l c h)) {
+  .bt-calview-ev::before,
+  .bt-calview-evbar,
+  .bt-gcal-band-bar { background: oklch(from var(--bt-ev-color) clamp(0.5, l, 0.66) c h); }
+}
+.bt-gcal-band-time { flex-shrink: 0; font-variant-numeric: tabular-nums; font-weight: 400; color: color-mix(in srgb, var(--text-faint) 50%, var(--text-muted)); }
+.bt-gcal-band-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-normal); }
+.bt-gcal-band-open { flex-shrink: 0; margin-left: auto; display: inline-flex; color: var(--text-faint); opacity: 0; transition: opacity 120ms ease; }
+.bt-gcal-band-open .svg-icon { width: 14px; height: 14px; }
+.bt-gcal-band:hover .bt-gcal-band-open, .bt-gcal-band:focus-visible .bt-gcal-band-open { opacity: 1; }
+
+/* Einstellungen: Kalenderliste – Farbpunkt vor dem Namen. */
+.bt-gcalfeed-dot {
+  display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px;
+  background: var(--interactive-accent); vertical-align: middle;
+}
+.bt-gcalfeed-list .setting-item { padding: 6px 0; border: none; }
+
+/* ── Jahr: zwölf Mini-Monate ── */
+.bt-calview-year {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px;
+  overflow-y: auto; align-content: start; padding-bottom: 4px;
+}
+.bt-calview-mini {
+  border: 1px solid var(--background-modifier-border); border-radius: 8px; overflow: hidden;
+  background: var(--background-primary);
+}
+.bt-calview-mini-title {
+  padding: 7px 8px; text-align: center; font-weight: 650; font-size: 0.92em; cursor: pointer;
+  background: var(--background-secondary); border-bottom: 1px solid var(--background-modifier-border);
+}
+.bt-calview-mini-title:hover { background: var(--background-modifier-hover); color: var(--text-accent, var(--interactive-accent)); }
+.bt-calview-mini-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; padding: 6px; }
+.bt-calview-mini-wd {
+  text-align: center; font-size: 0.66em; font-weight: 600; color: var(--text-faint);
+  padding-bottom: 3px;
+}
+.bt-calview-mini-day {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 1; border-radius: 5px; font-size: 0.72em; color: var(--text-normal);
+  cursor: pointer; font-variant-numeric: tabular-nums;
+}
+.bt-calview-mini-day:hover { background: var(--background-modifier-hover); }
+.bt-calview-mini-day.is-other { color: var(--text-faint); opacity: 0.5; }
+.bt-calview-mini-day.is-today {
+  background: var(--interactive-accent); color: var(--text-on-accent); font-weight: 700;
+}
+/* Tage mit Aufgaben: Punkt unter der Zahl (nicht fett – das würde das Raster unruhig machen). */
+.bt-calview-mini-day.has-tasks::after {
+  content: ""; position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);
+  width: 3px; height: 3px; border-radius: 50%; background: var(--interactive-accent);
+}
+.bt-calview-mini-day.is-today.has-tasks::after { background: var(--text-on-accent); }
+.bt-calview-mini-day.is-other.has-tasks::after { background: var(--text-faint); }
+
+/* ── Seitenleiste „Undatiert" (Quelle zum Einplanen per Drag) ── */
+.bt-calview-body { flex: 1 1 auto; min-height: 0; display: flex; gap: 12px; }
+.bt-calview-body > .bt-calview { flex: 1 1 auto; min-width: 0; }   /* Kalender nimmt den Rest */
+.bt-calview-panel {
+  flex: 0 0 250px; display: flex; flex-direction: column; min-height: 0;
+  border: 1px solid var(--background-modifier-border); border-radius: 8px;
+  background: var(--background-primary); overflow: hidden;
+}
+/* Drop-Ziel: eine Aufgabe aus dem Kalender hierher ziehen entfernt ihr Datum. */
+.bt-calview-panel.is-drop {
+  border-color: var(--interactive-accent);
+  box-shadow: inset 0 0 0 1px var(--interactive-accent);
+  background: color-mix(in srgb, var(--interactive-accent) 6%, var(--background-primary));
+}
+.bt-calview-panel-head {
+  display: flex; align-items: center; gap: 8px; padding: 9px 12px;
+  border-bottom: 1px solid var(--background-modifier-border); background: var(--background-secondary);
+}
+.bt-calview-panel-title { font-size: 0.86em; font-weight: 650; color: var(--text-normal); }
+.bt-calview-panel-count {
+  margin-left: auto; font-size: 0.76em; font-weight: 600; color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.bt-calview-panel-list { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+.bt-calview-panel-empty { padding: 14px 4px; text-align: center; font-size: 0.82em; color: var(--text-faint); }
+.bt-calview-panel-card {
+  display: flex; flex-direction: row; align-items: flex-start; gap: 7px; padding: 7px 9px; border-radius: 6px;
+  cursor: grab; font-size: 0.84em; line-height: 1.35;
+  background: color-mix(in srgb, var(--bt-cal-tint) 12%, var(--background-secondary));
+  border-left: 3px solid var(--bt-cal-tint); color: var(--text-normal);
+}
+.bt-calview-panel-card:hover { background: color-mix(in srgb, var(--bt-cal-tint) 22%, var(--background-secondary)); }
+.bt-calview-panel-card.is-dragging { opacity: 0.4; cursor: grabbing; }
+.bt-calview-panel-card-in { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto; }
+.bt-calview-panel-card-title { overflow: hidden; text-overflow: ellipsis; }
+.bt-calview-panel-card-proj { font-size: 0.82em; color: var(--text-muted); }
+.bt-calview-panel-add {
+  display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer;
+  border-top: 1px solid var(--background-modifier-border); font-size: 0.84em; color: var(--text-muted);
+}
+.bt-calview-panel-add:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+.bt-calview-panel-add-ic { display: inline-flex; }
+.bt-calview-panel-add-ic svg { width: 14px; height: 14px; }
+/* Umschalter im Kopf: Icon + Anzahl, sitzt im Segment rechts neben Jahr/Monat/Woche/Tag.
+   line-height: 1 macht die Zeilenbox exakt so hoch wie die Glyphen – nur dann liegen Icon und
+   Zahl bei align-items: center auf derselben Höhe wie der Text der Nachbar-Tabs (feste Pixel
+   gegen eine Schriftmetrik zu stellen, war der Versatz). */
+.bt-view .bt-calview-panel-btn {
+  display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; line-height: 1;
+}
+.bt-calview-panel-ic { display: inline-flex; }
+/* GANZZAHLIGE Größe: Lucide zeichnet Striche auf einem 24er-Raster – bei krummen Größen (etwa 1em
+   = 13,x px) landen die Linien zwischen den Pixeln und wirken unscharf. 16px ist ein sauberer
+   Teiler. Die Ausrichtung übernimmt align-items: center am Knopf (line-height: 1). */
+.bt-calview-panel-ic svg { width: 14px; height: 14px; display: block; }
+/* Zahl in der normalen Schrift des Knopfes: KEIN tabular-nums (das sind Tabellenziffern – eine
+   andere Ziffernvariante) und keine abweichende Größe. */
+.bt-calview-panel-n { font-size: inherit; font-weight: 600; font-variant-numeric: normal; }
+
+/* Kompakte Checkbox für den Kalender: dieselbe .bt-check, nur kleiner – die Chips sind ~20 px hoch.
+   Alles andere (Zustände, Prioritäts-Ring, Status-Icon, Klick/Rechtsklick) erbt sie unverändert. */
+.bt-check.bt-check-sm { width: 13px; height: 13px; border-width: 1.5px; }
+.bt-check.bt-check-sm.bt-check-status svg { width: 9px; height: 9px; }
+/* Das Häkchen sitzt über inset (nicht über eine Mitte-Verschiebung) – bei 13 px Kreis reicht ein
+   knapperer Rand, damit es nicht zu klein wirkt. KEIN transform: das schöbe es aus dem Kreis. */
+.bt-check.bt-check-sm.is-done::after { inset: 2px; }
+/* Einzeilige Container zentrieren ihren Inhalt bereits selbst (align-items: center) – dort darf
+   die Formel oben NICHT zusätzlich schieben. Steht bewusst nach dem @supports-Block. */
+.bt-calview-chip .bt-check.bt-check-sm,
+.bt-calview-block.is-compact .bt-check.bt-check-sm { align-self: center; margin-top: 0; }
+
+/* Einrast-Vorschau beim Ziehen: zeigt Position (15-Minuten-Raster), Dauer und Zielzeit,
+   bevor losgelassen wird. pointer-events: none – der Geist darf die Drop-Zone nicht abfangen. */
+.bt-calview-ghost {
+  position: absolute; left: 2px; right: 2px; top: 0; z-index: 4; pointer-events: none;
+  will-change: transform;      /* wird per translateY bewegt (s. attachGhost) – eigene Compositor-Ebene */
+  display: flex; align-items: flex-start; overflow: hidden;
+  padding: 2px 6px; border-radius: 4px; box-sizing: border-box;
+  background: color-mix(in srgb, var(--interactive-accent) 14%, transparent);
+  border: 1px dashed var(--interactive-accent);
+  font-size: 0.84em; line-height: 1.3;
+}
+/* Einziger Inhalt: die Zielzeit. Kein Titel – siehe attachGhost() in calendarView.ts. */
+.bt-calview-ghost::before {
+  content: attr(data-time);
+  font-weight: 600; color: var(--text-accent, var(--interactive-accent));
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+
+
+/* ══ Kopf bleibt beim Scrollen stehen ══════════════════════════════════════════════════════════
+   Scroll-Container ist .bt-view. Nur der Kopfblock (Titel · Anzeige · „+ Aufgabe") bleibt stehen;
+   die Gruppen-Überschriften scrollen bewusst mit. */
+/* Der Scroll-Container darf oben KEIN Padding haben: ein sticky Element klebt an der CONTENT-Kante,
+   also unterhalb des Paddings – der Streifen darüber bliebe transparent und der Inhalt schiene
+   durch. (Gemessen: Obsidians .view-content bringt 20px mit, unsere 8px verloren den Spezifitäts-
+   Vergleich; der Kopf klebte 12px zu tief.) Doppelte Klasse -> schlägt .view-content sicher.
+   Den Abstand gibt der Kopf selbst als Padding zurück. */
+.view-content.bt-view { padding-top: 0; }
+/* Der Kalender hat ebenfalls einen Kopfblock – sein Abstand kommt von dort. Ein zusätzliches
+   padding-top am Container käme obendrauf (22 statt 14px) und der Titel stünde tiefer als in der Liste. */
+.bt-view.bt-view-calendar { padding-top: 0; }
+/* Seiten ohne Kopfblock (z. B. „Wiederkehrend": nur ein Titel) hätten sonst keinen Abstand nach
+   oben – bei ihnen ist der Sizer das erste Kind, nicht der sticky Kopf. Gleicher Wert wie dessen
+   padding-top, damit alle Titel auf derselben Höhe stehen. */
+.bt-view > .bt-sizer:first-child > h1:first-child { margin-top: 14px; }
+
+.bt-view .bt-page-top {
+  position: sticky; top: 0; z-index: 20;
+  background: var(--background-primary);
+  margin-top: 0;
+  padding: 14px 0 6px;
+  /* Volle Pane-Breite: nur so kann die Aktionsgruppe („Anzeige") rechts an der Pane-Kante sitzen,
+     bündig mit Kalender und Board. Titel und „+ Aufgabe" bleiben im inneren Sizer auf Lesebreite. */
+}
+.bt-view .bt-page-top h1 { margin-top: 0; }
+/* Aktionsgruppe rechts an der Pane-Kante – NICHT am rechten Rand der Lesebreite. Absolut zum
+   sticky Kopf (der ist ein positionierter Vorfahre), damit sie beim Scrollen mit oben bleibt. */
+.bt-view .bt-page-top .bt-head-actions {
+  position: absolute; top: 14px; right: 24px;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+@media (max-width: 700px) {
+  .bt-view .bt-page-top .bt-head-actions { right: 12px; }
+}
+/* Verwaltung/Erledigt: eigener Kopf (Titel + Tabs), kein „+ Aufgabe". */
+.bt-view .bt-manage-header {
+  position: sticky; top: 0; z-index: 20;
+  background: var(--background-primary);
+  margin-top: 0; padding-top: 14px;
+}
+/* Der Titel-Margin käme auf das padding-top obendrauf (14 + 6 = 20px) – die anderen Seiten stehen
+   bei 14px. Genullt, damit alle Titel auf derselben Höhe sitzen. */
+.bt-view .bt-manage-header h1 { margin-top: 0; }
+
+/* Suche: Schalter „Archiv ausschließen" direkt unter dem Suchfeld (standardmäßig an – archivierte
+   Projekte werden dann gar nicht erst durchsucht). */
+.bt-search-bar {
+  display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  font-size: var(--font-ui-small); color: var(--text-muted);
+}
+.bt-search-bar .bt-panel-switch { flex-shrink: 0; }
+
+/* Farb-Einstellungen: das Meta-Icon vor dem Namen (Live-Vorschau in der effektiven Farbe). */
+.bt-color-row-ic { display: inline-flex; vertical-align: -3px; margin-right: 7px; }
+.bt-color-row-ic svg { width: 15px; height: 15px; }
+/* Nicht im „User"-Theme: der Farbbereich ist gesperrt (Picker zeigen die Theme-Presets, sind aber
+   nicht editierbar) – sichtbar abgedunkelt, damit „nicht änderbar" auf einen Blick klar ist. */
+.bt-color-settings.is-locked { opacity: 0.5; }
+
+/* ── Startseite: Knopf in den Einstellungen + Zeilen im Seiten-Wähler ─────────── */
+/* Der Knopf zeigt die aktuelle Wahl wie ein Auswahlfeld: Symbol, Name, Pfeil. */
+.bt-startpage-btn { display: inline-flex; align-items: center; gap: 6px; }
+.bt-startpage-btn .bt-startpage-caret { margin-left: 2px; opacity: .6; }
+.bt-startpage-icon { display: inline-flex; }
+.bt-startpage-icon .svg-icon { width: 16px; height: 16px; }
+
+/* Zeile im Wähler: Symbol, Name, Häkchen, rechts die Art. Der Name nimmt den Platz,
+   damit „Ansicht/Projekt/…“ bündig an der rechten Kante stehen. */
+.bt-startpage-row { display: flex; align-items: center; gap: 8px; }
+.bt-startpage-row .bt-startpage-name { flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bt-startpage-row .bt-startpage-check { display: inline-flex; color: var(--text-accent); }
+.bt-startpage-row .bt-startpage-check .svg-icon { width: 14px; height: 14px; }
+.bt-startpage-row .bt-startpage-kind { flex: 0 0 auto; font-size: var(--font-smaller); color: var(--text-faint); }
+
+/* Herkunft der Feldzuordnung im TaskNotes-Import: dezent, aber vor den Eingabefeldern –
+   sie beantwortet die Frage, bevor der Nutzer am Tag herumprobiert. */
+.bt-tn-src { margin: -2px 0 10px; }
+
+/* ── Planungsansicht: Icon auf den Notiz-Reitern ──────────────────────────────
+   Gilt NUR für den Weg über fremde Views (main.setLeafIcon). Unsere eigenen
+   Tabs – Liste, Board, Kalender – brauchen hiervon nichts: Sie überschreiben
+   getIcon() selbst und tragen einen View-Typ, den Obsidian nicht ausblendet
+   (der Vergleich beider Wege steht bei MainView.getIcon in heuteView.ts).
+
+   Obsidian blendet das Icon von Notiz-Tabs im Hauptbereich absichtlich aus:
+
+     .mod-root .workspace-tab-header[data-type="markdown"] .workspace-tab-header-inner-icon
+       { display: none }
+
+   In der Planungsansicht stehen Kalender, Projektnotiz und Tagesnotiz aber als
+   Reiter NEBENEINANDER – dort trägt das Zeichen Bedeutung, und ohne es wäre nur
+   der Kalender (eigener View-Typ) unterscheidbar. Die Klasse setzt der Befehl
+   ausschließlich auf die Reiter, die er selbst anlegt (s. main.setLeafIcon);
+   jeder andere Notiz-Tab des Vaults bleibt unberührt.
+
+   ── SPEZIFITÄT ──
+   Obsidians Regel wiegt 0-4-0 (.mod-root · .workspace-tab-header · [data-type] ·
+   .workspace-tab-header-inner-icon). Eine Gegenregel MUSS schwerer sein; die
+   erste Fassung hier wog 0-3-0 und griff deshalb nie — Icon und Klasse waren
+   längst gesetzt, das Element blieb trotzdem ausgeblendet. Die zweite Zeile
+   nimmt `.mod-root` und `[data-type]` mit auf und kommt damit auf 0-5-0.
+   Nicht auf die Reihenfolge der Stylesheets verlassen: Bei Gleichstand
+   entschiede sie zwar für uns, aber nur solange niemand daran rührt.
+
+   Die erste Zeile (0-4-0) gilt außerhalb von .mod-root — Popout-Fenster und
+   Seitenleisten, wo Obsidian gar nichts ausblendet.
+
+   `display: flex` und nicht `inline`: genau der Wert aus Obsidians eigener
+   Regel für .workspace-tab-header-inner-icon. */
+.workspace-tab-header.bt-plan-tab[data-type="markdown"] .workspace-tab-header-inner-icon,
+.mod-root .workspace-tab-header.bt-plan-tab[data-type="markdown"] .workspace-tab-header-inner-icon { display: flex; }
+
+/* ── Vorlagen ──────────────────────────────────────────────────────────────
+   Die Vorlagen-Auswahl zeigt dieselben Zeilen wie ein Popover, steht aber IM
+   Modal. Sämtliche `.bt-row`-Regeln oben hängen an `.bt-pop`, und `.bt-pop`
+   ist `position: fixed` — im Modal wäre das falsch. Deshalb hier die paar
+   Zeilen noch einmal, auf die Liste bezogen. */
+.bt-tpl-list { display: flex; flex-direction: column; gap: 1px; margin-bottom: 14px; max-height: 320px; overflow-y: auto; }
+.bt-tpl-list .bt-row { display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 5px; cursor: pointer; font-size: 0.9em; color: var(--text-normal); }
+.bt-tpl-list .bt-row:hover { background: var(--background-modifier-hover); }
+.bt-tpl-list .bt-row-ic { display: inline-flex; }
+.bt-tpl-list .bt-row-ic svg { width: 15px; height: 15px; }
+.bt-tpl-list .bt-row-lbl { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Kopf des Anwenden-Dialogs: WAS wird angewendet. Zweizeilig, damit die Zahl eine Einheit
+   bekommt und die Art der Vorlage nicht nur am Icon hängt. Der Abstand nach unten trennt ihn
+   vom ersten Eingabefeld – vorher lag hier `.bt-new-preview`, das im Bestand ganz UNTEN sitzt
+   und deshalb keinen braucht. */
+/* Der Name-Block ist gerahmt wie die Farbbox im Neu-Modal (.bt-color-box): gleicher Rahmen,
+   gleicher Radius, gleicher gedämpfter Untergrund. Er zeigt etwas AN, statt etwas entgegen-
+   zunehmen – die Umrandung macht denselben Unterschied sichtbar wie dort. Die Werte stehen
+   hier noch einmal und nicht als gemeinsame Klasse: `.bt-color-box` beschreibt eine Reihe
+   Farbfelder und richtet sie mittig aus; das gilt hier gerade nicht. */
+.bt-tpl-head {
+  margin: 0; min-width: 0; padding: 12px 14px;
+  border: 1px solid var(--background-modifier-border); border-radius: 10px;
+  background: var(--background-secondary);
+}
+
+/* Anwenden-Dialog: Die drei Blöcke – Vorlagenname · Ziel · Zeitplan – sind gleich gebaut
+   (Überschrift mit Trennlinie, darunter der Inhalt) und stehen deshalb im GLEICHEN Abstand
+   zueinander. Der Wert sitzt am Block und nicht an der Überschrift: `.bt-modal-h` teilt sich
+   dieser Dialog mit dem Filter-Editor, und dort würde ein anderer Abstand alles verschieben. */
+.bt-tpl-modal .bt-tpl-head,
+.bt-tpl-modal .bt-new-field { margin-bottom: 24px; }
+.bt-tpl-head-nm { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bt-tpl-head-sub { color: var(--text-muted); font-size: 0.85em; }
+
+/* Zeitplan-Zeile: Richtungspaar links, Datum rechts (das `space-between` von .bt-new-row bleibt).
+   Nur der Aussenabstand fällt weg – die Zeile hat jetzt ein Label über sich und soll daran
+   anschliessen statt 20 px darunter zu schweben. */
+.bt-new-row.bt-tpl-when { margin: 0; }
+
+/* Der Hinweis erklärt die Zeitplan-Zeile und steht deshalb linksbündig direkt darunter –
+   nicht rechts unter dem Datum, wo er wie eine Fussnote des Knopfes aussah. */
+.bt-tpl-note { margin: 8px 0 0; color: var(--text-muted); font-size: 0.85em; }
+
+/* Anker-Zeile: die beiden Richtungen als Paar links, das Datum rechts.
+   Die umgebende `.bt-new-row` verteilt mit `space-between` — ohne diese
+   Gruppierung stünden alle drei Knöpfe gleich weit auseinander und man
+   sähe nicht mehr, dass „Start am" und „Fertig bis" eine Wahl sind. */
+.bt-tpl-anchor { display: flex; align-items: center; gap: 6px; }
+
+/* Vorlagen-Zeile in der Übersicht: an der Stelle des Farbpunkts steht das Typ-Icon
+   (Aufgaben- oder Projektvorlage). Eine Vorlage hat keine eigene Farbe – das Icon
+   sagt schon alles, was die Zeile auf einen Blick verraten muss. */
+.bt-view .bt-mrow-ic { display: inline-flex; flex: 0 0 auto; color: var(--text-muted); }
+.bt-view .bt-mrow-ic svg { width: 14px; height: 14px; }
+
+/* Warnung unter dem Namensfeld des Anwenden-Dialogs. Wie .bt-tpl-note aufgebaut, nur in der
+   Fehlerfarbe – sie erklärt nicht, sie hält auf: Solange sie steht, ist „Anwenden" gesperrt. */
+.bt-tpl-warn { margin: 6px 0 0; color: var(--text-error, var(--text-normal)); font-size: 0.85em; }
+
+/* Gesperrter Haupt-Knopf: Obsidian gibt `.mod-cta` seine Akzentfarbe ohne Rücksicht auf
+   `disabled` – ohne diese Zeile sähe der gesperrte Knopf aus wie ein bereiter. */
+.bt-tpl-modal button:disabled { opacity: 0.45; cursor: not-allowed; }

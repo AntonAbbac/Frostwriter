@@ -1,0 +1,38 @@
+*
+
+!*/
+!/Vault/
+!/Vault/**/
+
+!.gitignore
+!/README.md
+!/LICENSE
+!/CONTRIBUTING.md
+!**/.gitkeep
+!/Vault/.gitkeep
+!/Vault/.obsidian/
+!/Vault/.obsidian/**
+!/.github/assets/**
+
+# .OBSIDIAN
+Vault/.obsidian/workspace
+Vault/.obsidian/workspace.json
+Vault/.obsidian/workspace-mobile.json
+Vault/.obsidian/cache/
+Vault/.obsidian/indexedDB/
+Vault/.obsidian/trash/
+Vault/.obsidian/plugins/*/data.json
+
+# TEMPLATES
+!/Vault/00 System/Templates/
+!/Vault/00 System/Templates/**
+
+# BASES
+!/Vault/00 System/Bases/**
+
+#DASHBOARDS
+!/Vault/00 System/Dashboards/Main Dashboard.md
+!/Vault/00 System/Dashboards/Intelligence Dashboard.md
+
+# ATTACHMENTS
+!/Vault/00 System/Attachments/blue_castle.png

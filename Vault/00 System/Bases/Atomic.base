@@ -1,0 +1,29 @@
+filters:
+  and:
+    - type == "atomic"
+views:
+  - type: list
+    name: By Maturity
+    order:
+      - file.name
+      - status
+      - source
+    sort:
+      - property: file.ctime
+        direction: ASC
+      - property: status
+        direction: ASC
+    separator: ":"
+  - type: list
+    name: Seedlings
+    filters:
+      and:
+        - status == "seedling"
+    order:
+      - file.name
+      - source
+    sort:
+      - property: file.mtime
+        direction: DESC
+    limit: 15
+    separator: ":"

@@ -1,0 +1,3571 @@
+[
+  {
+    "label": "S2B startup",
+    "totalMs": 6370,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 1,
+        "duration": 34,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 41,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 41,
+        "duration": 693,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 734,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 4406,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 4422,
+        "duration": 2,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 4424,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 4425,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 4426,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 4426,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 4426,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 4423,
+        "duration": 6,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 4429,
+        "duration": 325,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 4426,
+        "duration": 1668,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 6094,
+        "duration": 214,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 4425,
+        "duration": 1884,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 6308,
+        "duration": 9,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 6317,
+        "duration": 46,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 6317,
+        "duration": 53,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 6370,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 6370,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 7740,
+      "obsidianPreLayoutMs": 3672,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 169,
+      "jsHeapLimitMB": 1965,
+      "lexicalIndexDocs": 311,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 328,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "manage-notes",
+      "slowestSkillFolderMs": 28
+    },
+    "timestamp": "2026-10-17T22:45:06.405Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 25449,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 2,
+        "duration": 48,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 64,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 64,
+        "duration": 2389,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 2455,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 22290,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 22323,
+        "duration": 4,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 22327,
+        "duration": 2,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 22329,
+        "duration": 2,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 22331,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 22332,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 22332,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 22326,
+        "duration": 20,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 22346,
+        "duration": 948,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 22333,
+        "duration": 1185,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 23518,
+        "duration": 1758,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 22329,
+        "duration": 2947,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 25276,
+        "duration": 62,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 25338,
+        "duration": 39,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 25337,
+        "duration": 111,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 25448,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 25448,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 11804,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "explore-vault",
+      "slowestSkillFolderMs": 1604,
+      "obsidianPreLayoutMs": 19836,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 159,
+      "jsHeapLimitMB": 1965,
+      "lexicalIndexDocs": 311,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 328
+    },
+    "timestamp": "2026-10-17T23:01:36.792Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 9283,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 1,
+        "duration": 35,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 41,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 41,
+        "duration": 747,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 792,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 4946,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 4956,
+        "duration": 2,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 4958,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 4959,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 4960,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 4960,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 4960,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 4957,
+        "duration": 7,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 4964,
+        "duration": 126,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 4960,
+        "duration": 3894,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 8854,
+        "duration": 300,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 4959,
+        "duration": 4196,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 9155,
+        "duration": 7,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 9162,
+        "duration": 113,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 9162,
+        "duration": 120,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 9282,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 9282,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 10631,
+      "obsidianPreLayoutMs": 4154,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 202,
+      "jsHeapLimitMB": 1965,
+      "lexicalIndexDocs": 311,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 328,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "manage-skills",
+      "slowestSkillFolderMs": 39
+    },
+    "timestamp": "2026-10-18T02:05:38.204Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 6389,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 1,
+        "duration": 71,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 80,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 81,
+        "duration": 576,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 659,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 3394,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 3406,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 3407,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 3409,
+        "duration": 4,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 3412,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 3413,
+        "duration": 3,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 3417,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 3407,
+        "duration": 12,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 3419,
+        "duration": 139,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 3417,
+        "duration": 2311,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 5728,
+        "duration": 595,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 3408,
+        "duration": 2915,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 6323,
+        "duration": 8,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 6332,
+        "duration": 49,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 6332,
+        "duration": 57,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 6388,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 6388,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 7676,
+      "obsidianPreLayoutMs": 2735,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 159,
+      "jsHeapLimitMB": 1965,
+      "lexicalIndexDocs": 311,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 328,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "explore-vault",
+      "slowestSkillFolderMs": 337
+    },
+    "timestamp": "2026-10-18T02:15:52.742Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 7205,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 1,
+        "duration": 133,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 146,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 146,
+        "duration": 673,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 821,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 5402,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 5414,
+        "duration": 3,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 5417,
+        "duration": 4,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 5421,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 5422,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 5422,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 5422,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 5416,
+        "duration": 9,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 5425,
+        "duration": 227,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 5423,
+        "duration": 1539,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 6962,
+        "duration": 196,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 5421,
+        "duration": 1736,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 7157,
+        "duration": 6,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 7163,
+        "duration": 36,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 7163,
+        "duration": 42,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 7205,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 7205,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 8179,
+      "skillFolderCount": 11,
+      "obsidianPreLayoutMs": 4581,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 159,
+      "jsHeapLimitMB": 1965,
+      "lexicalIndexDocs": 311,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 328,
+      "slowestSkillFolder": "manage-skills",
+      "slowestSkillFolderMs": 25
+    },
+    "timestamp": "2026-10-18T02:29:56.850Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 9308,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 4,
+        "duration": 55,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 75,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 77,
+        "duration": 2235,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 2312,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 6320,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 6329,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 6330,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 6332,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 6332,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 6333,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 6333,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 6329,
+        "duration": 4,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 6333,
+        "duration": 130,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 6333,
+        "duration": 2151,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 8484,
+        "duration": 680,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 6331,
+        "duration": 2833,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 9164,
+        "duration": 13,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 9178,
+        "duration": 118,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 9178,
+        "duration": 131,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 9308,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 9308,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 16089,
+      "obsidianPreLayoutMs": 4008,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 169,
+      "jsHeapLimitMB": 1965,
+      "lexicalIndexDocs": 311,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 328,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "manage-skills",
+      "slowestSkillFolderMs": 77
+    },
+    "timestamp": "2026-10-18T03:11:32.229Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 6069,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 1,
+        "duration": 22,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 29,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 29,
+        "duration": 60,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 90,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 2510,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 2521,
+        "duration": 2,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 2523,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 2524,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 2525,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 2526,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 2526,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 2522,
+        "duration": 7,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 2529,
+        "duration": 227,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 2526,
+        "duration": 3260,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 5786,
+        "duration": 221,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 2524,
+        "duration": 3483,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 6007,
+        "duration": 5,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 6013,
+        "duration": 50,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 6013,
+        "duration": 56,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 6069,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 6069,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 23056,
+      "obsidianPreLayoutMs": 2420,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 169,
+      "jsHeapLimitMB": 1965,
+      "lexicalIndexDocs": 311,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 328,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "manage-skills",
+      "slowestSkillFolderMs": 27
+    },
+    "timestamp": "2026-10-18T14:05:08.286Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 6088,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 1,
+        "duration": 550,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 555,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 555,
+        "duration": 111,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 667,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 3573,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 3585,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 3586,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 3587,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 3588,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 3589,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 3589,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 3586,
+        "duration": 54,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 3639,
+        "duration": 267,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 3589,
+        "duration": 1892,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 5481,
+        "duration": 510,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 3587,
+        "duration": 2404,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 5991,
+        "duration": 14,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 6005,
+        "duration": 73,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 6005,
+        "duration": 83,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 6088,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 6088,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 7822,
+      "obsidianPreLayoutMs": 2906,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 169,
+      "jsHeapLimitMB": 1965,
+      "lexicalIndexDocs": 715,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 328,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "manage-skills",
+      "slowestSkillFolderMs": 57
+    },
+    "timestamp": "2026-10-18T15:01:19.172Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 8940,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 2,
+        "duration": 89,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 160,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 161,
+        "duration": 1182,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 1343,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 5505,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 5557,
+        "duration": 11,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 5568,
+        "duration": 6,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 5583,
+        "duration": 4,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 5587,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 5587,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 5588,
+        "duration": 6,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 5562,
+        "duration": 36,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 5597,
+        "duration": 639,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:open[openrouter:openai/text-embedding-3-small]",
+        "offset": 5574,
+        "duration": 1389,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 5593,
+        "duration": 3191,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 8784,
+        "duration": 100,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 5575,
+        "duration": 3309,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 8884,
+        "duration": 12,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 8897,
+        "duration": 30,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 8896,
+        "duration": 44,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 8940,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 8940,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 11261,
+      "skillFolderCount": 11,
+      "obsidianPreLayoutMs": 4161,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 142,
+      "jsHeapLimitMB": 1967,
+      "lexicalIndexDocs": 321,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 338,
+      "slowestSkillFolder": "web",
+      "slowestSkillFolderMs": 24
+    },
+    "timestamp": "2026-10-18T22:10:59.573Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 6004,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 1,
+        "duration": 34,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 38,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 38,
+        "duration": 1128,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 1166,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 3200,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 3212,
+        "duration": 5,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 3217,
+        "duration": 3,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 3221,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 3222,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 3223,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 3223,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 3215,
+        "duration": 9,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 3225,
+        "duration": 208,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 3224,
+        "duration": 2385,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 5609,
+        "duration": 326,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 3220,
+        "duration": 2715,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 5935,
+        "duration": 8,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 5943,
+        "duration": 54,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 5943,
+        "duration": 61,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 6004,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 6004,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 5160,
+      "obsidianPreLayoutMs": 2034,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 169,
+      "jsHeapLimitMB": 1965,
+      "lexicalIndexDocs": 311,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 336,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "manage-skills",
+      "slowestSkillFolderMs": 43
+    },
+    "timestamp": "2026-10-19T01:48:23.115Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 3105,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 1,
+        "duration": 19,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 24,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 24,
+        "duration": 421,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 446,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 1476,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 1486,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 1488,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 1489,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 1490,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 1490,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 1490,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 1487,
+        "duration": 7,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 1494,
+        "duration": 182,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 1490,
+        "duration": 983,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 2473,
+        "duration": 560,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 1489,
+        "duration": 1544,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 3033,
+        "duration": 6,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 3040,
+        "duration": 59,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 3040,
+        "duration": 65,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 3104,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 3104,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 4850,
+      "obsidianPreLayoutMs": 1030,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 169,
+      "jsHeapLimitMB": 1965,
+      "lexicalIndexDocs": 319,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 336,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "manage-notes",
+      "slowestSkillFolderMs": 30
+    },
+    "timestamp": "2026-10-19T01:54:54.267Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 4991,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 1,
+        "duration": 37,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 41,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 41,
+        "duration": 965,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 1007,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 2824,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 2832,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 2833,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 2834,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 2835,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 2836,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 2836,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 2833,
+        "duration": 7,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 2839,
+        "duration": 172,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 2836,
+        "duration": 1747,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 4583,
+        "duration": 302,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 2834,
+        "duration": 2051,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 4885,
+        "duration": 7,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 4892,
+        "duration": 89,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 4891,
+        "duration": 99,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 4991,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 4991,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 4915,
+      "obsidianPreLayoutMs": 1818,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 169,
+      "jsHeapLimitMB": 1965,
+      "lexicalIndexDocs": 321,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 338,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "manage-skills",
+      "slowestSkillFolderMs": 35
+    },
+    "timestamp": "2026-10-19T13:48:21.216Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 8655,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 2,
+        "duration": 970,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 996,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 997,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 1020,
+        "duration": 2,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 1023,
+        "duration": 9,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 1032,
+        "duration": 9,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 1050,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 1055,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 1060,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 1022,
+        "duration": 95,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 1116,
+        "duration": 882,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:open[openrouter:openai/text-embedding-3-small]",
+        "offset": 1032,
+        "duration": 1624,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 1036,
+        "duration": 2021,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 3101,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 1061,
+        "duration": 6622,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 7683,
+        "duration": 687,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 1032,
+        "duration": 7338,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 8370,
+        "duration": 144,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 8514,
+        "duration": 129,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 8514,
+        "duration": 141,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 8654,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 8654,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 17711,
+      "obsidianPreLayoutMs": 0,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 151,
+      "jsHeapLimitMB": 1967,
+      "lexicalIndexDocs": 319,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 1026,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "widgets",
+      "slowestSkillFolderMs": 167
+    },
+    "timestamp": "2026-10-19T17:27:13.343Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 7752,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 2,
+        "duration": 134,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 190,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 190,
+        "duration": 1384,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 1575,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 5221,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 5240,
+        "duration": 2,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 5243,
+        "duration": 8,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 5251,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 5251,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 5253,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 5253,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 5242,
+        "duration": 15,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 5256,
+        "duration": 473,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:open[openrouter:openai/text-embedding-3-small]",
+        "offset": 5250,
+        "duration": 541,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 5254,
+        "duration": 2307,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 7560,
+        "duration": 113,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 5250,
+        "duration": 2423,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 7673,
+        "duration": 36,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 7710,
+        "duration": 27,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 7709,
+        "duration": 42,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 7751,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 7751,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 9498,
+      "skillFolderCount": 11,
+      "obsidianPreLayoutMs": 3647,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 160,
+      "jsHeapLimitMB": 1967,
+      "lexicalIndexDocs": 1009,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 1026,
+      "slowestSkillFolder": "caveman",
+      "slowestSkillFolderMs": 15
+    },
+    "timestamp": "2026-10-19T17:33:11.783Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 5904,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 1,
+        "duration": 109,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 120,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 121,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 137,
+        "duration": 3,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 140,
+        "duration": 5,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 145,
+        "duration": 2,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 147,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 148,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 149,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 139,
+        "duration": 18,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 157,
+        "duration": 179,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 146,
+        "duration": 1408,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 1555,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 149,
+        "duration": 4719,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 4869,
+        "duration": 855,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 145,
+        "duration": 5578,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 5723,
+        "duration": 84,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 5807,
+        "duration": 90,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 5807,
+        "duration": 97,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 5904,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 5904,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 29453,
+      "obsidianPreLayoutMs": 0,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 98,
+      "jsHeapLimitMB": 1965,
+      "lexicalIndexDocs": 321,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 1026,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "quickadd",
+      "slowestSkillFolderMs": 438
+    },
+    "timestamp": "2026-10-19T19:49:59.413Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 8447,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 1,
+        "duration": 39,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 44,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 44,
+        "duration": 1152,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 1196,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 3087,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 3097,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 3098,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 3099,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 3099,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 3100,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 3100,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 3097,
+        "duration": 7,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 3104,
+        "duration": 147,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 3100,
+        "duration": 4804,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 7904,
+        "duration": 441,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 3099,
+        "duration": 5246,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 8344,
+        "duration": 5,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 8350,
+        "duration": 79,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 8349,
+        "duration": 97,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 8446,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 8446,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 5595,
+      "obsidianPreLayoutMs": 1891,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 98,
+      "jsHeapLimitMB": 1965,
+      "lexicalIndexDocs": 321,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 1026,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "bases",
+      "slowestSkillFolderMs": 112
+    },
+    "timestamp": "2026-10-19T19:51:53.993Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 18955,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 1,
+        "duration": 407,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 430,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 431,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 462,
+        "duration": 2,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 464,
+        "duration": 13,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 478,
+        "duration": 4,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 491,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 493,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 494,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 464,
+        "duration": 55,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 519,
+        "duration": 829,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:open[openrouter:openai/text-embedding-3-small]",
+        "offset": 477,
+        "duration": 1631,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 479,
+        "duration": 1988,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 2525,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 494,
+        "duration": 8210,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 8704,
+        "duration": 7723,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 477,
+        "duration": 15950,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 16428,
+        "duration": 454,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 16882,
+        "duration": 2038,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 16882,
+        "duration": 2073,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 18955,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 18955,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 33576,
+      "obsidianPreLayoutMs": 0,
+      "platform": "linux",
+      "enabledCommunityPlugins": 13,
+      "usedJSHeapMB": 177,
+      "jsHeapLimitMB": 1967,
+      "lexicalIndexDocs": 876,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 1043,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "bases",
+      "slowestSkillFolderMs": 3134
+    },
+    "timestamp": "2026-10-20T00:51:36.353Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 9816,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 2,
+        "duration": 240,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 261,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 262,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 289,
+        "duration": 5,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 294,
+        "duration": 20,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 314,
+        "duration": 4,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 319,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 321,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 321,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 291,
+        "duration": 92,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 384,
+        "duration": 4831,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:open[openrouter:openai/text-embedding-3-small]",
+        "offset": 313,
+        "duration": 7893,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 314,
+        "duration": 7917,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 8302,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 322,
+        "duration": 8573,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 8895,
+        "duration": 100,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 314,
+        "duration": 8681,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 8994,
+        "duration": 23,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 9018,
+        "duration": 12,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 9017,
+        "duration": 29,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 9047,
+        "duration": 767,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 9814,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 2266459,
+      "obsidianPreLayoutMs": 0,
+      "platform": "linux",
+      "enabledCommunityPlugins": 12,
+      "usedJSHeapMB": 237,
+      "jsHeapLimitMB": 1967,
+      "lexicalIndexDocs": 1026,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 1040,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "notebook-navigator",
+      "slowestSkillFolderMs": 23
+    },
+    "timestamp": "2026-10-20T01:28:39.821Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 34276,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 2,
+        "duration": 31,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 71,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 72,
+        "duration": 57,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 129,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 16048,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 16108,
+        "duration": 17,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 16124,
+        "duration": 26,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 16151,
+        "duration": 9,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 16159,
+        "duration": 5,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 16183,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 16183,
+        "duration": 11,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 16124,
+        "duration": 463,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 16587,
+        "duration": 1533,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:open[openrouter:openai/text-embedding-3-small]",
+        "offset": 16149,
+        "duration": 3190,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 16194,
+        "duration": 16937,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 33131,
+        "duration": 644,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 16150,
+        "duration": 17625,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 33775,
+        "duration": 14,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 33789,
+        "duration": 468,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 33789,
+        "duration": 486,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 34275,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 34275,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 17454,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "omnisearch",
+      "slowestSkillFolderMs": 505,
+      "obsidianPreLayoutMs": 15919,
+      "platform": "linux",
+      "enabledCommunityPlugins": 13,
+      "usedJSHeapMB": 153,
+      "jsHeapLimitMB": 1967,
+      "lexicalIndexDocs": 1023,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 1040
+    },
+    "timestamp": "2026-10-20T01:33:33.544Z"
+  },
+  {
+    "label": "S2B startup",
+    "totalMs": 17172,
+    "phases": [
+      {
+        "kind": "mark",
+        "name": "onload:start",
+        "offset": 0,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "data:load",
+        "offset": 1,
+        "duration": 30,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:registrations-done",
+        "offset": 48,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "span",
+        "name": "pendingChanges:load",
+        "offset": 49,
+        "duration": 24,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "onload:end",
+        "offset": 75,
+        "duration": 0,
+        "blocking": true
+      },
+      {
+        "kind": "mark",
+        "name": "layoutReady:start",
+        "offset": 11342,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:startInit",
+        "offset": 11366,
+        "duration": 3,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:startInit",
+        "offset": 11369,
+        "duration": 10,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate",
+        "offset": 11379,
+        "duration": 3,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-core",
+        "offset": 11382,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-skills",
+        "offset": 11386,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:migrate-manage-notes",
+        "offset": 11386,
+        "duration": 1,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:miniSearch.open",
+        "offset": 11368,
+        "duration": 318,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "lexical:loadFromStorage",
+        "offset": 11686,
+        "duration": 1053,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:open[openrouter:openai/text-embedding-3-small]",
+        "offset": 11379,
+        "duration": 1525,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:bootstrap",
+        "offset": 11387,
+        "duration": 5023,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:discover",
+        "offset": 16410,
+        "duration": 328,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "skills:init",
+        "offset": 11379,
+        "duration": 5358,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "promptFiles:init",
+        "offset": 16737,
+        "duration": 13,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:chatManager.load",
+        "offset": 16751,
+        "duration": 408,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "agent:init",
+        "offset": 16750,
+        "duration": 422,
+        "blocking": false
+      },
+      {
+        "kind": "span",
+        "name": "vectorstore:ready",
+        "offset": 17172,
+        "duration": 0,
+        "blocking": false
+      },
+      {
+        "kind": "mark",
+        "name": "deferred:end",
+        "offset": 17172,
+        "duration": 0,
+        "blocking": false
+      }
+    ],
+    "meta": {
+      "rendererToOnloadMs": 11135,
+      "obsidianPreLayoutMs": 11267,
+      "platform": "linux",
+      "enabledCommunityPlugins": 13,
+      "usedJSHeapMB": 160,
+      "jsHeapLimitMB": 1967,
+      "lexicalIndexDocs": 1023,
+      "lexicalIndexBytes": 0,
+      "lexicalIndexLoadedFromCache": true,
+      "vaultFileCount": 1040,
+      "skillFolderCount": 11,
+      "slowestSkillFolder": "manage-skills",
+      "slowestSkillFolderMs": 41
+    },
+    "timestamp": "2026-10-20T01:36:22.454Z"
+  }
+]

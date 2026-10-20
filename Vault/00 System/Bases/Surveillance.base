@@ -1,0 +1,21 @@
+filters:
+  and:
+    - type == "profile"
+    - or:
+        - status == "under-investigation"
+        - status == "unconfirmed"
+        - status == "new-lead"
+views:
+  - type: list
+    name: Needs Follow-up
+    order:
+      - file.name
+      - cpf
+      - faction
+      - status
+      - codename
+    sort:
+      - property: file.ctime
+        direction: DESC
+    limit: 20
+    separator: ":"

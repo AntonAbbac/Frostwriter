@@ -1,0 +1,82 @@
+{
+  "quickadd:choice:captures-group": [
+    {
+      "modifiers": [
+        "Mod",
+        "Alt"
+      ],
+      "key": "N"
+    }
+  ],
+  "word-smith:toggle-wordsmith": [
+    {
+      "modifiers": [
+        "Mod",
+        "Alt"
+      ],
+      "key": "Z"
+    }
+  ],
+  "obsidian-linter:lint-file": [
+    {
+      "modifiers": [
+        "Mod",
+        "Alt"
+      ],
+      "key": "L"
+    }
+  ],
+  "ltcheck-text": [
+    {
+      "modifiers": [
+        "Mod",
+        "Alt"
+      ],
+      "key": "G"
+    }
+  ],
+  "storyline:create-new-scene": [
+    {
+      "modifiers": [
+        "Mod",
+        "Alt"
+      ],
+      "key": "S"
+    }
+  ],
+  "storyline:open-navigator": [
+    {
+      "modifiers": [
+        "Mod",
+        "Alt"
+      ],
+      "key": "O"
+    }
+  ],
+  "editor:open-search-replace": [],
+  "quickadd:choice:bdfea699-b301-4bfb-bf1e-55b8775284c0": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "Q"
+    }
+  ],
+  "quickadd:choice:9ed4108d-d082-466e-b149-923078bfaab2": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "H"
+    }
+  ],
+  "omnisearch:show-modal": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "S"
+    }
+  ]
+}

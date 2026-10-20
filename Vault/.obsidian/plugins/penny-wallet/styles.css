@@ -1,0 +1,2782 @@
+:root {
+  /* Base type colors */
+  --pw-income-base: #5DCAA5;
+  --pw-expense-base: #EF9F27;
+  --pw-bank-base: #378ADD;
+  --pw-cash-base: #1D9E75;
+  --pw-credit-base: #D85A30;
+  --pw-transfer-base: #85B7EB;
+  --pw-payment-base: #AFA9EC;
+
+  /* Global brightness knobs */
+  --pw-dark-brighten: 0%;    /* mix base with white for dark theme */
+  --pw-light-darken: 5%;    /* mix base with black for light theme */
+
+  /* Type colors — default tuned for dark theme */
+  --pw-income: color-mix(in srgb, var(--pw-income-base), white var(--pw-dark-brighten));
+  --pw-expense: color-mix(in srgb, var(--pw-expense-base), white var(--pw-dark-brighten));
+  --pw-bank: color-mix(in srgb, var(--pw-bank-base), white var(--pw-dark-brighten));
+  --pw-cash: color-mix(in srgb, var(--pw-cash-base), white var(--pw-dark-brighten));
+  --pw-credit: color-mix(in srgb, var(--pw-credit-base), white var(--pw-dark-brighten));
+  --pw-transfer: color-mix(in srgb, var(--pw-transfer-base), white var(--pw-dark-brighten));
+  --pw-payment: color-mix(in srgb, var(--pw-payment-base), white var(--pw-dark-brighten));
+
+  /* Refund: lighter shade in income family */
+  --pw-refund: color-mix(in srgb, var(--pw-income) 65%, white 35%);
+
+  /* Type color tints (badge backgrounds) — semi-transparent so chip stays visible
+     regardless of row bg (default / hover / selected). Earlier color-mix with primary
+     produced a solid color identical to default row bg, making chips invisible. */
+  --pw-income-tint: color-mix(in srgb, var(--pw-income) 18%, transparent);
+  --pw-expense-tint: color-mix(in srgb, var(--pw-expense) 18%, transparent);
+  --pw-bank-tint: color-mix(in srgb, var(--pw-bank) 18%, transparent);
+  --pw-credit-tint: color-mix(in srgb, var(--pw-credit) 18%, transparent);
+  --pw-transfer-tint: color-mix(in srgb, var(--pw-transfer) 18%, transparent);
+  --pw-payment-tint: color-mix(in srgb, var(--pw-payment) 18%, transparent);
+
+  /* Stronger tints — used by filter pill active state to win contrast against
+   * sheet/header backgrounds. Original tints stay 16-22% for chip/badge use. */
+  --pw-income-tint-strong:   color-mix(in srgb, var(--pw-income)   30%, transparent);
+  --pw-expense-tint-strong:  color-mix(in srgb, var(--pw-expense)  30%, transparent);
+  --pw-bank-tint-strong:     color-mix(in srgb, var(--pw-bank)     30%, transparent);
+  --pw-credit-tint-strong:   color-mix(in srgb, var(--pw-credit)   30%, transparent);
+  --pw-transfer-tint-strong: color-mix(in srgb, var(--pw-transfer) 30%, transparent);
+  --pw-cash-tint-strong:     color-mix(in srgb, var(--pw-cash)     30%, transparent);
+
+  /* Card elevation */
+  --pw-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --pw-card-shadow-raised: 0 2px 8px rgba(0, 0, 0, 0.12);
+
+  /* UI component shadows */
+  --pw-shadow-dropdown: 0 4px 14px rgba(0, 0, 0, 0.15);
+  --pw-shadow-tooltip: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --pw-shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --pw-shadow-overlay-above: 0 -4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Vars that depend on Obsidian theme tokens (--interactive-accent, --text-normal)
+ * must live on body, not :root — those tokens are declared on body and unreachable
+ * from :root, which makes the var() reference invalid (declaration becomes empty). */
+body {
+  --pw-neutral-tint: color-mix(in srgb, var(--text-normal) 18%, transparent);
+  --pw-accent-tint-strong: color-mix(in srgb, var(--interactive-accent) 30%, transparent);
+}
+
+.theme-light {
+  /* Type colors */
+  --pw-income: color-mix(in srgb, var(--pw-income-base), black var(--pw-light-darken));
+  --pw-expense: color-mix(in srgb, var(--pw-expense-base), black var(--pw-light-darken));
+  --pw-bank: color-mix(in srgb, var(--pw-bank-base), black var(--pw-light-darken));
+  --pw-cash: color-mix(in srgb, var(--pw-cash-base), black var(--pw-light-darken));
+  --pw-credit: color-mix(in srgb, var(--pw-credit-base), black var(--pw-light-darken));
+  --pw-transfer: color-mix(in srgb, var(--pw-transfer-base), black var(--pw-light-darken));
+  --pw-payment: color-mix(in srgb, var(--pw-payment-base), black var(--pw-light-darken));
+
+  /* Type color tints (badge backgrounds) — semi-transparent (see :root note) */
+  --pw-income-tint: color-mix(in srgb, var(--pw-income) 22%, transparent);
+  --pw-expense-tint: color-mix(in srgb, var(--pw-expense) 22%, transparent);
+  --pw-bank-tint: color-mix(in srgb, var(--pw-bank) 22%, transparent);
+  --pw-credit-tint: color-mix(in srgb, var(--pw-credit) 22%, transparent);
+  --pw-transfer-tint: color-mix(in srgb, var(--pw-transfer) 22%, transparent);
+  --pw-payment-tint: color-mix(in srgb, var(--pw-payment) 22%, transparent);
+  --pw-neutral-tint: color-mix(in srgb, var(--text-normal) 22%, transparent);
+
+  /* Stronger tints — light theme override (32% vs dark 28%) */
+  --pw-income-tint-strong:   color-mix(in srgb, var(--pw-income)   60%, transparent);
+  --pw-expense-tint-strong:  color-mix(in srgb, var(--pw-expense)  60%, transparent);
+  --pw-bank-tint-strong:     color-mix(in srgb, var(--pw-bank)     60%, transparent);
+  --pw-credit-tint-strong:   color-mix(in srgb, var(--pw-credit)   60%, transparent);
+  --pw-transfer-tint-strong: color-mix(in srgb, var(--pw-transfer) 60%, transparent);
+  --pw-cash-tint-strong:     color-mix(in srgb, var(--pw-cash)     60%, transparent);
+  --pw-accent-tint-strong:   color-mix(in srgb, var(--interactive-accent) 60%, transparent);
+
+  /* Refund: mix ratio stays legible on light background */
+  --pw-refund: color-mix(in srgb, var(--pw-income) 80%, var(--background-primary) 20%);
+
+  /* Card elevation */
+  --pw-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --pw-card-shadow-raised: 0 2px 8px rgba(0, 0, 0, 0.16);
+
+  /* UI component shadows — softer for light theme */
+  --pw-shadow-dropdown: 0 4px 14px rgba(0, 0, 0, 0.08);
+  --pw-shadow-tooltip: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --pw-shadow-overlay: 0 4px 16px rgba(0, 0, 0, 0.20);
+  --pw-shadow-overlay-above: 0 -4px 16px rgba(0, 0, 0, 0.20);
+}
+
+/* ── PennyWallet Plugin Styles ── */
+
+/* Allow text selection in all PennyWallet views (Obsidian sets user-select: none on leaves) */
+.pw-dashboard,
+.pw-detail,
+.pw-asset {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* Prevent native long-press copy/callout on interactive elements */
+.pw-tx-row,
+.pw-chart-wrap,
+.pw-pie-wrap,
+.pw-pie-canvas-wrap,
+canvas {
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ── Modal ── */
+
+
+@media (pointer: coarse) {
+  /* TransactionModal: keep modal at top once user starts interacting.
+     Class added by JS on first focusin — stays until modal closes.
+     Avoids layout jumping when switching between keyboard/picker fields (select, date). */
+  .modal-container.pw-modal-keyboard-open {
+    align-items: flex-start;
+    padding-top: 20px;
+  }
+
+  .modal-container.pw-modal-keyboard-open .modal {
+    max-height: 55vh;
+    overflow-y: auto;
+  }
+
+}
+
+/* ── Mobile full-screen transaction modal ── */
+
+/* Tripled .pw-transaction-modal-container beats Obsidian's
+   body.is-phone .modal-container (0,2,1) and body.is-phone .modal-container .modal (0,3,1). */
+.pw-transaction-modal-container.pw-transaction-modal-container.pw-transaction-modal-container {
+  padding: 0;
+  align-items: stretch;
+}
+
+.pw-transaction-modal-container.pw-transaction-modal-container.pw-transaction-modal-container .modal {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  border-radius: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pw-transaction-modal-container .modal-close-button {
+  display: none;
+}
+
+/* Hidden native date input used to trigger the mobile date picker on tap */
+.pw-hidden-date-trigger {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+
+.pw-mobile-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Top bar — safe area handled via padding-top only; height is auto to avoid double-offset */
+.pw-mobile-top-bar {
+  display: flex;
+  align-items: center;
+  padding: calc(env(safe-area-inset-top, 0px) + 8px) 8px 6px;
+  min-height: 44px;
+  max-height: calc(56px + env(safe-area-inset-top, 0px));
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+/* Both side buttons are fixed width so the title stays centered */
+.pw-mobile-top-btn {
+  background: none;
+  border: none;
+  color: var(--text-normal);
+  font-size: 13px;
+  flex: 0 0 44px;
+  height: 44px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  box-shadow: none;
+  position: relative;
+}
+
+/* 32×32 visible hit zone centred inside the 44×44 touch area */
+.pw-mobile-top-btn::after {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: background 0.1s;
+}
+
+.pw-mobile-top-btn:active::after {
+  background: var(--background-modifier-hover);
+}
+
+.pw-mobile-top-confirm {
+  color: var(--interactive-accent);
+  font-weight: 600;
+}
+
+.pw-mobile-top-title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.pw-modal-title-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.pw-modal-title-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Type tabs */
+.pw-mobile-tabs {
+  display: flex;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+/* Doubled .pw-transaction-modal-container so .pw-mobile-tab beats Obsidian's
+   body.is-phone .modal-container button:hover (0,3,2) without !important. */
+.pw-transaction-modal-container.pw-transaction-modal-container .pw-mobile-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  padding: 14px 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pw-transaction-modal-container.pw-transaction-modal-container .pw-mobile-tab:hover,
+.pw-transaction-modal-container.pw-transaction-modal-container .pw-mobile-tab:active,
+.pw-transaction-modal-container.pw-transaction-modal-container .pw-mobile-tab:focus,
+.pw-transaction-modal-container.pw-transaction-modal-container .pw-mobile-tab:focus-visible {
+  background: none;
+  outline: none;
+  box-shadow: none;
+  color: var(--text-muted);
+}
+
+.pw-transaction-modal-container.pw-transaction-modal-container .pw-mobile-tab.is-active,
+.pw-transaction-modal-container.pw-transaction-modal-container .pw-mobile-tab.is-active:hover,
+.pw-transaction-modal-container.pw-transaction-modal-container .pw-mobile-tab.is-active:active,
+.pw-transaction-modal-container.pw-transaction-modal-container .pw-mobile-tab.is-active:focus,
+.pw-transaction-modal-container.pw-transaction-modal-container .pw-mobile-tab.is-active:focus-visible {
+  background: none;
+  outline: none;
+  box-shadow: none;
+  color: var(--interactive-accent);
+  font-weight: 600;
+}
+
+.pw-mobile-tab.is-active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background: var(--interactive-accent);
+  border-radius: 1px;
+}
+
+/* Amount display */
+.pw-mobile-amount-area {
+  padding: 10px 20px 8px;
+  text-align: center;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pw-mobile-amount-area:active {
+  background: var(--background-modifier-hover);
+}
+
+.pw-mobile-amount-display {
+  font-size: 48px;
+  font-weight: 500;
+  color: var(--text-normal);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 1px;
+  min-height: 44px;
+  line-height: 1.2;
+  transition: color 0.15s;
+}
+
+.pw-mobile-amount-display.is-empty {
+  color: var(--text-muted);
+}
+
+/* Error in mobile modal */
+.pw-mobile-error {
+  margin: 0;
+  border-radius: 0;
+  flex-shrink: 0;
+  font-size: 12px;
+  padding: 6px 16px;
+}
+
+/* Field rows */
+.pw-mobile-rows {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 16px;
+}
+
+.pw-mobile-row {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 48px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  position: relative;
+}
+
+.pw-mobile-refund-hint-row {
+  padding: 6px 20px 8px 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.pw-refund-block .pw-mobile-row {
+  padding-left: 0;
+  gap: 10px;
+}
+
+.pw-mobile-row-label {
+  font-size: 15px;
+  color: var(--text-muted);
+  flex: 0 0 auto;
+  min-width: 64px;
+  white-space: nowrap;
+}
+
+.pw-mobile-row-value {
+  flex: 1;
+  font-size: 16px;
+  color: var(--text-normal);
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pw-mobile-date-row {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pw-mobile-date-row::after {
+  content: '›';
+  flex: 0 0 24px;
+  margin-left: 6px;
+  color: var(--text-muted);
+  font-size: 22px;
+  line-height: 1;
+  text-align: right;
+}
+
+.pw-mobile-bottom-sheet-row {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pw-mobile-bottom-sheet-row:active {
+  background: var(--background-modifier-hover);
+}
+
+.pw-mobile-bottom-sheet-row::after {
+  content: '›';
+  flex: 0 0 24px;
+  margin-left: 6px;
+  color: var(--text-muted);
+  font-size: 22px;
+  line-height: 1;
+  text-align: right;
+}
+
+/* Invisible native picker overlay (date + select) */
+.pw-mobile-row-picker {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  font-size: 16px; /* prevent iOS auto-zoom */
+}
+
+/* Tripled .pw-transaction-modal-container to beat Obsidian's
+   body.is-phone .modal input[type=text] (0,3,2) attribute selector. */
+.pw-transaction-modal-container.pw-transaction-modal-container.pw-transaction-modal-container .pw-mobile-note-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  font-size: 16px;
+  color: var(--text-normal);
+  text-align: right;
+  outline: none;
+  padding: 0;
+  min-width: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: none;
+}
+
+.pw-mobile-note-input::placeholder {
+  color: var(--text-faint);
+}
+
+/* iOS WKWebView doesn't shrink viewport when keyboard rises; pad the scroll
+   container so scrollIntoView has room to lift the focused row above the keyboard.
+   --pw-keyboard-h is set by visualViewport listener (exact px); falls back to 60vh. */
+@media (pointer: coarse) {
+  .pw-mobile-content.pw-mobile-text-focus .pw-mobile-rows,
+  .pw-mobile-content.pw-bottom-sheet-active .pw-mobile-rows {
+    padding-bottom: var(--pw-keyboard-h, 60vh);
+  }
+}
+
+body.pw-bottom-sheet-lock {
+  overflow: hidden;
+}
+
+.pw-bottom-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(0, 0, 0, 0);
+  transition: background-color 200ms ease-out;
+}
+
+.pw-bottom-sheet-backdrop.is-leaf-context {
+  padding-bottom: 0;
+}
+
+.pw-bottom-sheet-backdrop.is-leaf-context .pw-bottom-sheet {
+  height: min(85vh, 760px);
+}
+
+.pw-bottom-sheet-backdrop.is-open {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.pw-bottom-sheet-backdrop.is-closing {
+  background: rgba(0, 0, 0, 0);
+}
+
+.pw-bottom-sheet {
+  width: calc(100% - 16px);
+  height: min(78vh, 640px);
+  display: flex;
+  flex-direction: column;
+  background: var(--background-primary);
+  border-radius: 12px 12px 0 0;
+  box-shadow: var(--pw-shadow-overlay-above);
+  transform: translateY(100%);
+  transition: transform 200ms ease-out;
+  margin: 0 8px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.pw-bottom-sheet-backdrop.is-open .pw-bottom-sheet {
+  transform: translateY(0);
+}
+
+.pw-bottom-sheet-backdrop.is-closing .pw-bottom-sheet {
+  transform: translateY(100%);
+}
+
+.pw-bottom-sheet-handle {
+  width: 36px;
+  height: 4px;
+  margin: 8px auto 4px;
+  border-radius: 2px;
+  background: var(--background-modifier-border);
+  flex-shrink: 0;
+}
+
+.pw-bottom-sheet-bar {
+  display: grid;
+  grid-template-columns: 64px 1fr 64px;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  flex-shrink: 0;
+}
+
+/* Doubled .pw-bottom-sheet prefix beats Obsidian's body.is-phone .modal-container button (0,3,2)
+   without !important. All sibling rules (--done, .is-selected, etc.) doubled for consistent cascade. */
+.pw-bottom-sheet.pw-bottom-sheet .pw-bottom-sheet-btn {
+  justify-self: start;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--interactive-accent);
+  font-size: 15px;
+  padding: 8px 0;
+}
+
+.pw-bottom-sheet-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-normal);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pw-bottom-sheet-spacer {
+  width: 64px;
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-bottom-sheet-search {
+  margin: 10px 14px 8px;
+  width: calc(100% - 28px);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+.pw-bottom-sheet-options {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-bottom-sheet-option {
+  width: 100%;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--text-normal);
+  font-size: 16px;
+  text-align: left;
+  padding: 0 20px;
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-bottom-sheet-option:active {
+  background: var(--background-modifier-hover);
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-bottom-sheet-option.is-selected {
+  color: var(--interactive-accent);
+  font-weight: 600;
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-bottom-sheet-option.is-selected::after {
+  content: '✓';
+  color: var(--interactive-accent);
+  font-size: 16px;
+}
+
+.pw-bottom-sheet-empty {
+  padding: 18px 20px 24px;
+  color: var(--text-muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ===== Tag Picker (Phase 3a) ===== */
+
+.pw-tag-picker {
+  display: flex;
+  flex-direction: column;
+  position: relative; /* anchor for .is-dimmed ::after overlay */
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-bottom-sheet-btn--done {
+  justify-self: end;
+  font-weight: 600;
+}
+
+.pw-tag-picker-chips {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 14px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: flex-start;
+}
+
+/* Chip appears in two contexts: bottom sheet picker + modal-side .pw-mobile-tag-chips.
+   Doubled prefix in both so chip styles beat Obsidian's modal button rules. */
+.pw-bottom-sheet.pw-bottom-sheet .pw-tag-picker-chip,
+.pw-mobile-tag-chips.pw-mobile-tag-chips .pw-tag-picker-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: color-mix(in srgb, var(--interactive-accent) 30%, var(--background-primary) 70%);
+  color: var(--text-normal);
+  border: none;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background-color 200ms ease-out, color 200ms ease-out, opacity 200ms ease-out;
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-tag-picker-chip.is-selected,
+.pw-mobile-tag-chips.pw-mobile-tag-chips .pw-tag-picker-chip.is-selected {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-tag-picker-chip.is-disabled,
+.pw-mobile-tag-chips.pw-mobile-tag-chips .pw-tag-picker-chip.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pw-tag-picker-empty {
+  width: 100%;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 24px 12px;
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-tag-picker-add-row {
+  width: 100%;
+  min-height: 48px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--background-modifier-border);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--interactive-accent);
+  font-size: 16px;
+  text-align: left;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-tag-picker-add-row:active {
+  background: var(--background-modifier-hover);
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-tag-picker-add-row.is-disabled {
+  color: var(--text-muted);
+  cursor: default;
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-tag-picker-add-row.is-disabled:active {
+  background: transparent;
+}
+
+/* Inline add button — sits between search and chip area, always visible
+   above the keyboard when it rises. */
+.pw-bottom-sheet.pw-bottom-sheet .pw-tag-picker-inline-add {
+  width: calc(100% - 28px);
+  margin: 4px 14px 0;
+  min-height: 40px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--background-modifier-border);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--interactive-accent);
+  font-size: 15px;
+  text-align: left;
+  padding: 0 6px;
+  flex-shrink: 0;
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-tag-picker-inline-add:active {
+  background: var(--background-modifier-hover);
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-tag-picker-inline-add.is-disabled {
+  color: var(--text-muted);
+  cursor: default;
+}
+
+.pw-bottom-sheet.pw-bottom-sheet .pw-tag-picker-inline-add.is-disabled:active {
+  background: transparent;
+}
+
+/* Modal-side mobile tag row — chips OR placeholder, whole row taps to open picker.
+   Uses .pw-tag-picker-chip.is-selected styling for visual consistency with picker. */
+.pw-mobile-tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  flex: 1;
+  min-height: 24px;
+  cursor: pointer;
+}
+
+.pw-mobile-tag-chip,
+.pw-tx-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  border: 1px solid color-mix(in srgb, var(--interactive-accent) 24%, var(--background-modifier-border) 76%);
+  background: color-mix(in srgb, var(--interactive-accent) 10%, transparent);
+  color: color-mix(in srgb, var(--interactive-accent) 68%, var(--text-muted) 32%);
+  white-space: nowrap;
+}
+
+.pw-mobile-tag-chip {
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.pw-mobile-tag-row-placeholder {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* Mobile delete row (edit mode only) — last row inside fields area */
+.pw-mobile-danger-zone {
+  margin-top: 24px;
+  padding-top: 8px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+button.pw-mobile-delete-row {
+  width: 100%;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--background-modifier-border);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--text-error);
+  font-size: 15px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button.pw-mobile-delete-row:hover,
+button.pw-mobile-delete-row:active {
+  background: rgba(var(--color-red-rgb), 0.08);
+}
+
+.pw-mobile-calculator-sheet {
+  --pw-mobile-calculator-bg: var(--interactive-normal);
+
+  height: auto;
+  min-height: 0;
+  background: var(--pw-mobile-calculator-bg);
+}
+
+.pw-mobile-calculator-sheet .pw-bottom-sheet-handle,
+.pw-mobile-calculator-sheet .pw-bottom-sheet-bar {
+  background: var(--pw-mobile-calculator-bg);
+}
+
+.pw-mobile-calculator-sheet .pw-bottom-sheet-bar {
+  min-height: 36px;
+  border-bottom: 0;
+}
+
+.pw-mobile-calculator-sheet .pw-bottom-sheet-title {
+  color: var(--text-muted);
+  font-size: 18px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: normal;
+  overflow: visible;
+}
+
+.pw-mobile-calculator-sheet .pw-bottom-sheet-title.is-empty {
+  color: transparent;
+}
+
+.pw-mobile-calculator-sheet .pw-bottom-sheet-title.is-warning {
+  color: var(--text-warning);
+}
+
+.pw-mobile-calculator-pad {
+  width: 100%;
+  background: var(--pw-mobile-calculator-bg);
+}
+
+.pw-mobile-calculator-error {
+  display: none;
+  min-height: 28px;
+  padding: 6px 16px;
+  color: var(--text-error);
+  font-size: 12px;
+  line-height: 16px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.pw-mobile-calculator-error.is-visible {
+  display: block;
+}
+
+.pw-mobile-calculator-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--pw-mobile-calculator-bg);
+}
+
+button.pw-mobile-calculator-btn {
+  height: 54px;
+  border: 0;
+  border-radius: 0;
+  background: var(--interactive-normal);
+  color: var(--text-normal);
+  font-size: 22px;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button.pw-mobile-calculator-operator,
+button.pw-mobile-calculator-clear {
+  color: var(--text-muted);
+}
+
+button.pw-mobile-calculator-equals {
+  font-weight: 600;
+}
+
+button.pw-mobile-calculator-done {
+  color: var(--interactive-accent);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Doubled .pw-transaction-modal-container beats Obsidian's body.is-phone .modal-container button:hover (0,3,2).
+   .is-pressed needs triple to beat the doubled hover rule above it. */
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-btn:hover,
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-btn:active,
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-btn:focus,
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-btn:focus-visible {
+  background: var(--interactive-normal);
+  color: var(--text-normal);
+  outline: none;
+  box-shadow: none;
+}
+
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-operator:hover,
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-operator:active,
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-operator:focus,
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-operator:focus-visible,
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-clear:hover,
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-clear:active,
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-clear:focus,
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-clear:focus-visible {
+  color: var(--text-muted);
+}
+
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-done:hover,
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-done:active,
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-done:focus,
+.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-done:focus-visible {
+  color: var(--interactive-accent);
+}
+
+.pw-transaction-modal-container.pw-transaction-modal-container.pw-transaction-modal-container button.pw-mobile-calculator-btn.is-pressed {
+  background: var(--background-modifier-hover);
+}
+
+.pw-modal h2 {
+  margin-bottom: 16px;
+  color: var(--text-normal);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pw-type-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.pw-type-tab {
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--background-modifier-border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s, color 0.15s;
+  outline: none;
+  box-shadow: none;
+}
+
+.pw-type-tab:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.pw-type-tab.is-active {
+  background: var(--background-secondary);
+  color: var(--text-normal);
+  border-color: var(--background-modifier-border-hover, var(--background-modifier-border));
+}
+
+.pw-type-tab.is-active:hover {
+  background: var(--background-secondary);
+}
+
+.pw-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.pw-field-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.pw-field-row:last-child {
+  border-bottom: none;
+}
+
+.pw-field-label {
+  min-width: 72px;
+  font-size: 13px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.pw-field-required {
+  color: var(--pw-expense);
+  margin-left: 2px;
+}
+
+.pw-field-input {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: 14px;
+  min-height: 32px;
+}
+
+.pw-field-input:focus {
+  outline: none;
+  border-color: var(--interactive-accent);
+}
+
+.pw-select-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.pw-select-wrapper::after {
+  content: '▾';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.pw-select-wrapper > select.pw-field-input {
+  width: 100%;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 28px;
+}
+
+.pw-select-wrapper > select.pw-field-input:hover {
+  background: var(--background-modifier-hover);
+}
+
+.pw-field-input[type="checkbox"] {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  min-height: unset;
+  padding: 0;
+  margin-left: auto;
+  margin-right: 0;
+  cursor: pointer;
+}
+
+
+.pw-refund-block {
+  margin-left: 24px;
+  padding: 8px 0 8px 12px;
+  border-left: 2px solid var(--background-modifier-border);
+}
+
+.pw-refund-row .pw-field-input[type="checkbox"] {
+  margin-left: 0;
+}
+
+.pw-amount-field-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pw-amount-field-wrapper input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+  outline: none;
+  min-height: unset;
+  color: inherit;
+  font-size: inherit;
+}
+
+.pw-tag-input-wrapper.pw-field-input,
+.pw-amount-field-wrapper.pw-field-input {
+  padding: 0 8px;
+}
+
+.pw-tag-input-wrapper input:focus,
+.pw-amount-field-wrapper input:focus {
+  box-shadow: none;
+}
+
+.pw-tag-input-wrapper:focus-within,
+.pw-amount-field-wrapper:focus-within {
+  border-color: var(--background-modifier-border-focus);
+  box-shadow: 0 0 0 var(--input-border-width-focus) var(--background-modifier-border-focus);
+}
+
+.pw-amount-prefix {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+  display: none;
+}
+
+.pw-amount-prefix.is-visible {
+  display: inline;
+}
+
+.pw-error {
+  color: var(--text-error);
+  font-size: 13px;
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: rgba(var(--color-red-rgb), 0.1);
+}
+
+.pw-btn-row {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.pw-btn-row button:not(.mod-cta) {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  box-shadow: none;
+}
+
+.pw-btn-row button:not(.mod-cta):hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+
+.pw-btn-row button.pw-btn-delete {
+  margin-right: auto;
+  color: var(--text-error);
+}
+
+.pw-btn-row button.pw-btn-delete:hover {
+  color: var(--text-error);
+  background: rgba(var(--color-red-rgb), 0.1);
+}
+
+/* ── Dashboard ── */
+.pw-dashboard {
+  padding-bottom: 40px;
+}
+
+/* Asset view */
+.pw-asset {
+  padding: 16px;
+}
+
+.pw-grid-2.pw-asset-grid {
+  grid-template-columns: 300px 1fr;
+  padding-top: 16px;
+}
+
+.pw-asset-left,
+.pw-asset-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pw-asset-right > .pw-card:last-child {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pw-asset-right > .pw-card:last-child > .pw-chart-wrap {
+  flex: 1;
+}
+
+/* Card header row — title + inline controls (e.g. range buttons) */
+.pw-card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.pw-card-header-row .pw-card-title {
+  margin-bottom: 0;
+}
+
+.pw-card-header-row .pw-range-row {
+  margin-bottom: 0;
+}
+
+/* Chart legend (rect + label, horizontal) */
+.pw-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.pw-view-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.pw-nav-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px 12px;
+  border-bottom: 0.5px solid var(--background-modifier-border);
+}
+
+.pw-month-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Navigation arrow buttons (month navigation) */
+.pw-nav-btn {
+  background: none;
+  border: 0.5px solid var(--background-modifier-border-hover);
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--text-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.1s;
+}
+
+.pw-nav-btn:hover {
+  background: var(--background-secondary);
+}
+
+.pw-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.pw-month-label {
+  font-size: 15px;
+  color: var(--text-normal);
+  min-width: 72px;
+  text-align: center;
+}
+
+.pw-nav-right {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+
+/* Action buttons (新增/趨勢/明細) */
+.pw-action-btn {
+  background: none;
+  border: 0.5px solid var(--background-modifier-border-hover);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text-normal);
+  transition: background 0.1s;
+}
+
+.pw-action-btn:hover {
+  background: var(--background-secondary);
+}
+
+.pw-ml-auto { margin-left: auto; }
+
+/* Shared header (overview / asset / detail) */
+.pw-shared-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px 12px;
+  border-bottom: 0.5px solid var(--background-modifier-border);
+}
+
+.pw-shared-header-month {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-self: start;
+  min-height: 28px;
+}
+
+.pw-shared-header-month.is-disabled .pw-month-label {
+  opacity: 0.4;
+}
+
+.pw-shared-header-tabs {
+  justify-self: center;
+  display: flex;
+  border: 0.5px solid var(--background-modifier-border-hover);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.pw-shared-header-tab {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 5px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: background 0.1s, color 0.1s;
+  box-shadow: none;
+}
+
+.pw-shared-header-tab + .pw-shared-header-tab {
+  border-left: 0.5px solid var(--background-modifier-border-hover);
+}
+
+.pw-shared-header-tab:hover:not(.is-active) {
+  background: var(--background-secondary);
+  color: var(--text-normal);
+}
+
+.pw-shared-header-tab.is-active {
+  background: color-mix(in srgb, var(--text-normal) 8%, var(--background-primary) 92%);
+  color: var(--text-normal);
+  font-weight: 500;
+  cursor: default;
+}
+
+.pw-shared-header-actions {
+  justify-self: end;
+}
+
+/* Wallet list */
+.pw-wallet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pw-asset-wallet-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.pw-asset-wallet-row:last-child {
+  border-bottom: none;
+}
+
+.pw-wallet-left { display: flex; align-items: center; gap: 8px; }
+
+.pw-wallet-badge { font-size: 11px; padding: 2px 7px; border-radius: 10px; font-weight: 500; flex-shrink: 0; white-space: nowrap; }
+.pw-badge-cash       { background: var(--pw-income-tint); color: var(--pw-cash); }
+.pw-badge-bank       { background: var(--pw-bank-tint); color: var(--pw-bank); }
+.pw-badge-creditCard { background: var(--pw-credit-tint); color: var(--pw-credit); }
+
+.pw-wallet-name {
+  color: var(--text-normal);
+  font-size: 14px;
+}
+
+.pw-wallet-balance {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.pw-wallet-balance.is-negative {
+  color: var(--pw-expense);
+}
+
+.pw-net-asset-row {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 2px solid var(--background-modifier-border);
+  border-bottom: none;
+}
+
+.pw-net-label {
+  font-weight: 600;
+}
+
+.pw-net-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--pw-income);
+}
+
+.pw-net-value.is-negative {
+  color: var(--pw-expense);
+}
+
+/* Charts */
+.pw-charts-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.pw-charts-row > .pw-card {
+  flex: 1 1 0;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+/* PC 2-column dashboard grid */
+.pw-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 12px;
+  padding: 0 20px 20px;
+}
+
+.pw-grid-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Bar chart card — flex so chart-wrap fills height */
+.pw-inc-exp-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pw-inc-exp-card .pw-chart-wrap {
+  flex: 1;
+  min-height: 200px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.pw-chart-wrap {
+  flex: 1;
+  min-width: 180px;
+  position: relative;
+}
+
+
+.pw-no-data {
+  color: var(--text-faint);
+  font-size: 13px;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.pw-pie-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.pw-pie-canvas-wrap {
+  flex-shrink: 0;
+  position: relative;
+}
+
+.pw-pie-legend {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  width: 100%;
+}
+
+.pw-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.pw-legend-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.pw-legend-amt {
+  color: var(--text-normal);
+  font-variant-numeric: tabular-nums;
+  margin-right: 8px;
+}
+
+.pw-legend-pct { color: var(--text-faint); }
+
+.pw-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pw-legend-text {
+  font-size: 12px;
+}
+
+.pw-pie-tooltip {
+  font-size: 12px;
+  color: var(--text-normal);
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+.pw-detail-btn {
+  display: block;
+  margin: 0 auto;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  color: var(--text-normal);
+}
+
+/* ── Detail View ── */
+.pw-detail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.pw-detail-header {
+  padding: 16px 16px 10px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.pw-detail-list-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 8px 16px;
+}
+
+.pw-type-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.pw-cat-dropdown {
+  position: relative;
+  margin-left: auto;
+}
+
+.pw-cat-toggle {
+  background: none;
+  border: 0.5px solid var(--background-modifier-border-hover);
+  border-radius: 99px;
+  padding: 4px 11px;
+  font-size: 11px;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: background 0.1s;
+  white-space: nowrap;
+}
+
+.pw-cat-toggle:hover {
+  background: var(--background-secondary);
+}
+
+.pw-cat-toggle.is-active {
+  background: color-mix(in srgb, var(--text-normal) 8%, var(--background-primary) 92%);
+  border-color: var(--text-normal);
+  font-weight: 500;
+}
+
+.pw-cat-panel {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 100;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  padding: 4px;
+  min-width: 140px;
+  box-shadow: var(--pw-shadow-dropdown);
+}
+
+.pw-cat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-normal);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pw-cat-item:hover {
+  background: var(--background-secondary);
+}
+
+.pw-cat-check {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--background-modifier-border-hover);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 9px;
+  color: white;
+}
+
+.pw-cat-check.is-checked {
+  background: var(--interactive-accent);
+  border-color: var(--interactive-accent);
+}
+
+/* Filter tabs (pill-shaped buttons for transaction type filtering)
+ * Color via modifier class .pw-pill-color-<key>:
+ *   sets --pw-pill-color (border + text active)
+ *   sets --pw-pill-tint  (background active)
+ * Base rule below reads both. */
+button.pw-pill {
+  background: transparent;
+  border: 0.5px solid var(--background-modifier-border-hover);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+}
+
+.pw-pill-sm {
+  padding: 3px 9px;
+  font-size: 10px;
+}
+
+/* Color modifiers — set the two vars consumed below.
+ * Active uses *-tint-strong (28-32%) for adequate contrast against sheet
+ * panels; chip/badge consumers stick with the regular *-tint (16-22%).
+ * Neutral pill uses --interactive-accent so dark/light themes both look
+ * coherent (raw --text-normal tint reads as white-fog in dark, black-fog
+ * in light — visually inconsistent). */
+.pw-pill-color-income    { --pw-pill-color: var(--pw-income);            --pw-pill-tint: var(--pw-income-tint-strong); }
+.pw-pill-color-expense   { --pw-pill-color: var(--pw-expense);           --pw-pill-tint: var(--pw-expense-tint-strong); }
+.pw-pill-color-transfer  { --pw-pill-color: var(--pw-transfer);          --pw-pill-tint: var(--pw-transfer-tint-strong); }
+.pw-pill-color-bank      { --pw-pill-color: var(--pw-bank);              --pw-pill-tint: var(--pw-bank-tint-strong); }
+.pw-pill-color-cash      { --pw-pill-color: var(--pw-cash);              --pw-pill-tint: var(--pw-cash-tint-strong); }
+.pw-pill-color-credit    { --pw-pill-color: var(--pw-credit);            --pw-pill-tint: var(--pw-credit-tint-strong); }
+.pw-pill-color-neutral   { --pw-pill-color: var(--interactive-accent);   --pw-pill-tint: var(--pw-accent-tint-strong); }
+
+/* Hover (only when not active) — 8% same-color tint as a pre-active hint */
+.pw-pill:hover:not(.is-active) {
+  background: color-mix(in srgb, var(--pw-pill-color, var(--text-normal)) 8%, transparent);
+}
+
+/* Active — tint background + same-color border + same-color text */
+.pw-pill.is-active {
+  background: var(--pw-pill-tint, var(--background-secondary));
+  border-color: var(--pw-pill-color, var(--text-normal));
+  color: var(--pw-pill-color, var(--text-normal));
+}
+
+/* iOS sticky :active fix — prevent Obsidian global button styles from overriding */
+.pw-pill:active:not(.is-active) {
+  background: color-mix(in srgb, var(--pw-pill-color, var(--text-normal)) 8%, transparent);
+  color: var(--text-muted);
+}
+
+.pw-pill.is-active:active {
+  background: var(--pw-pill-tint, var(--background-secondary));
+  border-color: var(--pw-pill-color, var(--text-normal));
+  color: var(--pw-pill-color, var(--text-normal));
+}
+
+.pw-detail-search-row .pw-search-input {
+  flex: 1;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+.pw-detail-search-row .pw-search-input:focus {
+  outline: none;
+  border-color: var(--interactive-accent);
+}
+
+/* Detail account dropdown — sibling of pw-cat-dropdown, no auto margin */
+.pw-account-dropdown {
+  position: relative;
+}
+
+/* Detail date range row — two inputs separated by ─, clear btn right-aligned */
+.pw-detail-date-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.pw-date-sep {
+  flex: 0 0 auto;
+  color: var(--text-muted);
+  font-size: 14px;
+  user-select: none;
+}
+
+.pw-detail-date-row .pw-clear-btn {
+  margin-left: auto;
+}
+
+/* Mobile filter sheet override: inputs stretch to fill sheet */
+.pw-filter-sheet-body .pw-detail-date-row .pw-date-input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Mobile narrow fallback (desktop window <=380px): stack vertically */
+@media (max-width: 380px) {
+  .pw-detail-date-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pw-detail-date-row .pw-date-sep {
+    display: none;
+  }
+  .pw-detail-date-row .pw-clear-btn {
+    margin-left: 0;
+  }
+}
+
+.pw-date-label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.pw-date-input {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 0.5px solid var(--background-modifier-border-hover);
+  background: var(--background-primary);
+  color: var(--text-normal);
+}
+
+/* Detail search row (search + mobile filter btn) */
+.pw-detail-search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pw-detail-search-row:not(:first-child) {
+  margin-top: 8px;
+}
+
+.pw-filter-btn {
+  background: none;
+  border: 0.5px solid var(--background-modifier-border-hover);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--text-normal);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pw-filter-btn:hover {
+  background: var(--background-secondary);
+}
+
+.pw-filter-btn.is-active {
+  background: color-mix(in srgb, var(--text-normal) 8%, var(--background-primary) 92%);
+  border-color: var(--text-normal);
+  font-weight: 500;
+}
+
+/* Whole filter sheet (header + body) shares grey panel */
+.pw-bottom-sheet.pw-filter-sheet {
+  background: var(--background-secondary);
+}
+
+/* Filter bottom sheet body */
+.pw-filter-sheet-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Date inputs inside filter sheet body — match desktop input style */
+.pw-filter-sheet-body .pw-date-input {
+  background: var(--background-modifier-form-field);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--background-modifier-border);
+  font-size: 13px;
+}
+
+.pw-filter-section {
+  margin-bottom: 16px;
+}
+
+.pw-filter-section:last-child {
+  margin-bottom: 0;
+}
+
+.pw-filter-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.pw-pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pw-filter-clear-all {
+  width: 100%;
+  text-align: center;
+  padding: 10px 12px;
+  margin-top: 72px;
+  font-size: 14px;
+  color: var(--text-error);
+}
+
+.pw-tx-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pw-tx-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 6px;
+  border-radius: 4px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.pw-tx-row:hover {
+  background: var(--background-modifier-hover);
+}
+
+.pw-tx-row-stack {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pw-tx-row-line3 {
+  display: flex;
+  gap: 4px;
+  align-items: baseline;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pw-tx-date {
+  color: var(--text-normal);
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+  min-width: 48px;
+}
+
+.pw-type-badge {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.pw-type-expense  { background: var(--pw-expense-tint); color: var(--pw-expense); }
+.pw-type-income   { background: var(--pw-income-tint);  color: var(--pw-income); }
+.pw-type-transfer { background: var(--pw-transfer-tint); color: var(--pw-transfer); }
+.pw-type-payment  { background: var(--pw-payment-tint); color: var(--pw-payment); }
+
+.pw-tx-category {
+  font-weight: 500;
+  color: var(--text-normal);
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pw-tx-note {
+  color: var(--text-muted);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pw-tx-empty {
+  color: var(--text-faint);
+  font-size: 12px;
+}
+
+.pw-tx-wallet {
+  color: var(--text-muted);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pw-tx-amount {
+  margin-left: auto;
+  text-align: right;
+  font-weight: 600;
+  font-size: 16px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.pw-tx-amount.is-income  { color: var(--pw-income); }
+.pw-tx-amount.is-expense { color: var(--pw-expense); }
+.pw-tx-amount.is-refund  { color: var(--pw-refund); }
+
+.pw-subtotal-row {
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-top: 1px solid var(--background-modifier-border);
+  font-size: 13px;
+}
+
+@media (pointer: coarse) {
+  .pw-subtotal-row {
+    padding-bottom: calc(8px + var(--mobile-toolbar-height, 48px) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .pw-detail.pw-keyboard-open .pw-subtotal-row {
+    display: none;
+  }
+
+  /* When keyboard is open, constrain list to visible area above keyboard.
+     --pw-keyboard-h is set by visualViewport listener (JS also sets pw-keyboard-open). */
+  .pw-detail.pw-keyboard-open .pw-detail-list-wrap {
+    flex: none;
+    max-height: 35vh;
+  }
+}
+
+.pw-subtotal-income  { color: var(--pw-income); font-weight: 600; }
+.pw-subtotal-expense { color: var(--pw-expense); font-weight: 600; }
+
+/* Card container for charts */
+.pw-card {
+  background: var(--background-secondary);
+  border: 0.5px solid var(--background-modifier-border);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--pw-card-shadow);
+}
+
+.pw-card--raised {
+  box-shadow: var(--pw-card-shadow-raised);
+}
+
+.pw-card-title {
+  font-size: 16px;
+  color: var(--text-muted);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Chart legend */
+.pw-leg-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.pw-leg {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.pw-leg-rect {
+  width: 9px;
+  height: 7px;
+  border-radius: 2px;
+}
+
+.pw-leg-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+/* Metrics (summary cards at bottom) */
+.pw-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: 10px;
+  padding: 16px 20px;
+  margin-bottom: 0;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pw-asset .pw-metrics {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pw-metric {
+  background: var(--background-secondary);
+  border-radius: 10px;
+  padding: 0.875rem 1rem;
+}
+
+.pw-metric--hero {
+  border-left: 4px solid currentColor;
+  padding-left: calc(1rem - 4px);
+}
+.pw-metric--hero.income,
+.pw-metric--hero.positive { color: var(--pw-income); }
+.pw-metric--hero.expense,
+.pw-metric--hero.negative { color: var(--pw-expense); }
+
+.pw-metric-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+  letter-spacing: 0.03em;
+}
+
+.pw-metric-value {
+  font-size: 28px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.pw-metric-value.income   { color: var(--pw-income); }
+.pw-metric-value.expense  { color: var(--pw-expense); }
+.pw-metric-value.positive { color: var(--pw-income); }
+.pw-metric-value.negative { color: var(--pw-expense); }
+
+.pw-range-row {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 16px;
+}
+
+/* Range selection tabs (3個月 / 6個月 / 12個月) */
+.pw-range-btn {
+  background: none;
+  border: 0.5px solid var(--background-modifier-border-hover);
+  border-radius: 6px;
+  padding: 4px 13px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: background 0.1s, color 0.1s;
+}
+
+.pw-range-btn:hover:not(.is-active) {
+  background: var(--background-secondary);
+}
+
+.pw-range-btn.is-active {
+  background: var(--text-normal);
+  color: var(--background-primary);
+  border-color: var(--text-normal);
+}
+
+/* Chart tooltip */
+.pw-tooltip {
+  position: absolute;
+  background: var(--background-primary);
+  border: 0.5px solid var(--background-modifier-border-hover);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 11px;
+  color: var(--text-normal);
+  pointer-events: none;
+  z-index: 10;
+  white-space: nowrap;
+  box-shadow: var(--pw-shadow-tooltip);
+}
+
+.pw-tt-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.pw-tt-month {
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+/* ── Settings ── */
+
+/* Grouped settings rows (replaces per-item cards) */
+.pw-settings-group {
+  background: var(--background-secondary);
+  border: 0.5px solid var(--background-modifier-border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 4px 0 16px;
+}
+
+.pw-settings-group .setting-item {
+  border-top: none;
+  border-bottom: 1px solid var(--background-modifier-border);
+  border-radius: 0;
+  margin: 0;
+  padding: 10px 14px;
+}
+
+.pw-settings-group .setting-item:last-child {
+  border-bottom: none;
+}
+
+/* Wallet list rows */
+.pw-wallet-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.pw-wallet-row:last-child {
+  border-bottom: none;
+}
+
+.pw-wallet-row-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.pw-wallet-row-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-normal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.pw-wallet-row-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.pw-wallet-type-badge {
+  flex-shrink: 0;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: var(--background-modifier-hover);
+  border: 1px solid var(--background-modifier-border);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.pw-wallet-row-balance {
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 4px;
+}
+
+.pw-wallet-row-balance.is-debt {
+  color: var(--text-error);
+}
+
+.pw-drag-handle {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 6px;
+  color: var(--text-faint);
+  cursor: grab;
+  padding: 0 2px;
+}
+
+.pw-drag-handle:active {
+  cursor: grabbing;
+}
+
+.pw-wallet-row.pw-dragging {
+  opacity: 0.4;
+}
+
+.pw-wallet-row.pw-drag-over {
+  outline: 2px solid var(--interactive-accent);
+  outline-offset: -2px;
+  border-radius: 6px;
+}
+
+.pw-drag-ghost {
+  opacity: 0.4;
+}
+
+.pw-wallet-row-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.pw-wallet-row-actions button {
+  box-shadow: 0 0 0 1px var(--background-modifier-border-hover);
+  border-radius: var(--button-radius, 4px);
+}
+
+.pw-add-wallet-card,
+.pw-category-card {
+  background: var(--setting-items-background);
+  margin-left: 0;
+  margin-top: 8px;
+  padding: 0.875rem 1rem 1rem 0.875rem;
+}
+
+.pw-add-wallet-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.pw-add-wallet-field {
+  min-width: 0;
+}
+
+.pw-add-wallet-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 36px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+select.pw-add-wallet-input {
+  appearance: auto;
+  padding-right: 28px;
+}
+
+.pw-add-wallet-input:focus {
+  outline: none;
+  border-color: var(--interactive-accent);
+  box-shadow: 0 0 0 1px var(--interactive-accent-hover);
+}
+
+.pw-balance-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 10px 0 0;
+}
+
+.pw-wallet-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pw-wallet-edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pw-wallet-edit-label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.pw-wallet-edit-form .pw-field-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 36px;
+  padding: 7px 10px;
+}
+
+.pw-wallet-edit-hint {
+  margin-top: -2px;
+}
+
+.pw-add-wallet-submit {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 0 0;
+}
+
+.pw-setting-input-subtitle {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+
+.pw-category-divider {
+  border: none;
+  border-top: 1px solid var(--background-modifier-border);
+  margin: 14px 0;
+}
+
+.pw-category-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.pw-category-tag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px 3px 12px;
+  border-radius: 16px;
+  background: var(--background-modifier-hover);
+  border: 1px solid var(--background-modifier-border);
+  font-size: 13px;
+}
+
+.pw-tag-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--background-modifier-border);
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.pw-tag-remove:hover {
+  background: var(--text-error);
+  color: #ffffff;
+}
+
+.pw-category-add-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.pw-category-input {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: 14px;
+}
+
+.pw-settings-empty {
+  color: var(--text-faint);
+  font-size: 13px;
+}
+
+/* ── Mobile responsiveness ── */
+@media (max-width: 480px) {
+  .pw-add-wallet-submit {
+    justify-content: stretch;
+  }
+
+  .pw-add-wallet-submit button {
+    width: 100%;
+  }
+
+  .pw-charts-row {
+    flex-direction: column;
+  }
+
+  .pw-grid-2 {
+    grid-template-columns: 1fr;
+    padding: 0 12px 20px;
+  }
+
+
+  .pw-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 12px;
+  }
+
+  .pw-nav-row {
+    flex-wrap: wrap;
+    padding: 10px 12px;
+  }
+
+  .pw-nav-right {
+    flex-wrap: nowrap;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .pw-nav-right .pw-action-btn {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    padding: 4px 6px;
+  }
+
+  .pw-shared-header {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "month actions"
+      "tabs  tabs";
+    row-gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .pw-shared-header-month { grid-area: month; }
+  .pw-shared-header-actions { grid-area: actions; }
+
+  .pw-shared-header-tabs {
+    grid-area: tabs;
+    justify-self: stretch;
+  }
+
+  .pw-shared-header-tabs .pw-shared-header-tab {
+    flex: 1;
+    text-align: center;
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+}
+
+/* ── Asset view: mobile overrides ── */
+.is-mobile .pw-grid-2.pw-asset-grid {
+  grid-template-columns: 1fr;
+  padding-top: 0;
+}
+
+.is-mobile .pw-asset-right > .pw-card:last-child {
+  flex: none;
+}
+
+/* ── Tag chips in transaction rows ── */
+.pw-tx-tags {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.pw-tx-tag-chip {
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 999px;
+}
+
+/* ── Tag input in modals ── */
+.pw-tag-input-wrapper {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+
+.pw-tag-dropdown {
+  position: fixed;
+  z-index: 9999;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  box-shadow: var(--pw-shadow-overlay);
+  max-height: 320px; /* desktop: ~10 items before scroll */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile: keyboard open, dropdown shows above input */
+.pw-tag-dropdown--above {
+  max-height: 152px; /* ~4 items */
+  box-shadow: var(--pw-shadow-overlay-above);
+}
+
+.pw-tag-dropdown-item {
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-normal);
+  border-radius: 4px;
+}
+
+.pw-tag-dropdown-item:hover {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.pw-tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.pw-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  color: var(--text-muted);
+}
+
+.pw-tag-chip-remove {
+  cursor: pointer;
+  color: var(--text-faint);
+  font-size: 13px;
+  line-height: 1;
+  padding: 8px;
+  margin: -8px -4px -8px 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+.pw-tag-chip-remove:hover {
+  color: var(--text-normal);
+}
+
+/* Tripled .pw-tag-input-wrapper to beat Obsidian's body.is-phone .modal input[type=text] (0,3,2). */
+.pw-tag-input-wrapper.pw-tag-input-wrapper.pw-tag-input-wrapper .pw-tag-input {
+  flex: 1;
+  min-width: 80px;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  outline: none;
+  font-size: 13px;
+  color: var(--text-normal);
+  padding: 0;
+}
+
+/* ── ValidationModal ── */
+
+.pw-validation-modal {
+  padding: 0;
+}
+
+/* Header: [X] [title] [spacer] — 三欄，title 置中 */
+.pw-validation-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  height: 44px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  flex-shrink: 0;
+}
+
+.pw-validation-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: var(--background-secondary);
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.pw-validation-close-btn:hover {
+  background: var(--background-modifier-hover);
+}
+
+.pw-validation-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-normal);
+  margin: 0;
+  text-align: center;
+  flex: 1;
+}
+
+.pw-validation-header-spacer {
+  width: 32px;
+  flex-shrink: 0;
+}
+
+/* Content area */
+.pw-validation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* Section */
+.pw-validation-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pw-validation-section-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Issue card */
+.pw-validation-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.pw-validation-card-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Footer row for frontmatter cards (fix button, right-aligned) */
+.pw-validation-card-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Actions row for orphan cards (remap select + fix button) */
+.pw-validation-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pw-validation-remap-select {
+  flex: 1;
+  font-size: 12px;
+}
+
+.pw-validation-fix-btn {
+  flex-shrink: 0;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.pw-validation-fix-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Divider */
+.pw-validation-divider {
+  height: 1px;
+  background: var(--background-modifier-border);
+  flex-shrink: 0;
+}
+
+/* Footer: full-width fix-all button */
+.pw-validation-footer {
+  padding: 16px;
+  flex-shrink: 0;
+}
+
+.pw-validation-fix-all-btn {
+  width: 100%;
+  padding: 12px 0;
+  border-radius: 10px;
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pw-validation-fix-all-btn:hover {
+  background: var(--interactive-accent-hover);
+}
+
+/* ── A11y: keyboard focus rings ── */
+.pw-action-btn:focus-visible,
+.pw-nav-btn:focus-visible,
+.pw-pill:focus-visible,
+.pw-range-btn:focus-visible,
+.pw-cat-toggle:focus-visible {
+  outline: 2px solid var(--interactive-accent);
+  outline-offset: 2px;
+}

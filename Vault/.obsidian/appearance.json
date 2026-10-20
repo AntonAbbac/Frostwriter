@@ -1,0 +1,10 @@
+{
+  "cssTheme": "unsent-letters",
+  "enabledCssSnippets": [
+    "multi-column"
+  ],
+  "theme": "",
+  "floatingNavigation": true,
+  "slidingSidebar": false,
+  "accentColor": ""
+}

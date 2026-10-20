@@ -1,0 +1,18 @@
+filters:
+  and:
+    - or:
+        - status == "inbox"
+        - status == "raw"
+        - status == "draft"
+views:
+  - type: list
+    name: Needs Processing
+    order:
+      - file.name
+      - type
+      - status
+    sort:
+      - property: file.ctime
+        direction: DESC
+    limit: 20
+    separator: ":"

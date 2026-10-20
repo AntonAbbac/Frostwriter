@@ -1,0 +1,2802 @@
+/* @settings
+
+name: Unsent Letters — Frozen Typewriter
+id: unsent-letters
+settings:
+
+  - id: ul2-g-colors
+    title: "Colors"
+    type: heading
+    level: 1
+    collapsed: false
+
+  - id: ul2-g-surfaces
+    title: "Surfaces"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-base-bg
+    title: "Base background"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#faf3ea'
+    default-dark: '#0d1821'
+
+  - id: ul2-bg-1
+    title: "Surface 1 (alt panels, modals, search)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#f6ecdf'
+    default-dark: '#111e2b'
+
+  - id: ul2-bg-2
+    title: "Surface 2 (sidebars)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#f2e3d3'
+    default-dark: '#162435'
+
+  - id: ul2-bg-3
+    title: "Surface 3 (controls)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#ecd7c4'
+    default-dark: '#1c2d40'
+
+  - id: ul2-bg-4
+    title: "Surface 4 (controls hover)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#e3c6b0'
+    default-dark: '#243448'
+
+  - id: ul2-g-brand
+    title: "Accent & frost"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-accent-color
+    title: "Accent color"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#a01d52'
+    default-dark: '#a8d8f0'
+
+  - id: ul2-frost-color
+    title: "Frost tint"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#7d5512'
+    default-dark: '#c8e8ff'
+
+  - id: ul2-accent-rgb
+    title: "Accent (RGB, for translucent UI)"
+    type: variable-themed-color
+    format: rgb-values
+    default-light: '#d63d76'
+    default-dark: '#a8d8f0'
+
+  - id: ul2-text-on-accent
+    title: "Text on accent"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#faf3ea'
+    default-dark: '#0d1821'
+
+  - id: ul2-selection-bg
+    title: "Text selection background"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#a01d5247'
+    default-dark: '#a8d8f047'
+
+  - id: ul2-caret-color
+    title: "Caret color"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#a01d52'
+    default-dark: '#c8e8ff'
+
+  - id: ul2-g-text
+    title: "Text"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-text-normal
+    title: "Body text color"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#2a1a22'
+    default-dark: '#ddeeff'
+
+  - id: ul2-text-muted
+    title: "Muted text"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#3a262ead'
+    default-dark: '#b4d2ebad'
+
+  - id: ul2-text-faint
+    title: "Faint text"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#5a414b80'
+    default-dark: '#8cafcd80'
+
+  - id: ul2-bold-color
+    title: "Bold text"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#2a1a22fa'
+    default-dark: '#dcf2fffa'
+
+  - id: ul2-italic-color
+    title: "Italic text"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#3c2630e6'
+    default-dark: '#c4e4fce6'
+
+  - id: ul2-highlight-bg
+    title: "Highlight (==mark==) background"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#d63d7629'
+    default-dark: '#a8d8f02e'
+
+  - id: ul2-g-links
+    title: "Links & tags"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-link-color
+    title: "Link color"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#a01d52'
+    default-dark: '#a8d8f0'
+
+  - id: ul2-link-hover
+    title: "Link hover color"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#7d5512'
+    default-dark: '#c8e8ff'
+
+  - id: ul2-link-external
+    title: "External link color"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#a3283fd9'
+    default-dark: '#bae4ffe0'
+
+  - id: ul2-link-unresolved
+    title: "Unresolved link color"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#5a414b8c'
+    default-dark: '#8cafd28c'
+
+  - id: ul2-tag-color
+    title: "Tag color"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#a01d52'
+    default-dark: '#a8d8f0'
+
+  - id: ul2-g-lines
+    title: "Borders & rules"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-border-faint
+    title: "Border (faint)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#b8862f38'
+    default-dark: '#64a0d22e'
+
+  - id: ul2-border-soft
+    title: "Border (soft)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#b8862f61'
+    default-dark: '#78b4e652'
+
+  - id: ul2-border-glow
+    title: "Border (focus glow)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#d63d768c'
+    default-dark: '#a8d8f080'
+
+  - id: ul2-ice-faint
+    title: "Hover wash (faint)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#d63d760f'
+    default-dark: '#a8d8f00f'
+
+  - id: ul2-ice-soft
+    title: "Hover wash (soft)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#d63d7621'
+    default-dark: '#a8d8f024'
+
+  - id: ul2-ice-medium
+    title: "Link underline color"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#d63d7642'
+    default-dark: '#a8d8f047'
+
+  - id: ul2-hr-color
+    title: "Horizontal rule color"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#d63d7642'
+    default-dark: '#a8d8f047'
+
+  - id: ul2-quote-border
+    title: "Blockquote bar color"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#a01d52'
+    default-dark: '#a8d8f0'
+
+  - id: ul2-g-status
+    title: "Callout & status colors"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-aurora-teal
+    title: "Teal (tip, example)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#1f8a6f'
+    default-dark: '#7de8d8'
+
+  - id: ul2-aurora-violet
+    title: "Violet (abstract, question)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#7a4fa0'
+    default-dark: '#b8a0f0'
+
+  - id: ul2-aurora-amber
+    title: "Amber (warning)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#b8862f'
+    default-dark: '#f0d87a'
+
+  - id: ul2-danger
+    title: "Danger / error"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#a3283f'
+    default-dark: '#f08080'
+
+  - id: ul2-success
+    title: "Success"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#3d7a4f'
+    default-dark: '#80e8c0'
+
+  - id: ul2-g-writingcolors
+    title: "Writing aids"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-dialogue-color
+    title: "Dialogue highlight color"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#f0d87a'
+    default-dark: '#f0d87a'
+
+  - id: ul2-comment-color
+    title: "Draft comment color"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#7de8d8'
+    default-dark: '#7de8d8'
+
+  - id: ul2-g-headingcolors
+    title: "Heading colors"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-h1-color
+    title: "H1"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#2a1a22'
+    default-dark: '#dcf4ff'
+
+  - id: ul2-h2-color
+    title: "H2"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#a3283ff0'
+    default-dark: '#c8e8fcf5'
+
+  - id: ul2-h3-color
+    title: "H3"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#b8862ff2'
+    default-dark: '#b9daf5e6'
+
+  - id: ul2-h4-color
+    title: "H4"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#5a414bd9'
+    default-dark: '#a8d2f0d1'
+
+  - id: ul2-h5-color
+    title: "H5"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#5a414bbf'
+    default-dark: '#9bc6e6bf'
+
+  - id: ul2-h6-color
+    title: "H6"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#5a414ba6'
+    default-dark: '#8cb9daad'
+
+  - id: ul2-g-codecolors
+    title: "Code colors"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-code-normal
+    title: "Code text"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#2a1a22e0'
+    default-dark: '#dcf0ffe0'
+
+  - id: ul2-code-background
+    title: "Code background"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#b8862f14'
+    default-dark: '#a8d8f014'
+
+  - id: ul2-code-comment
+    title: "Code comment"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#5a414b8c'
+    default-dark: '#8cafcd8c'
+
+  - id: ul2-code-tag
+    title: "Code tag"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#1f8a6f'
+    default-dark: '#7de8d8'
+
+  - id: ul2-code-string
+    title: "Code string"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#3d7a4fd1'
+    default-dark: '#c8ebc8d1'
+
+  - id: ul2-code-keyword
+    title: "Code keyword"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#7a4fa0'
+    default-dark: '#b8a0f0'
+
+  - id: ul2-code-function
+    title: "Code function"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#a3283fd9'
+    default-dark: '#a0d2ffe6'
+
+  - id: ul2-code-operator
+    title: "Code operator"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#b8862f'
+    default-dark: '#f0d87a'
+
+  - id: ul2-code-number
+    title: "Code number"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#b8862f'
+    default-dark: '#f0d87a'
+
+  - id: ul2-code-property
+    title: "Code property"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#d63d76bf'
+    default-dark: '#a8d8f0cc'
+
+  - id: ul2-g-shadows
+    title: "Shadows & scrollbar"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-shadow-s-color
+    title: "Shadow (small)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#5a322824'
+    default-dark: '#0a142399'
+
+  - id: ul2-shadow-m-color
+    title: "Shadow (medium)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#5a32282e'
+    default-dark: '#0a1423b2'
+
+  - id: ul2-shadow-l-color
+    title: "Shadow (large)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#5a32283d'
+    default-dark: '#0a1423d9'
+
+  - id: ul2-modal-shadow-color
+    title: "Modal shadow"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#2a1a22cc'
+    default-dark: '#ddeeffcc'
+
+  - id: ul2-prompt-shadow-color
+    title: "Quick switcher shadow"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#2a1a22b2'
+    default-dark: '#ddeeffb2'
+
+  - id: ul2-scrollbar-thumb
+    title: "Scrollbar thumb"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#7d551233'
+    default-dark: '#c8e8ff33'
+
+  - id: ul2-scrollbar-thumb-hover
+    title: "Scrollbar thumb (hover)"
+    type: variable-themed-color
+    format: hex
+    opacity: true
+    default-light: '#a01d5266'
+    default-dark: '#a8d8f066'
+
+  - id: ul2-g-typo
+    title: "Typography"
+    type: heading
+    level: 1
+    collapsed: true
+
+  - id: ul2-g-fonts
+    title: "Fonts"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-prose-font
+    title: "Prose font (manuscript body)"
+    type: variable-text
+    default: "'Literata', 'Charter', 'Georgia', 'Iowan Old Style', serif"
+
+  - id: ul2-typewriter-font
+    title: "Monospace font (code, tables)"
+    type: variable-text
+    default: "'Courier New', 'IBM Plex Mono', Consolas, monospace"
+
+  - id: ul2-ui-font
+    title: "UI font"
+    type: variable-text
+    default: "-apple-system, 'Segoe UI', system-ui, sans-serif"
+
+  - id: ul2-heading-font
+    title: "Heading font"
+    type: variable-text
+    default: "'Courier New', Consolas, monospace"
+
+  - id: ul2-g-body
+    title: "Body text"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-font-size
+    title: "Font size"
+    type: variable-number-slider
+    default: 16
+    min: 13
+    max: 24
+    step: 1
+    format: "px"
+
+  - id: ul2-line-height
+    title: "Line height"
+    type: variable-number-slider
+    default: 1.85
+    min: 1.4
+    max: 2.6
+    step: 0.05
+
+  - id: ul2-letter-spacing
+    title: "Letter spacing (body)"
+    type: variable-number-slider
+    default: 0.005
+    min: 0
+    max: 0.12
+    step: 0.005
+    format: "em"
+
+  - id: ul2-prose-weight
+    title: "Body font weight"
+    type: variable-number-slider
+    default: 400
+    min: 300
+    max: 700
+    step: 100
+
+  - id: ul2-bold-weight
+    title: "Bold font weight"
+    type: variable-number-slider
+    default: 600
+    min: 400
+    max: 900
+    step: 100
+
+  - id: ul2-paragraph-spacing
+    title: "Paragraph spacing"
+    type: variable-number-slider
+    default: 0.9
+    min: 0
+    max: 2.5
+    step: 0.05
+    format: "em"
+
+  - id: ul2-text-align
+    title: "Text alignment"
+    type: variable-select
+    default: "start"
+    options:
+      - label: "Default"
+        value: "start"
+      - label: "Justify"
+        value: "justify"
+      - label: "Center"
+        value: "center"
+      - label: "End"
+        value: "end"
+
+  - id: ul2-hyphens
+    title: "Hyphenation"
+    type: variable-select
+    default: "manual"
+    options:
+      - label: "Manual"
+        value: "manual"
+      - label: "Automatic"
+        value: "auto"
+      - label: "None"
+        value: "none"
+
+  - id: ul2-code-size
+    title: "Inline code size"
+    type: variable-number-slider
+    default: 0.9
+    min: 0.6
+    max: 1.3
+    step: 0.05
+    format: "em"
+
+  - id: ul2-g-uitext
+    title: "Interface text"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-ui-letter-spacing
+    title: "Interface letter spacing"
+    type: variable-number-slider
+    default: 0.01
+    min: 0
+    max: 0.1
+    step: 0.005
+    format: "em"
+
+  - id: ul2-ui-small
+    title: "UI text size (small)"
+    type: variable-number-slider
+    default: 12
+    min: 9
+    max: 16
+    step: 1
+    format: "px"
+
+  - id: ul2-ui-smaller
+    title: "UI text size (smaller)"
+    type: variable-number-slider
+    default: 11
+    min: 8
+    max: 14
+    step: 1
+    format: "px"
+
+  - id: ul2-ui-medium
+    title: "UI text size (medium)"
+    type: variable-number-slider
+    default: 13
+    min: 10
+    max: 18
+    step: 1
+    format: "px"
+
+  - id: ul2-g-headings
+    title: "Headings"
+    type: heading
+    level: 1
+    collapsed: true
+
+  - id: ul2-h1-size
+    title: "H1 size"
+    type: variable-number-slider
+    default: 1.8
+    min: 0.6
+    max: 3
+    step: 0.05
+    format: "em"
+
+  - id: ul2-h2-size
+    title: "H2 size"
+    type: variable-number-slider
+    default: 1.45
+    min: 0.6
+    max: 3
+    step: 0.05
+    format: "em"
+
+  - id: ul2-h3-size
+    title: "H3 size"
+    type: variable-number-slider
+    default: 1.2
+    min: 0.6
+    max: 3
+    step: 0.05
+    format: "em"
+
+  - id: ul2-h4-size
+    title: "H4 size"
+    type: variable-number-slider
+    default: 1.05
+    min: 0.6
+    max: 3
+    step: 0.05
+    format: "em"
+
+  - id: ul2-h5-size
+    title: "H5 size"
+    type: variable-number-slider
+    default: 0.95
+    min: 0.6
+    max: 3
+    step: 0.05
+    format: "em"
+
+  - id: ul2-h6-size
+    title: "H6 size"
+    type: variable-number-slider
+    default: 0.88
+    min: 0.6
+    max: 3
+    step: 0.05
+    format: "em"
+
+  - id: ul2-h1-weight
+    title: "H1 weight"
+    type: variable-number-slider
+    default: 700
+    min: 300
+    max: 900
+    step: 100
+
+  - id: ul2-h2-weight
+    title: "H2 weight"
+    type: variable-number-slider
+    default: 600
+    min: 300
+    max: 900
+    step: 100
+
+  - id: ul2-h3-weight
+    title: "H3 weight"
+    type: variable-number-slider
+    default: 600
+    min: 300
+    max: 900
+    step: 100
+
+  - id: ul2-h4-weight
+    title: "H4 weight"
+    type: variable-number-slider
+    default: 600
+    min: 300
+    max: 900
+    step: 100
+
+  - id: ul2-h5-weight
+    title: "H5 weight"
+    type: variable-number-slider
+    default: 600
+    min: 300
+    max: 900
+    step: 100
+
+  - id: ul2-h6-weight
+    title: "H6 weight"
+    type: variable-number-slider
+    default: 600
+    min: 300
+    max: 900
+    step: 100
+
+  - id: ul2-h1-spacing
+    title: "H1 letter spacing"
+    type: variable-number-slider
+    default: 0.04
+    min: 0
+    max: 0.2
+    step: 0.005
+    format: "em"
+
+  - id: ul2-h2-spacing
+    title: "H2 letter spacing"
+    type: variable-number-slider
+    default: 0.03
+    min: 0
+    max: 0.2
+    step: 0.005
+    format: "em"
+
+  - id: ul2-h3-spacing
+    title: "H3 letter spacing"
+    type: variable-number-slider
+    default: 0.025
+    min: 0
+    max: 0.2
+    step: 0.005
+    format: "em"
+
+  - id: ul2-heading-transform
+    title: "Heading text transform"
+    type: variable-select
+    default: "none"
+    options:
+      - label: "None"
+        value: "none"
+      - label: "Uppercase"
+        value: "uppercase"
+      - label: "Lowercase"
+        value: "lowercase"
+      - label: "Capitalize"
+        value: "capitalize"
+
+  - id: ul2-h6-style
+    title: "H6 font style"
+    type: variable-select
+    default: "italic"
+    options:
+      - label: "Italic"
+        value: "italic"
+      - label: "Normal"
+        value: "normal"
+
+  - id: ul2-h1-rule-width
+    title: "H1 underline thickness"
+    type: variable-number-slider
+    default: 1
+    min: 0
+    max: 4
+    step: 0.5
+    format: "px"
+
+  - id: ul2-h1-pad
+    title: "H1 space above underline"
+    type: variable-number-slider
+    default: 0.35
+    min: 0
+    max: 1.5
+    step: 0.05
+    format: "em"
+
+  - id: ul2-h1-gap
+    title: "H1 space below underline"
+    type: variable-number-slider
+    default: 0.6
+    min: 0
+    max: 2
+    step: 0.05
+    format: "em"
+
+  - id: ul2-inline-title-size
+    title: "Note title size"
+    type: variable-number-slider
+    default: 2
+    min: 1
+    max: 4
+    step: 0.1
+    format: "em"
+
+  - id: ul2-inline-title-spacing
+    title: "Note title letter spacing"
+    type: variable-number-slider
+    default: 0.04
+    min: 0
+    max: 0.2
+    step: 0.005
+    format: "em"
+
+  - id: ul2-g-layout
+    title: "Layout & motion"
+    type: heading
+    level: 1
+    collapsed: true
+
+  - id: ul2-max-width
+    title: "Content max width"
+    type: variable-number-slider
+    default: 760
+    min: 480
+    max: 1400
+    step: 20
+    format: "px"
+
+  - id: ul2-content-padding
+    title: "Content side padding"
+    type: variable-number-slider
+    default: 1.5
+    min: 0
+    max: 4
+    step: 0.25
+    format: "em"
+
+  - id: ul2-zen-narrowing
+    title: "Zen mode width reduction"
+    type: variable-number-slider
+    default: 40
+    min: 0
+    max: 200
+    step: 10
+    format: "px"
+
+  - id: ul2-border-radius
+    title: "Border radius"
+    type: variable-number-slider
+    default: 6
+    min: 0
+    max: 20
+    step: 2
+    format: "px"
+
+  - id: ul2-radius-sm
+    title: "Border radius (small)"
+    type: variable-number-slider
+    default: 4
+    min: 0
+    max: 12
+    step: 1
+    format: "px"
+
+  - id: ul2-radius-xs
+    title: "Border radius (extra small)"
+    type: variable-number-slider
+    default: 3
+    min: 0
+    max: 8
+    step: 1
+    format: "px"
+
+  - id: ul2-scrollbar-width
+    title: "Scrollbar width"
+    type: variable-number-slider
+    default: 6
+    min: 2
+    max: 16
+    step: 1
+    format: "px"
+
+  - id: ul2-transition-speed
+    title: "Transition speed"
+    type: variable-number-slider
+    default: 140
+    min: 0
+    max: 500
+    step: 20
+    format: "ms"
+
+  - id: ul2-ease-settle
+    title: "Transition easing"
+    type: variable-select
+    default: "cubic-bezier(0.34, 1.56, 0.64, 1)"
+    options:
+      - label: "Bounce"
+        value: "cubic-bezier(0.34, 1.56, 0.64, 1)"
+      - label: "Ease"
+        value: "ease"
+      - label: "Ease out"
+        value: "ease-out"
+      - label: "Linear"
+        value: "linear"
+
+  - id: ul2-g-writing
+    title: "Writing aids"
+    type: heading
+    level: 1
+    collapsed: true
+
+  - id: ul2-focus-dim-opacity
+    title: "Focus mode: inactive line opacity"
+    type: variable-number-slider
+    default: 0.72
+    min: 0.2
+    max: 1
+    step: 0.02
+
+  - id: ul2-focus-blur
+    title: "Focus mode: inactive line blur"
+    type: variable-number-slider
+    default: 0.6
+    min: 0
+    max: 2.5
+    step: 0.1
+    format: "px"
+
+  - id: ul2-typewriter-padding
+    title: "Typewriter scroll padding"
+    type: variable-number-slider
+    default: 40
+    min: 0
+    max: 50
+    step: 2
+    format: "vh"
+
+  - id: ul2-zen-typewriter-padding
+    title: "Typewriter scroll padding (zen)"
+    type: variable-number-slider
+    default: 38
+    min: 0
+    max: 50
+    step: 2
+    format: "vh"
+
+  - id: ul2-cursor-width
+    title: "Cursor width"
+    type: variable-number-slider
+    default: 2.5
+    min: 1
+    max: 6
+    step: 0.5
+    format: "px"
+
+  - id: ul2-cursor-speed
+    title: "Cursor breathing period"
+    type: variable-number-slider
+    default: 1.6
+    min: 0.4
+    max: 4
+    step: 0.2
+    format: "s"
+
+  - id: ul2-cursor-min-opacity
+    title: "Cursor minimum opacity"
+    type: variable-number-slider
+    default: 0.25
+    min: 0
+    max: 1
+    step: 0.05
+
+  - id: ul2-grain-opacity
+    title: "Paper grain opacity"
+    type: variable-number-slider
+    default: 0.025
+    min: 0
+    max: 0.15
+    step: 0.005
+
+  - id: ul2-grain-blend
+    title: "Paper grain blend mode"
+    type: variable-select
+    default: "overlay"
+    options:
+      - label: "Overlay"
+        value: "overlay"
+      - label: "Soft light"
+        value: "soft-light"
+      - label: "Multiply"
+        value: "multiply"
+      - label: "Screen"
+        value: "screen"
+      - label: "Normal"
+        value: "normal"
+
+  - id: ul2-comment-style
+    title: "Draft comment font style"
+    type: variable-select
+    default: "italic"
+    options:
+      - label: "Italic"
+        value: "italic"
+      - label: "Normal"
+        value: "normal"
+
+  - id: ul2-g-content
+    title: "Content elements"
+    type: heading
+    level: 1
+    collapsed: true
+
+  - id: ul2-g-c-links
+    title: "Links"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-link-border-width
+    title: "Link underline thickness"
+    type: variable-number-slider
+    default: 1
+    min: 0
+    max: 3
+    step: 0.5
+    format: "px"
+
+  - id: ul2-link-border-style
+    title: "Link underline style"
+    type: variable-select
+    default: "solid"
+    options:
+      - label: "Solid"
+        value: "solid"
+      - label: "Dashed"
+        value: "dashed"
+      - label: "Dotted"
+        value: "dotted"
+      - label: "Double"
+        value: "double"
+
+  - id: ul2-link-style
+    title: "Link style"
+    type: class-select
+    allowEmpty: false
+    default: "ul2-links-border"
+    options:
+      - label: "Border underline"
+        value: "ul2-links-border"
+      - label: "No underline"
+        value: "ul2-links-plain"
+      - label: "Text underline"
+        value: "ul2-links-underline"
+
+  - id: ul2-g-c-quote
+    title: "Blockquotes & rules"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-quote-border-width
+    title: "Blockquote bar width"
+    type: variable-number-slider
+    default: 3
+    min: 0
+    max: 10
+    step: 1
+    format: "px"
+
+  - id: ul2-quote-bg-strength
+    title: "Blockquote background strength"
+    type: variable-number-slider
+    default: 5
+    min: 0
+    max: 30
+    step: 1
+    format: "%"
+
+  - id: ul2-quote-pad-y
+    title: "Blockquote vertical padding"
+    type: variable-number-slider
+    default: 0.75
+    min: 0
+    max: 3
+    step: 0.05
+    format: "em"
+
+  - id: ul2-quote-pad-x
+    title: "Blockquote horizontal padding"
+    type: variable-number-slider
+    default: 1.2
+    min: 0
+    max: 4
+    step: 0.1
+    format: "em"
+
+  - id: ul2-quote-style
+    title: "Blockquote font style"
+    type: variable-select
+    default: "italic"
+    options:
+      - label: "Italic"
+        value: "italic"
+      - label: "Normal"
+        value: "normal"
+
+  - id: ul2-hr-height
+    title: "Horizontal rule thickness"
+    type: variable-number-slider
+    default: 1
+    min: 0
+    max: 6
+    step: 1
+    format: "px"
+
+  - id: ul2-hr-margin
+    title: "Horizontal rule spacing"
+    type: variable-number-slider
+    default: 2
+    min: 0
+    max: 5
+    step: 0.25
+    format: "em"
+
+  - id: ul2-g-c-code
+    title: "Code"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-code-bg-strength
+    title: "Inline code background strength"
+    type: variable-number-slider
+    default: 10
+    min: 0
+    max: 40
+    step: 1
+    format: "%"
+
+  - id: ul2-g-c-callouts
+    title: "Callouts"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-callout-style
+    title: "Callout style"
+    type: class-select
+    allowEmpty: false
+    default: "ul2-callout-box"
+    options:
+      - label: "Tinted box"
+        value: "ul2-callout-box"
+      - label: "Left bar"
+        value: "ul2-callout-bar"
+      - label: "Outline"
+        value: "ul2-callout-outline"
+
+  - id: ul2-callout-bg-strength
+    title: "Callout background strength"
+    type: variable-number-slider
+    default: 7
+    min: 0
+    max: 40
+    step: 1
+    format: "%"
+
+  - id: ul2-callout-border-strength
+    title: "Callout border strength"
+    type: variable-number-slider
+    default: 28
+    min: 0
+    max: 100
+    step: 2
+    format: "%"
+
+  - id: ul2-callout-border-width
+    title: "Callout border width"
+    type: variable-number-slider
+    default: 1
+    min: 0
+    max: 4
+    step: 0.5
+    format: "px"
+
+  - id: ul2-callout-bar-width
+    title: "Callout bar width (left bar style)"
+    type: variable-number-slider
+    default: 3
+    min: 1
+    max: 10
+    step: 1
+    format: "px"
+
+  - id: ul2-callout-padding-y
+    title: "Callout vertical padding"
+    type: variable-number-slider
+    default: 1
+    min: 0
+    max: 3
+    step: 0.1
+    format: "em"
+
+  - id: ul2-callout-padding-x
+    title: "Callout horizontal padding"
+    type: variable-number-slider
+    default: 1.2
+    min: 0
+    max: 4
+    step: 0.1
+    format: "em"
+
+  - id: ul2-callout-margin
+    title: "Callout vertical margin"
+    type: variable-number-slider
+    default: 1
+    min: 0
+    max: 3
+    step: 0.1
+    format: "em"
+
+  - id: ul2-callout-title-size
+    title: "Callout title size"
+    type: variable-number-slider
+    default: 0.88
+    min: 0.6
+    max: 1.5
+    step: 0.02
+    format: "em"
+
+  - id: ul2-callout-title-spacing
+    title: "Callout title letter spacing"
+    type: variable-number-slider
+    default: 0.06
+    min: 0
+    max: 0.2
+    step: 0.005
+    format: "em"
+
+  - id: ul2-callout-title-transform
+    title: "Callout title transform"
+    type: variable-select
+    default: "uppercase"
+    options:
+      - label: "Uppercase"
+        value: "uppercase"
+      - label: "None"
+        value: "none"
+      - label: "Capitalize"
+        value: "capitalize"
+
+  - id: ul2-g-c-tags
+    title: "Tags"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-tag-size
+    title: "Tag size"
+    type: variable-number-slider
+    default: 0.8
+    min: 0.6
+    max: 1.4
+    step: 0.05
+    format: "em"
+
+  - id: ul2-tag-pad-x
+    title: "Tag horizontal padding"
+    type: variable-number-slider
+    default: 0.55
+    min: 0
+    max: 2
+    step: 0.05
+    format: "em"
+
+  - id: ul2-tag-spacing
+    title: "Tag letter spacing"
+    type: variable-number-slider
+    default: 0.04
+    min: 0
+    max: 0.2
+    step: 0.005
+    format: "em"
+
+  - id: ul2-tag-bg-strength
+    title: "Tag background strength"
+    type: variable-number-slider
+    default: 10
+    min: 0
+    max: 40
+    step: 1
+    format: "%"
+
+  - id: ul2-tag-border-strength
+    title: "Tag border strength"
+    type: variable-number-slider
+    default: 28
+    min: 0
+    max: 100
+    step: 2
+    format: "%"
+
+  - id: ul2-g-c-tables
+    title: "Tables"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-th-size
+    title: "Table header size"
+    type: variable-number-slider
+    default: 0.82
+    min: 0.6
+    max: 1.4
+    step: 0.02
+    format: "em"
+
+  - id: ul2-th-spacing
+    title: "Table header letter spacing"
+    type: variable-number-slider
+    default: 0.06
+    min: 0
+    max: 0.2
+    step: 0.005
+    format: "em"
+
+  - id: ul2-th-transform
+    title: "Table header transform"
+    type: variable-select
+    default: "uppercase"
+    options:
+      - label: "Uppercase"
+        value: "uppercase"
+      - label: "None"
+        value: "none"
+      - label: "Capitalize"
+        value: "capitalize"
+
+  - id: ul2-th-bg-strength
+    title: "Table header background strength"
+    type: variable-number-slider
+    default: 10
+    min: 0
+    max: 40
+    step: 1
+    format: "%"
+
+  - id: ul2-th-pad-y
+    title: "Table header vertical padding"
+    type: variable-number-slider
+    default: 0.6
+    min: 0
+    max: 2
+    step: 0.05
+    format: "em"
+
+  - id: ul2-cell-pad-y
+    title: "Table cell vertical padding"
+    type: variable-number-slider
+    default: 0.55
+    min: 0
+    max: 2
+    step: 0.05
+    format: "em"
+
+  - id: ul2-cell-pad-x
+    title: "Table cell horizontal padding"
+    type: variable-number-slider
+    default: 1
+    min: 0
+    max: 3
+    step: 0.1
+    format: "em"
+
+  - id: ul2-table-hover-strength
+    title: "Table row hover strength"
+    type: variable-number-slider
+    default: 5
+    min: 0
+    max: 30
+    step: 1
+    format: "%"
+
+  - id: ul2-g-c-tasks
+    title: "Tasks"
+    type: heading
+    level: 2
+    collapsed: true
+
+  - id: ul2-checkbox-border-width
+    title: "Checkbox border width"
+    type: variable-number-slider
+    default: 1.5
+    min: 0
+    max: 3
+    step: 0.5
+    format: "px"
+
+  - id: ul2-checkbox-bg-strength
+    title: "Checkbox background strength"
+    type: variable-number-slider
+    default: 5
+    min: 0
+    max: 30
+    step: 1
+    format: "%"
+
+  - id: ul2-task-done-decoration
+    title: "Completed task decoration"
+    type: variable-select
+    default: "line-through"
+    options:
+      - label: "Strikethrough"
+        value: "line-through"
+      - label: "None"
+        value: "none"
+
+  - id: ul2-g-ui
+    title: "Interface"
+    type: heading
+    level: 1
+    collapsed: true
+
+  - id: ul2-panel-tint
+    title: "Panel tint strength"
+    type: variable-number-slider
+    default: 4
+    min: 0
+    max: 20
+    step: 1
+    format: "%"
+
+  - id: ul2-frame-strength
+    title: "Editor frame strength"
+    type: variable-number-slider
+    default: 8
+    min: 0
+    max: 40
+    step: 1
+    format: "%"
+
+  - id: ul2-tab-size
+    title: "Tab font size"
+    type: variable-number-slider
+    default: 12
+    min: 9
+    max: 16
+    step: 1
+    format: "px"
+
+  - id: ul2-tab-spacing
+    title: "Tab letter spacing"
+    type: variable-number-slider
+    default: 0.04
+    min: 0
+    max: 0.2
+    step: 0.005
+    format: "em"
+
+  - id: ul2-tab-transform
+    title: "Tab text transform"
+    type: variable-select
+    default: "uppercase"
+    options:
+      - label: "Uppercase"
+        value: "uppercase"
+      - label: "None"
+        value: "none"
+      - label: "Capitalize"
+        value: "capitalize"
+
+  - id: ul2-tab-active-strength
+    title: "Active tab background strength"
+    type: variable-number-slider
+    default: 12
+    min: 0
+    max: 40
+    step: 1
+    format: "%"
+
+  - id: ul2-nav-size
+    title: "File explorer font size"
+    type: variable-number-slider
+    default: 13
+    min: 10
+    max: 18
+    step: 1
+    format: "px"
+
+  - id: ul2-nav-pad-y
+    title: "File explorer vertical padding"
+    type: variable-number-slider
+    default: 2
+    min: 0
+    max: 8
+    step: 1
+    format: "px"
+
+  - id: ul2-nav-pad-x
+    title: "File explorer horizontal padding"
+    type: variable-number-slider
+    default: 8
+    min: 0
+    max: 20
+    step: 1
+    format: "px"
+
+  - id: ul2-nav-active-strength
+    title: "File explorer active strength"
+    type: variable-number-slider
+    default: 16
+    min: 0
+    max: 50
+    step: 1
+    format: "%"
+
+  - id: ul2-status-size
+    title: "Status bar font size"
+    type: variable-number-slider
+    default: 11
+    min: 9
+    max: 15
+    step: 1
+    format: "px"
+
+  - id: ul2-status-spacing
+    title: "Status bar letter spacing"
+    type: variable-number-slider
+    default: 0.03
+    min: 0
+    max: 0.2
+    step: 0.005
+    format: "em"
+
+  - id: ul2-pill-radius
+    title: "Word count pill radius"
+    type: variable-number-slider
+    default: 10
+    min: 0
+    max: 20
+    step: 1
+    format: "px"
+
+  - id: ul2-pill-bg-strength
+    title: "Word count pill background strength"
+    type: variable-number-slider
+    default: 10
+    min: 0
+    max: 40
+    step: 1
+    format: "%"
+
+  - id: ul2-button-size
+    title: "Button font size"
+    type: variable-number-slider
+    default: 0.85
+    min: 0.6
+    max: 1.3
+    step: 0.05
+    format: "em"
+
+  - id: ul2-button-spacing
+    title: "Button letter spacing"
+    type: variable-number-slider
+    default: 0.04
+    min: 0
+    max: 0.2
+    step: 0.005
+    format: "em"
+
+  - id: ul2-button-bg-strength
+    title: "Button background strength"
+    type: variable-number-slider
+    default: 14
+    min: 0
+    max: 50
+    step: 1
+    format: "%"
+
+  - id: ul2-suggestion-strength
+    title: "Selected suggestion strength"
+    type: variable-number-slider
+    default: 12
+    min: 0
+    max: 50
+    step: 1
+    format: "%"
+
+  - id: ul2-modal-title-spacing
+    title: "Modal title letter spacing"
+    type: variable-number-slider
+    default: 0.03
+    min: 0
+    max: 0.2
+    step: 0.005
+    format: "em"
+
+  - id: ul2-g-toggles
+    title: "Features"
+    type: heading
+    level: 1
+    collapsed: true
+
+  - id: ul2-no-focus-dim
+    title: "Disable focus mode dimming"
+    type: class-toggle
+
+  - id: ul2-no-breathing-cursor
+    title: "Disable breathing cursor"
+    type: class-toggle
+
+  - id: ul2-no-grain
+    title: "Disable paper grain"
+    type: class-toggle
+
+  - id: ul2-no-editor-frame
+    title: "Hide inset frame around panes"
+    type: class-toggle
+
+  - id: ul2-no-tag-lift
+    title: "Disable tag hover lift"
+    type: class-toggle
+
+  - id: ul2-no-button-motion
+    title: "Disable button hover motion"
+    type: class-toggle
+
+  - id: ul2-no-nav-active-border
+    title: "Hide active file accent border"
+    type: class-toggle
+
+  - id: ul2-hide-status-bar
+    title: "Hide status bar"
+    type: class-toggle
+
+  - id: ul2-hide-ribbon
+    title: "Hide ribbon"
+    type: class-toggle
+
+*/
+:root {
+    --ul2-prose-font:
+        "Literata", "Charter", "Georgia", "Iowan Old Style", serif;
+    --ul2-typewriter-font: "Courier New", "IBM Plex Mono", Consolas, monospace;
+    --ul2-ui-font: -apple-system, "Segoe UI", system-ui, sans-serif;
+    --ul2-heading-font: "Courier New", Consolas, monospace;
+    --ul2-font-size: 16px;
+    --ul2-line-height: 1.85;
+    --ul2-letter-spacing: 0.005em;
+    --ul2-prose-weight: 400;
+    --ul2-bold-weight: 600;
+    --ul2-paragraph-spacing: 0.9em;
+    --ul2-text-align: start;
+    --ul2-hyphens: manual;
+    --ul2-code-size: 0.9em;
+    --ul2-ui-letter-spacing: 0.01em;
+    --ul2-ui-small: 12px;
+    --ul2-ui-smaller: 11px;
+    --ul2-ui-medium: 13px;
+    --ul2-h1-size: 1.8em;
+    --ul2-h2-size: 1.45em;
+    --ul2-h3-size: 1.2em;
+    --ul2-h4-size: 1.05em;
+    --ul2-h5-size: 0.95em;
+    --ul2-h6-size: 0.88em;
+    --ul2-h1-weight: 700;
+    --ul2-h2-weight: 600;
+    --ul2-h3-weight: 600;
+    --ul2-h4-weight: 600;
+    --ul2-h5-weight: 600;
+    --ul2-h6-weight: 600;
+    --ul2-h1-spacing: 0.04em;
+    --ul2-h2-spacing: 0.03em;
+    --ul2-h3-spacing: 0.025em;
+    --ul2-heading-transform: none;
+    --ul2-h6-style: italic;
+    --ul2-h1-rule-width: 1px;
+    --ul2-h1-pad: 0.35em;
+    --ul2-h1-gap: 0.6em;
+    --ul2-inline-title-size: 2em;
+    --ul2-inline-title-spacing: 0.04em;
+    --ul2-max-width: 760px;
+    --ul2-content-padding: 1.5em;
+    --ul2-zen-narrowing: 40px;
+    --ul2-border-radius: 6px;
+    --ul2-radius-sm: 4px;
+    --ul2-radius-xs: 3px;
+    --ul2-scrollbar-width: 6px;
+    --ul2-transition-speed: 140ms;
+    --ul2-ease-settle: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ul2-focus-dim-opacity: 0.72;
+    --ul2-focus-blur: 0.6px;
+    --ul2-typewriter-padding: 40vh;
+    --ul2-zen-typewriter-padding: 38vh;
+    --ul2-cursor-width: 2.5px;
+    --ul2-cursor-speed: 1.6s;
+    --ul2-cursor-min-opacity: 0.25;
+    --ul2-grain-opacity: 0.025;
+    --ul2-grain-blend: overlay;
+    --ul2-comment-style: italic;
+    --ul2-link-border-width: 1px;
+    --ul2-link-border-style: solid;
+    --ul2-quote-border-width: 3px;
+    --ul2-quote-bg-strength: 5%;
+    --ul2-quote-pad-y: 0.75em;
+    --ul2-quote-pad-x: 1.2em;
+    --ul2-quote-style: italic;
+    --ul2-hr-height: 1px;
+    --ul2-hr-margin: 2em;
+    --ul2-code-bg-strength: 10%;
+    --ul2-callout-bg-strength: 7%;
+    --ul2-callout-border-strength: 28%;
+    --ul2-callout-border-width: 1px;
+    --ul2-callout-bar-width: 3px;
+    --ul2-callout-padding-y: 1em;
+    --ul2-callout-padding-x: 1.2em;
+    --ul2-callout-margin: 1em;
+    --ul2-callout-title-size: 0.88em;
+    --ul2-callout-title-spacing: 0.06em;
+    --ul2-callout-title-transform: uppercase;
+    --ul2-tag-size: 0.8em;
+    --ul2-tag-pad-x: 0.55em;
+    --ul2-tag-spacing: 0.04em;
+    --ul2-tag-bg-strength: 10%;
+    --ul2-tag-border-strength: 28%;
+    --ul2-th-size: 0.82em;
+    --ul2-th-spacing: 0.06em;
+    --ul2-th-transform: uppercase;
+    --ul2-th-bg-strength: 10%;
+    --ul2-th-pad-y: 0.6em;
+    --ul2-cell-pad-y: 0.55em;
+    --ul2-cell-pad-x: 1em;
+    --ul2-table-hover-strength: 5%;
+    --ul2-checkbox-border-width: 1.5px;
+    --ul2-checkbox-bg-strength: 5%;
+    --ul2-task-done-decoration: line-through;
+    --ul2-panel-tint: 4%;
+    --ul2-frame-strength: 8%;
+    --ul2-tab-size: 12px;
+    --ul2-tab-spacing: 0.04em;
+    --ul2-tab-transform: uppercase;
+    --ul2-tab-active-strength: 12%;
+    --ul2-nav-size: 13px;
+    --ul2-nav-pad-y: 2px;
+    --ul2-nav-pad-x: 8px;
+    --ul2-nav-active-strength: 16%;
+    --ul2-status-size: 11px;
+    --ul2-status-spacing: 0.03em;
+    --ul2-pill-radius: 10px;
+    --ul2-pill-bg-strength: 10%;
+    --ul2-button-size: 0.85em;
+    --ul2-button-spacing: 0.04em;
+    --ul2-button-bg-strength: 14%;
+    --ul2-suggestion-strength: 12%;
+    --ul2-modal-title-spacing: 0.03em;
+}
+
+.theme-dark {
+    --ul2-base-bg: #0d1821;
+    --ul2-bg-1: #111e2b;
+    --ul2-bg-2: #162435;
+    --ul2-bg-3: #1c2d40;
+    --ul2-bg-4: #243448;
+    --ul2-accent-color: #a8d8f0;
+    --ul2-frost-color: #c8e8ff;
+    --ul2-accent-rgb: 168, 216, 240;
+    --ul2-caret-color: var(--ul2-frost-color);
+    --ul2-text-normal: #ddeeff;
+    --ul2-text-muted: rgba(180, 210, 235, 0.68);
+    --ul2-text-faint: rgba(140, 175, 205, 0.5);
+    --ul2-bold-color: rgba(220, 242, 255, 0.98);
+    --ul2-italic-color: rgba(196, 228, 252, 0.9);
+    --ul2-highlight-bg: rgba(168, 216, 240, 0.18);
+    --ul2-link-external: rgba(186, 228, 255, 0.88);
+    --ul2-link-unresolved: rgba(140, 175, 210, 0.55);
+    --ul2-border-faint: rgba(100, 160, 210, 0.18);
+    --ul2-border-soft: rgba(120, 180, 230, 0.32);
+    --ul2-border-glow: rgba(168, 216, 240, 0.5);
+    --ul2-ice-faint: rgba(168, 216, 240, 0.06);
+    --ul2-ice-soft: rgba(168, 216, 240, 0.14);
+    --ul2-ice-medium: rgba(168, 216, 240, 0.28);
+    --ul2-aurora-teal: #7de8d8;
+    --ul2-aurora-violet: #b8a0f0;
+    --ul2-aurora-amber: #f0d87a;
+    --ul2-danger: #f08080;
+    --ul2-success: #80e8c0;
+    --ul2-dialogue-color: #f0d87a;
+    --ul2-comment-color: #7de8d8;
+    --ul2-h1-color: rgba(220, 244, 255, 1);
+    --ul2-h2-color: rgba(200, 232, 252, 0.96);
+    --ul2-h3-color: rgba(185, 218, 245, 0.9);
+    --ul2-h4-color: rgba(168, 210, 240, 0.82);
+    --ul2-h5-color: rgba(155, 198, 230, 0.75);
+    --ul2-h6-color: rgba(140, 185, 218, 0.68);
+    --ul2-code-normal: rgba(220, 240, 255, 0.88);
+    --ul2-code-background: rgba(168, 216, 240, 0.08);
+    --ul2-code-comment: rgba(140, 175, 205, 0.55);
+    --ul2-code-string: rgba(200, 235, 200, 0.82);
+    --ul2-code-function: rgba(160, 210, 255, 0.9);
+    --ul2-code-property: rgba(168, 216, 240, 0.8);
+    --ul2-shadow-s-color: rgba(10, 20, 35, 0.6);
+    --ul2-shadow-m-color: rgba(10, 20, 35, 0.7);
+    --ul2-shadow-l-color: rgba(10, 20, 35, 0.85);
+}
+
+.theme-light {
+    --ul2-base-bg: #faf3ea;
+    --ul2-bg-1: #f6ecdf;
+    --ul2-bg-2: #f2e3d3;
+    --ul2-bg-3: #ecd7c4;
+    --ul2-bg-4: #e3c6b0;
+    --ul2-accent-color: #a01d52;
+    --ul2-frost-color: #7d5512;
+    --ul2-accent-rgb: 214, 61, 118;
+    --ul2-caret-color: var(--ul2-accent-color);
+    --ul2-text-normal: #2a1a22;
+    --ul2-text-muted: rgba(58, 38, 46, 0.68);
+    --ul2-text-faint: rgba(90, 65, 75, 0.5);
+    --ul2-bold-color: rgba(42, 26, 34, 0.98);
+    --ul2-italic-color: rgba(60, 38, 48, 0.9);
+    --ul2-highlight-bg: rgba(214, 61, 118, 0.16);
+    --ul2-link-external: rgba(163, 40, 63, 0.85);
+    --ul2-link-unresolved: rgba(90, 65, 75, 0.55);
+    --ul2-border-faint: rgba(184, 134, 47, 0.22);
+    --ul2-border-soft: rgba(184, 134, 47, 0.38);
+    --ul2-border-glow: rgba(214, 61, 118, 0.55);
+    --ul2-ice-faint: rgba(214, 61, 118, 0.06);
+    --ul2-ice-soft: rgba(214, 61, 118, 0.13);
+    --ul2-ice-medium: rgba(214, 61, 118, 0.26);
+    --ul2-aurora-teal: #1f8a6f;
+    --ul2-aurora-violet: #7a4fa0;
+    --ul2-aurora-amber: #b8862f;
+    --ul2-danger: #a3283f;
+    --ul2-success: #3d7a4f;
+    --ul2-dialogue-color: #f0d87a;
+    --ul2-comment-color: #7de8d8;
+    --ul2-h1-color: rgba(42, 26, 34, 1);
+    --ul2-h2-color: rgba(163, 40, 63, 0.94);
+    --ul2-h3-color: rgba(184, 134, 47, 0.95);
+    --ul2-h4-color: rgba(90, 65, 75, 0.85);
+    --ul2-h5-color: rgba(90, 65, 75, 0.75);
+    --ul2-h6-color: rgba(90, 65, 75, 0.65);
+    --ul2-code-normal: rgba(42, 26, 34, 0.88);
+    --ul2-code-background: rgba(184, 134, 47, 0.08);
+    --ul2-code-comment: rgba(90, 65, 75, 0.55);
+    --ul2-code-string: rgba(61, 122, 79, 0.82);
+    --ul2-code-function: rgba(163, 40, 63, 0.85);
+    --ul2-code-property: rgba(214, 61, 118, 0.75);
+    --ul2-shadow-s-color: rgba(90, 50, 40, 0.14);
+    --ul2-shadow-m-color: rgba(90, 50, 40, 0.18);
+    --ul2-shadow-l-color: rgba(90, 50, 40, 0.24);
+}
+
+.theme-dark,
+.theme-light {
+    --ul2-bg-0: var(--ul2-base-bg);
+    --ul2-text-on-accent: var(--ul2-bg-0);
+    --ul2-selection-bg: color-mix(
+        in srgb,
+        var(--ul2-accent-color) 28%,
+        transparent
+    );
+    --ul2-link-color: var(--ul2-accent-color);
+    --ul2-link-hover: var(--ul2-frost-color);
+    --ul2-tag-color: var(--ul2-accent-color);
+    --ul2-hr-color: var(--ul2-ice-medium);
+    --ul2-quote-border: var(--ul2-accent-color);
+    --ul2-code-tag: var(--ul2-aurora-teal);
+    --ul2-code-keyword: var(--ul2-aurora-violet);
+    --ul2-code-operator: var(--ul2-aurora-amber);
+    --ul2-code-number: var(--ul2-aurora-amber);
+    --ul2-modal-shadow-color: color-mix(
+        in srgb,
+        var(--ul2-text-normal) 80%,
+        transparent
+    );
+    --ul2-prompt-shadow-color: color-mix(
+        in srgb,
+        var(--ul2-text-normal) 70%,
+        transparent
+    );
+    --ul2-scrollbar-thumb: color-mix(
+        in srgb,
+        var(--ul2-frost-color) 20%,
+        transparent
+    );
+    --ul2-scrollbar-thumb-hover: color-mix(
+        in srgb,
+        var(--ul2-accent-color) 40%,
+        transparent
+    );
+
+    --background-primary: var(--ul2-bg-0);
+    --background-primary-alt: var(--ul2-bg-1);
+    --background-secondary: var(--ul2-bg-2);
+    --background-secondary-alt: var(--ul2-bg-3);
+    --background-modifier-hover: var(--ul2-ice-faint);
+    --background-modifier-active-hover: var(--ul2-ice-soft);
+    --background-modifier-border: var(--ul2-border-faint);
+    --background-modifier-border-hover: var(--ul2-border-soft);
+    --background-modifier-border-focus: var(--ul2-border-glow);
+
+    --text-normal: var(--ul2-text-normal);
+    --text-muted: var(--ul2-text-muted);
+    --text-faint: var(--ul2-text-faint);
+    --text-accent: var(--ul2-accent-color);
+    --text-accent-hover: var(--ul2-frost-color);
+    --text-on-accent: var(--ul2-text-on-accent);
+    --text-error: var(--ul2-danger);
+    --text-success: var(--ul2-success);
+    --text-warning: var(--ul2-aurora-amber);
+    --text-highlight-bg: var(--ul2-highlight-bg);
+    --bold-color: var(--ul2-bold-color);
+    --bold-weight: var(--ul2-bold-weight);
+    --italic-color: var(--ul2-italic-color);
+
+    --interactive-accent: var(--ul2-accent-color);
+    --interactive-accent-hover: var(--ul2-frost-color);
+    --interactive-accent-rgb: var(--ul2-accent-rgb);
+    --interactive-normal: var(--ul2-bg-3);
+    --interactive-hover: var(--ul2-bg-4);
+
+    --link-color: var(--ul2-link-color);
+    --link-color-hover: var(--ul2-link-hover);
+    --link-external-color: var(--ul2-link-external);
+    --link-unresolved-color: var(--ul2-link-unresolved);
+
+    --code-normal: var(--ul2-code-normal);
+    --code-background: var(--ul2-code-background);
+    --code-comment: var(--ul2-code-comment);
+    --code-tag: var(--ul2-code-tag);
+    --code-string: var(--ul2-code-string);
+    --code-keyword: var(--ul2-code-keyword);
+    --code-function: var(--ul2-code-function);
+    --code-operator: var(--ul2-code-operator);
+    --code-number: var(--ul2-code-number);
+    --code-property: var(--ul2-code-property);
+
+    --checkbox-color: var(--ul2-accent-color);
+    --checkbox-color-hover: var(--ul2-frost-color);
+    --checkbox-border-color: var(--ul2-border-soft);
+    --checkbox-border-width: var(--ul2-checkbox-border-width);
+    --checkbox-radius: var(--ul2-radius-xs);
+
+    --caret-color: var(--ul2-caret-color);
+    --scrollbar-bg: transparent;
+    --scrollbar-thumb-bg: var(--ul2-scrollbar-thumb);
+    --scrollbar-active-thumb-bg: var(--ul2-scrollbar-thumb-hover);
+
+    --shadow-s: 0 2px 12px var(--ul2-shadow-s-color);
+    --shadow-m: 0 4px 24px var(--ul2-shadow-m-color);
+    --shadow-l: 0 8px 48px var(--ul2-shadow-l-color);
+
+    --radius-s: var(--ul2-radius-sm);
+    --radius-m: var(--ul2-border-radius);
+    --radius-l: calc(var(--ul2-border-radius) * 2);
+
+    --font-text: var(--ul2-prose-font);
+    --font-interface: var(--ul2-ui-font);
+    --font-monospace: var(--ul2-typewriter-font);
+    --font-text-size: var(--ul2-font-size);
+    --font-ui-small: var(--ul2-ui-small);
+    --font-ui-smaller: var(--ul2-ui-smaller);
+    --font-ui-medium: var(--ul2-ui-medium);
+
+    --h1-color: var(--ul2-h1-color);
+    --h1-size: var(--ul2-h1-size);
+    --h1-weight: var(--ul2-h1-weight);
+    --h1-font: var(--ul2-heading-font);
+    --h2-color: var(--ul2-h2-color);
+    --h2-size: var(--ul2-h2-size);
+    --h2-weight: var(--ul2-h2-weight);
+    --h2-font: var(--ul2-heading-font);
+    --h3-color: var(--ul2-h3-color);
+    --h3-size: var(--ul2-h3-size);
+    --h3-weight: var(--ul2-h3-weight);
+    --h3-font: var(--ul2-heading-font);
+    --h4-color: var(--ul2-h4-color);
+    --h4-size: var(--ul2-h4-size);
+    --h4-weight: var(--ul2-h4-weight);
+    --h5-color: var(--ul2-h5-color);
+    --h5-size: var(--ul2-h5-size);
+    --h5-weight: var(--ul2-h5-weight);
+    --h6-color: var(--ul2-h6-color);
+    --h6-size: var(--ul2-h6-size);
+    --h6-weight: var(--ul2-h6-weight);
+}
+
+body {
+    font-family: var(--ul2-ui-font);
+    letter-spacing: var(--ul2-ui-letter-spacing);
+}
+
+.markdown-source-view.mod-cm6 .cm-content,
+.cm-editor .cm-line,
+.markdown-preview-view {
+    font-family: var(--font-text);
+    font-size: var(--ul2-font-size);
+    font-weight: var(--ul2-prose-weight);
+    line-height: var(--ul2-line-height);
+    letter-spacing: var(--ul2-letter-spacing);
+    text-align: var(--ul2-text-align);
+    hyphens: var(--ul2-hyphens);
+}
+
+.markdown-source-view.mod-cm6 .cm-content,
+.markdown-preview-view {
+    max-width: var(--ul2-max-width);
+    margin: 0 auto;
+    padding-left: var(--ul2-content-padding);
+    padding-right: var(--ul2-content-padding);
+}
+.markdown-preview-view .markdown-preview-section {
+    max-width: var(--ul2-max-width);
+    margin: 0 auto;
+}
+
+.markdown-source-view.mod-cm6 .cm-line,
+.markdown-preview-view p {
+    margin-bottom: var(--ul2-paragraph-spacing);
+}
+.markdown-preview-view p:first-child {
+    margin-top: 0;
+}
+
+.workspace-leaf-content .inline-title {
+    font-family: var(--ul2-heading-font);
+    color: var(--ul2-text-normal);
+    letter-spacing: var(--ul2-inline-title-spacing);
+    font-size: var(--ul2-inline-title-size);
+}
+
+.cm-header-1,
+:is(.markdown-rendered, .markdown-preview-view) h1 {
+    font-family: var(--ul2-heading-font);
+    color: var(--h1-color);
+    font-size: var(--h1-size);
+    font-weight: var(--h1-weight);
+    letter-spacing: var(--ul2-h1-spacing);
+    text-transform: var(--ul2-heading-transform);
+    border-bottom: var(--ul2-h1-rule-width) solid var(--ul2-border-faint);
+    padding-bottom: var(--ul2-h1-pad);
+    margin-bottom: var(--ul2-h1-gap);
+}
+.cm-header-2,
+:is(.markdown-rendered, .markdown-preview-view) h2 {
+    font-family: var(--ul2-heading-font);
+    color: var(--h2-color);
+    font-size: var(--h2-size);
+    font-weight: var(--h2-weight);
+    letter-spacing: var(--ul2-h2-spacing);
+    text-transform: var(--ul2-heading-transform);
+}
+.cm-header-3,
+:is(.markdown-rendered, .markdown-preview-view) h3 {
+    font-family: var(--ul2-heading-font);
+    color: var(--h3-color);
+    font-size: var(--h3-size);
+    letter-spacing: var(--ul2-h3-spacing);
+    text-transform: var(--ul2-heading-transform);
+}
+.cm-header-4,
+:is(.markdown-rendered, .markdown-preview-view) h4 {
+    color: var(--h4-color);
+    text-transform: var(--ul2-heading-transform);
+}
+.cm-header-5,
+:is(.markdown-rendered, .markdown-preview-view) h5 {
+    color: var(--h5-color);
+    text-transform: var(--ul2-heading-transform);
+}
+.cm-header-6,
+:is(.markdown-rendered, .markdown-preview-view) h6 {
+    color: var(--h6-color);
+    text-transform: var(--ul2-heading-transform);
+    font-style: var(--ul2-h6-style);
+}
+
+::selection {
+    background: var(--ul2-selection-bg);
+    color: var(--text-on-accent);
+}
+
+.is-live-preview .cm-line {
+    transition:
+        opacity var(--ul2-transition-speed) ease,
+        filter var(--ul2-transition-speed) ease;
+}
+.markdown-source-view.mod-cm6.is-focused .cm-line:not(.cm-active) {
+    opacity: var(--ul2-focus-dim-opacity);
+    filter: blur(var(--ul2-focus-blur));
+}
+.markdown-source-view.mod-cm6.is-focused .cm-line.cm-active {
+    opacity: 1;
+    filter: blur(0px);
+}
+body.ul2-no-focus-dim
+    .markdown-source-view.mod-cm6.is-focused
+    .cm-line:not(.cm-active) {
+    opacity: 1;
+    filter: none;
+}
+
+@keyframes ul2-breathe {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: var(--ul2-cursor-min-opacity);
+    }
+}
+
+.cm-editor .cm-cursor,
+.cm-editor .cm-cursor-primary {
+    border-left: var(--ul2-cursor-width) solid var(--caret-color);
+    animation: ul2-breathe var(--ul2-cursor-speed) ease-in-out infinite;
+}
+body.ul2-no-breathing-cursor .cm-editor .cm-cursor,
+body.ul2-no-breathing-cursor .cm-editor .cm-cursor-primary {
+    animation: none;
+}
+
+.markdown-source-view.mod-cm6 .cm-sizer {
+    padding-top: var(--ul2-typewriter-padding);
+    padding-bottom: var(--ul2-typewriter-padding);
+}
+.is-zen .markdown-source-view.mod-cm6 .cm-sizer {
+    padding-top: var(--ul2-zen-typewriter-padding);
+    padding-bottom: var(--ul2-zen-typewriter-padding);
+}
+
+.cm-editor {
+    position: relative;
+}
+.cm-editor::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: var(--ul2-grain-opacity);
+    mix-blend-mode: var(--ul2-grain-blend);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+body.ul2-no-grain .cm-editor::before {
+    display: none;
+}
+
+.markdown-rendered q {
+    color: color-mix(
+        in srgb,
+        var(--ul2-dialogue-color) 85%,
+        var(--ul2-text-normal)
+    );
+}
+
+.cm-comment,
+mark.comment,
+.markdown-rendered .comment {
+    color: color-mix(
+        in srgb,
+        var(--ul2-comment-color) 75%,
+        var(--ul2-text-normal)
+    );
+    background: color-mix(in srgb, var(--ul2-comment-color) 8%, transparent);
+    border-radius: var(--ul2-radius-xs);
+    font-style: var(--ul2-comment-style);
+    padding: 0 0.2em;
+}
+
+.markdown-rendered a,
+.cm-hmd-internal-link,
+.cm-link {
+    color: var(--ul2-link-color);
+    text-decoration: none;
+    border-bottom: var(--ul2-link-border-width) var(--ul2-link-border-style)
+        var(--ul2-ice-medium);
+    transition:
+        color var(--ul2-transition-speed) var(--ul2-ease-settle),
+        border-color var(--ul2-transition-speed) var(--ul2-ease-settle);
+}
+.markdown-rendered a:hover,
+.cm-hmd-internal-link:hover {
+    color: var(--ul2-link-hover);
+    border-color: color-mix(in srgb, var(--ul2-link-hover) 60%, transparent);
+}
+body.ul2-links-plain .markdown-rendered a,
+body.ul2-links-plain .cm-hmd-internal-link,
+body.ul2-links-plain .cm-link {
+    border-bottom: none;
+}
+body.ul2-links-underline .markdown-rendered a,
+body.ul2-links-underline .cm-hmd-internal-link,
+body.ul2-links-underline .cm-link {
+    border-bottom: none;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.markdown-rendered pre,
+.cm-s-obsidian .HyperMD-codeblock {
+    background: var(--ul2-ice-faint);
+    border: 1px solid var(--ul2-border-faint);
+    border-radius: var(--ul2-border-radius);
+    font-family: var(--ul2-typewriter-font);
+}
+.markdown-rendered code,
+.cm-inline-code {
+    background: color-mix(
+        in srgb,
+        var(--ul2-accent-color) var(--ul2-code-bg-strength),
+        transparent
+    );
+    border: 1px solid var(--ul2-border-faint);
+    border-radius: var(--ul2-radius-sm);
+    padding: 0.1em 0.35em;
+    font-family: var(--ul2-typewriter-font);
+    font-size: var(--ul2-code-size);
+}
+
+.markdown-rendered blockquote,
+.markdown-preview-view blockquote {
+    border-left: var(--ul2-quote-border-width) solid var(--ul2-quote-border);
+    background: color-mix(
+        in srgb,
+        var(--ul2-quote-border) var(--ul2-quote-bg-strength),
+        transparent
+    );
+    border-radius: 0 var(--ul2-border-radius) var(--ul2-border-radius) 0;
+    padding: var(--ul2-quote-pad-y) var(--ul2-quote-pad-x);
+    color: color-mix(
+        in srgb,
+        var(--ul2-text-normal) 80%,
+        var(--ul2-accent-color) 20%
+    );
+    font-style: var(--ul2-quote-style);
+}
+.markdown-rendered hr,
+.markdown-preview-view hr {
+    border: none;
+    height: var(--ul2-hr-height);
+    background: var(--ul2-hr-color);
+    margin: var(--ul2-hr-margin) 0;
+}
+
+.callout {
+    --_c: var(--ul2-accent-color);
+    background: color-mix(
+        in srgb,
+        var(--_c) var(--ul2-callout-bg-strength),
+        transparent
+    );
+    border: var(--ul2-callout-border-width) solid
+        color-mix(
+            in srgb,
+            var(--_c) var(--ul2-callout-border-strength),
+            transparent
+        );
+    border-radius: var(--ul2-border-radius);
+    padding: var(--ul2-callout-padding-y) var(--ul2-callout-padding-x);
+    margin: var(--ul2-callout-margin) 0;
+}
+.callout-title {
+    font-family: var(--ul2-ui-font);
+    font-weight: 600;
+    font-size: var(--ul2-callout-title-size);
+    letter-spacing: var(--ul2-callout-title-spacing);
+    text-transform: var(--ul2-callout-title-transform);
+    margin-bottom: 0.5em;
+}
+.callout-title,
+.callout-icon {
+    color: var(--_c);
+}
+
+.callout[data-callout="note"],
+.callout[data-callout="info"],
+.callout[data-callout="todo"] {
+    --_c: var(--ul2-accent-color);
+}
+.callout[data-callout="quote"],
+.callout[data-callout="cite"] {
+    --_c: var(--text-muted);
+}
+.callout[data-callout="tip"],
+.callout[data-callout="hint"],
+.callout[data-callout="important"],
+.callout[data-callout="example"] {
+    --_c: var(--ul2-aurora-teal);
+    color: var(--_c);
+}
+.callout[data-callout="abstract"],
+.callout[data-callout="summary"],
+.callout[data-callout="tldr"],
+.callout[data-callout="question"],
+.callout[data-callout="help"],
+.callout[data-callout="faq"] {
+    --_c: var(--ul2-aurora-violet);
+    color: var(--_c);
+}
+.callout[data-callout="warning"],
+.callout[data-callout="caution"],
+.callout[data-callout="attention"] {
+    --_c: var(--ul2-aurora-amber);
+    color: var(--_c);
+}
+.callout[data-callout="danger"],
+.callout[data-callout="error"],
+.callout[data-callout="bug"],
+.callout[data-callout="failure"],
+.callout[data-callout="fail"],
+.callout[data-callout="missing"] {
+    --_c: var(--ul2-danger);
+    color: var(--_c);
+}
+.callout[data-callout="success"],
+.callout[data-callout="check"],
+.callout[data-callout="done"] {
+    --_c: var(--ul2-success);
+    color: var(--_c);
+}
+
+body.ul2-callout-bar .callout {
+    border-width: 0 0 0 var(--ul2-callout-bar-width);
+    border-left-color: var(--_c);
+    border-radius: 0 var(--ul2-border-radius) var(--ul2-border-radius) 0;
+}
+body.ul2-callout-outline .callout {
+    background: transparent;
+    border-color: var(--_c);
+}
+
+.tag,
+a.tag {
+    background: color-mix(
+        in srgb,
+        var(--ul2-tag-color) var(--ul2-tag-bg-strength),
+        transparent
+    );
+    border: 1px solid
+        color-mix(
+            in srgb,
+            var(--ul2-tag-color) var(--ul2-tag-border-strength),
+            transparent
+        );
+    border-radius: var(--ul2-radius-sm);
+    color: var(--ul2-tag-color);
+    font-family: var(--ul2-ui-font);
+    font-size: var(--ul2-tag-size);
+    letter-spacing: var(--ul2-tag-spacing);
+    padding: 0.1em var(--ul2-tag-pad-x);
+    text-decoration: none;
+    transition:
+        background var(--ul2-transition-speed) var(--ul2-ease-settle),
+        color var(--ul2-transition-speed) var(--ul2-ease-settle),
+        transform var(--ul2-transition-speed) var(--ul2-ease-settle);
+}
+.tag:hover,
+a.tag:hover {
+    background: color-mix(
+        in srgb,
+        var(--ul2-tag-color) calc(var(--ul2-tag-bg-strength) + 8%),
+        transparent
+    );
+    color: var(--ul2-frost-color);
+    transform: translateY(-1px);
+}
+body.ul2-no-tag-lift .tag:hover,
+body.ul2-no-tag-lift a.tag:hover {
+    transform: none;
+}
+
+.markdown-rendered table,
+.markdown-preview-view table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: var(--ul2-border-radius);
+    overflow: hidden;
+    border: 1px solid var(--ul2-border-faint);
+}
+.markdown-rendered th,
+.markdown-preview-view th {
+    background: color-mix(
+        in srgb,
+        var(--ul2-accent-color) var(--ul2-th-bg-strength),
+        transparent
+    );
+    border-bottom: 1px solid var(--ul2-border-soft);
+    color: var(--ul2-frost-color);
+    font-family: var(--ul2-ui-font);
+    font-size: var(--ul2-th-size);
+    font-weight: 600;
+    letter-spacing: var(--ul2-th-spacing);
+    text-transform: var(--ul2-th-transform);
+    padding: var(--ul2-th-pad-y) var(--ul2-cell-pad-x);
+    text-align: left;
+}
+.markdown-rendered td,
+.markdown-preview-view td {
+    border-bottom: 1px solid var(--ul2-border-faint);
+    padding: var(--ul2-cell-pad-y) var(--ul2-cell-pad-x);
+    font-family: var(--ul2-typewriter-font);
+}
+.markdown-rendered tr:hover td,
+.markdown-preview-view tr:hover td {
+    background: color-mix(
+        in srgb,
+        var(--ul2-accent-color) var(--ul2-table-hover-strength),
+        transparent
+    );
+}
+
+.task-list-item-checkbox {
+    border: var(--ul2-checkbox-border-width) solid var(--ul2-border-soft);
+    border-radius: var(--ul2-radius-xs);
+    background: color-mix(
+        in srgb,
+        var(--ul2-accent-color) var(--ul2-checkbox-bg-strength),
+        transparent
+    );
+    transition:
+        background var(--ul2-transition-speed) ease,
+        border-color var(--ul2-transition-speed) ease;
+}
+.task-list-item-checkbox:checked {
+    background: color-mix(in srgb, var(--ul2-accent-color) 20%, transparent);
+    border-color: var(--ul2-accent-color);
+}
+.task-list-item.is-checked {
+    color: var(--text-faint);
+    text-decoration: var(--ul2-task-done-decoration);
+}
+
+.workspace-leaf,
+.workspace-tab-header-container,
+.side-dock-settings,
+.workspace-toolbar,
+.status-bar {
+    background: color-mix(
+        in srgb,
+        var(--ul2-accent-color) var(--ul2-panel-tint),
+        transparent
+    );
+}
+
+.workspace-split.mod-left-split {
+    background: var(--ul2-bg-0);
+    border-right: 1px solid var(--ul2-border-faint);
+}
+.workspace-split.mod-right-split {
+    background: var(--ul2-bg-0);
+    border-left: 1px solid var(--ul2-border-faint);
+}
+
+.workspace-leaf-content,
+.view-content,
+.cm-editor {
+    box-shadow: inset 0 0 0 1px
+        color-mix(
+            in srgb,
+            var(--ul2-frost-color) var(--ul2-frame-strength),
+            transparent
+        );
+}
+body.ul2-no-editor-frame .workspace-leaf-content,
+body.ul2-no-editor-frame .view-content,
+body.ul2-no-editor-frame .cm-editor {
+    box-shadow: none;
+}
+
+.workspace-tab-header {
+    border-bottom: 1px solid var(--ul2-border-faint);
+    font-family: var(--ul2-ui-font);
+    font-size: var(--ul2-tab-size);
+    letter-spacing: var(--ul2-tab-spacing);
+    text-transform: var(--ul2-tab-transform);
+}
+.workspace-tab-header.is-active {
+    background: color-mix(
+        in srgb,
+        var(--ul2-accent-color) var(--ul2-tab-active-strength),
+        transparent
+    );
+    border-radius: var(--ul2-border-radius) var(--ul2-border-radius) 0 0;
+    color: var(--ul2-frost-color);
+    border-bottom: 1px solid var(--ul2-border-glow);
+}
+
+.workspace-ribbon {
+    background: var(--ul2-bg-0);
+    border-right: 1px solid var(--ul2-border-faint);
+}
+.workspace-ribbon .side-dock-ribbon-action:hover {
+    background: var(--ul2-ice-faint);
+    color: var(--ul2-frost-color);
+    border-radius: var(--ul2-border-radius);
+}
+
+.workspace-toolbar {
+    border-bottom: 1px solid var(--ul2-border-faint);
+}
+.status-bar {
+    border-top: 1px solid var(--ul2-border-faint);
+    color: var(--text-muted);
+    font-family: var(--ul2-ui-font);
+    font-size: var(--ul2-status-size);
+    letter-spacing: var(--ul2-status-spacing);
+}
+.status-bar-item.plugin-word-count {
+    font-family: var(--ul2-ui-font);
+    color: var(--ul2-frost-color);
+    font-weight: 600;
+    font-size: var(--ul2-status-size);
+    letter-spacing: var(--ul2-status-spacing);
+    background: color-mix(
+        in srgb,
+        var(--ul2-accent-color) var(--ul2-pill-bg-strength),
+        transparent
+    );
+    border: 1px solid
+        color-mix(in srgb, var(--ul2-accent-color) 22%, transparent);
+    border-radius: var(--ul2-pill-radius);
+    padding: 0.15em 0.7em;
+}
+body.ul2-hide-status-bar .status-bar {
+    display: none;
+}
+body.ul2-hide-ribbon .workspace-ribbon {
+    display: none;
+}
+
+.nav-folder-title,
+.nav-file-title {
+    border-radius: var(--ul2-radius-sm);
+    padding: var(--ul2-nav-pad-y) var(--ul2-nav-pad-x);
+    font-family: var(--ul2-ui-font);
+    font-size: var(--ul2-nav-size);
+    transition:
+        background var(--ul2-transition-speed) var(--ul2-ease-settle),
+        color var(--ul2-transition-speed) var(--ul2-ease-settle);
+}
+.nav-folder-title:hover,
+.nav-file-title:hover {
+    background: var(--ul2-ice-faint);
+    color: var(--ul2-frost-color);
+}
+.nav-file-title.is-active,
+.nav-folder-title.is-active {
+    background: color-mix(
+        in srgb,
+        var(--ul2-accent-color) var(--ul2-nav-active-strength),
+        transparent
+    );
+    color: var(--ul2-frost-color);
+    border-left: 2px solid var(--ul2-accent-color);
+    font-weight: 600;
+}
+body.ul2-no-nav-active-border .nav-file-title.is-active,
+body.ul2-no-nav-active-border .nav-folder-title.is-active {
+    border-left: none;
+}
+.nav-folder-title .nav-folder-collapse-indicator {
+    color: var(--text-faint);
+}
+
+::-webkit-scrollbar {
+    width: var(--ul2-scrollbar-width);
+    height: var(--ul2-scrollbar-width);
+}
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-bg);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-bg);
+    border-radius: var(--ul2-scrollbar-width);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-active-thumb-bg);
+}
+
+.prompt,
+.suggestion-container {
+    background: var(--ul2-bg-1);
+    border: 1px solid var(--ul2-border-soft);
+    border-radius: var(--ul2-border-radius);
+    box-shadow: 0 8px 30px var(--ul2-prompt-shadow-color);
+    font-family: var(--ul2-ui-font);
+}
+.prompt-input {
+    font-family: var(--font-text);
+    font-size: 1em;
+    color: var(--ul2-text-normal);
+    border: none;
+    border-bottom: 1px solid var(--ul2-border-faint);
+    background: transparent;
+}
+.suggestion-item.is-selected {
+    background: color-mix(
+        in srgb,
+        var(--ul2-accent-color) var(--ul2-suggestion-strength),
+        transparent
+    );
+    border-radius: var(--ul2-radius-sm);
+    color: var(--ul2-frost-color);
+}
+
+.modal {
+    background: var(--ul2-bg-1);
+    border: 1px solid var(--ul2-border-soft);
+    border-radius: calc(var(--ul2-border-radius) + 2px);
+    box-shadow: 0 8px 30px var(--ul2-modal-shadow-color);
+}
+.modal-title {
+    font-family: var(--ul2-heading-font);
+    color: var(--ul2-frost-color);
+    letter-spacing: var(--ul2-modal-title-spacing);
+    border-bottom: 1px solid var(--ul2-border-faint);
+    padding-bottom: 0.6em;
+}
+
+button.mod-cta,
+.button.mod-cta {
+    background: color-mix(
+        in srgb,
+        var(--ul2-accent-color) var(--ul2-button-bg-strength),
+        transparent
+    );
+    border: 1px solid var(--ul2-border-soft);
+    border-radius: var(--ul2-border-radius);
+    color: var(--ul2-frost-color);
+    font-family: var(--ul2-ui-font);
+    font-size: var(--ul2-button-size);
+    font-weight: 500;
+    letter-spacing: var(--ul2-button-spacing);
+    transition:
+        background var(--ul2-transition-speed) var(--ul2-ease-settle),
+        transform var(--ul2-transition-speed) var(--ul2-ease-settle);
+}
+button.mod-cta:hover,
+.button.mod-cta:hover {
+    background: color-mix(
+        in srgb,
+        var(--ul2-accent-color) calc(var(--ul2-button-bg-strength) + 8%),
+        transparent
+    );
+    transform: translateY(-1px);
+}
+button.mod-cta:active,
+.button.mod-cta:active {
+    transform: translateY(0) scale(0.98);
+}
+body.ul2-no-button-motion button.mod-cta:hover,
+body.ul2-no-button-motion .button.mod-cta:hover,
+body.ul2-no-button-motion button.mod-cta:active,
+body.ul2-no-button-motion .button.mod-cta:active {
+    transform: none;
+}
+button.mod-warning {
+    border-color: color-mix(in srgb, var(--ul2-danger) 45%, transparent);
+    color: var(--ul2-danger);
+}
+
+.is-zen .workspace-tab-header-container,
+.is-zen .workspace-ribbon,
+.is-zen .status-bar,
+.is-zen .workspace-tab-header-tab-list {
+    display: none;
+}
+.is-zen .markdown-source-view.mod-cm6 .cm-content,
+.is-zen .markdown-preview-view {
+    max-width: calc(var(--ul2-max-width) - var(--ul2-zen-narrowing));
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --ul2-transition-speed: 0ms;
+    }
+    * {
+        transition-duration: 0ms;
+        animation-duration: 0ms;
+    }
+    .cm-editor .cm-cursor-primary {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    :root {
+        --ul2-font-size: 15px;
+        --ul2-max-width: 100%;
+    }
+}

@@ -1,0 +1,18 @@
+filters:
+  and:
+    - file.tags.contains("review")
+    - type == "profile"
+views:
+  - type: list
+    name: For Review
+    order:
+      - file.name
+      - codename
+      - status
+      - file.mtime
+      - cpf
+    sort:
+      - property: file.mtime
+        direction: ASC
+    limit: 10
+    separator: ":"

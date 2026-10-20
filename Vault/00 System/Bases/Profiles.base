@@ -1,0 +1,60 @@
+filters:
+  and:
+    - type == "profile"
+views:
+  - type: list
+    name: By Threat Level
+    order:
+      - file.name
+      - codename
+      - faction
+      - threat_level
+      - trust_level
+      - relationship
+      - status
+    sort:
+      - property: threat_level
+        direction: DESC
+      - property: file.name
+        direction: ASC
+      - property: status
+        direction: ASC
+    separator: ":"
+  - type: list
+    name: Active
+    filters:
+      and:
+        - status == "active"
+    order:
+      - file.name
+      - faction
+      - last_known_location
+      - last_sighting
+    sort:
+      - property: last_sighting
+        direction: DESC
+    separator: ":"
+  - type: list
+    name: By Faction
+    order:
+      - file.name
+      - codename
+      - role
+      - status
+    sort:
+      - property: faction
+        direction: ASC
+      - property: file.name
+        direction: ASC
+    separator: ":"
+  - type: list
+    name: All
+    order:
+      - file.name
+      - status
+      - faction
+      - threat_level
+    sort:
+      - property: status
+        direction: ASC
+    separator: ":"

@@ -1,0 +1,9 @@
+{
+  "cssTheme": "unsent-letters",
+  "enabledCssSnippets": [
+    "multi-column"
+  ],
+  "theme": "obsidian",
+  "floatingNavigation": true,
+  "slidingSidebar": false
+}

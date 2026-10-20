@@ -1,0 +1,693 @@
+{
+  "schemaVersion": 14,
+  "providerConfig": {
+    "openrouter": {
+      "isConfigured": true,
+      "auth": {
+        "values": {},
+        "secretIds": {
+          "apiKey": "openrouter-api-key"
+        },
+        "authMode": "apiKey"
+      },
+      "chatModels": {},
+      "embedModels": {},
+      "trustedForPrivateData": true
+    }
+  },
+  "providerMeta": {
+    "openrouter": {
+      "templateId": "openrouter",
+      "displayName": "OpenRouter"
+    }
+  },
+  "agents": {
+    "default-agent": {
+      "id": "default-agent",
+      "name": "Main",
+      "icon": "brain",
+      "chatModel": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "modelConfig": {
+          "contextWindow": 163840,
+          "supportsVision": false
+        }
+      },
+      "summarizationModel": null,
+      "titleModel": null,
+      "skills": {
+        "quickadd": {
+          "enabled": false
+        },
+        "notebook-navigator": {
+          "enabled": false
+        },
+        "omnisearch": {
+          "enabled": false
+        },
+        "caveman": {
+          "enabled": false
+        },
+        "skill-creator": {
+          "enabled": false
+        }
+      },
+      "toolsConfig": {
+        "search_notes": {
+          "enabled": true,
+          "name": "search_notes",
+          "description": "Search through your Obsidian notes, or return recently opened notes. Returns structured JSON with matching file names, paths, tags, match reasons, short match snippets or headings, and metadata (properties/frontmatter), plus a count of results hidden by privacy rules. Use this to identify relevant notes before using other tools. Pick the retrieval strategy with `algorithm`: `lexical` (default, fast, exact keyword matching) is usually the right first attempt — escalate to `semantic` or `hybrid` when wording rather than content is the obstacle.",
+          "settings": {}
+        },
+        "list_directory": {
+          "enabled": true,
+          "name": "list_directory",
+          "description": "List the vault's folder structure. Without a path: an overview of the top folders with file counts (2 levels deep, no file names) — small in any vault. With a path: that folder's files and subfolders (1 level deep unless maxDepth is set); 'path' must be an actual vault folder (e.g. 'Projects/research'). Every folder carries a recursive fileCount; moreFiles / moreFolders report entries omitted to fit the context budget. To find specific notes use search_notes or grep_notes rather than walking the tree."
+        },
+        "read_content": {
+          "enabled": true,
+          "name": "read_content",
+          "description": "Read content of vault files by path or wiki link. Supports text, PDFs, and Excalidraw. Images must be attached directly in chat."
+        },
+        "grep_notes": {
+          "enabled": true,
+          "name": "grep_notes",
+          "description": "Find an exact text substring or regex pattern across your notes, returning matching lines with line numbers and surrounding context. Unlike search_notes (which ranks notes by relevance and cannot match literal strings), this does exact/regex line-level matching. Provide 'path' to scope the search to a single note. Use it to find literal strings (e.g. 'TODO(fix)', '#deprecated', a wiki link), or to locate exact positions before editing."
+        },
+        "get_all_tags": {
+          "enabled": true,
+          "name": "get_all_tags",
+          "description": "Retrieve a list of all tags used in the Obsidian vault. Returns a sorted list of unique tags."
+        },
+        "get_properties": {
+          "enabled": true,
+          "name": "get_properties",
+          "description": "Retrieve properties (frontmatter) from Obsidian. Omit 'note_name' to list all available property keys in the vault."
+        },
+        "execute_javascript": {
+          "enabled": true,
+          "name": "execute_javascript",
+          "description": "Execute isolated JavaScript for calculations and data transformation. Pass structured data via the input field, use return for the final value, and use console.log for intermediate output."
+        },
+        "manage_notes": {
+          "enabled": true,
+          "name": "manage_notes",
+          "description": "Create, update, delete, move, or find-and-replace across markdown notes in one staged batch. For a single note, use 'update' with targeted search-and-replace edits (add is_regex/replace_all to match by regex or replace every occurrence). For vault-wide or folder-scoped find-and-replace, use the 'replace' operation (find/replace, optional is_regex/case_sensitive/path_prefix) — preview its blast radius first with grep_notes. Batch related note operations together. Staged changes can still be revised: editing a note you already have a pending proposal for ADDS to that proposal, so set replace_pending on the update to replace it instead, or use the 'discard' operation with the proposal's id (reported when it was staged) to withdraw it entirely."
+        },
+        "fetch_url": {
+          "enabled": true,
+          "name": "fetch_url",
+          "description": "Fetch a public web page or text resource over HTTP(S) and return its main content. HTML is converted to markdown with scripts, styles, and navigation chrome removed while headings, lists, tables, code blocks, and links are preserved. JSON, plain text, and other text-based responses are returned as-is. Use this when the user asks about a specific URL or when external information is needed that the vault does not contain."
+        },
+        "web_search": {
+          "enabled": true,
+          "name": "web_search",
+          "description": "Search the web and return a list of relevant results (title, URL, snippet). Use this when the user asks about current events, external topics, or anything that cannot be in the vault. Always prefer searching the vault first with search_notes.",
+          "settings": {
+            "maxResults": 10
+          }
+        },
+        "manage_skills": {
+          "enabled": true,
+          "name": "manage_skills",
+          "description": "Create new skills, revise your own attached skills, or delete a skill when the user asks you to. Changes apply immediately. A skill's name and plugin link are locked once created; only the body and description can change."
+        }
+      },
+      "mcpServers": {},
+      "subAgentIds": [],
+      "pluginExecTools": {
+        "exec:quickadd": false,
+        "exec:notebook-navigator": false,
+        "exec:omnisearch": false
+      }
+    },
+    "01a1224d-4df8-7148-aad9-61e59be3e536": {
+      "id": "01a1224d-4df8-7148-aad9-61e59be3e536",
+      "name": "Complex",
+      "icon": "bot",
+      "chatModel": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-v3.2",
+        "modelConfig": {
+          "contextWindow": 163840,
+          "supportsVision": false
+        }
+      },
+      "summarizationModel": null,
+      "titleModel": null,
+      "skills": {
+        "notebook-navigator": {
+          "enabled": true
+        },
+        "quickadd": {
+          "enabled": true
+        },
+        "omnisearch": {
+          "enabled": true
+        }
+      },
+      "toolsConfig": {
+        "search_notes": {
+          "enabled": true,
+          "name": "search_notes",
+          "description": "Search through your Obsidian notes, or return recently opened notes. Returns structured JSON with matching file names, paths, tags, match reasons, short match snippets or headings, and metadata (properties/frontmatter), plus a count of results hidden by privacy rules. Use this to identify relevant notes before using other tools. Pick the retrieval strategy with `algorithm`: `lexical` (default, fast, exact keyword matching) is usually the right first attempt — escalate to `semantic` or `hybrid` when wording rather than content is the obstacle.",
+          "settings": {}
+        },
+        "list_directory": {
+          "enabled": true,
+          "name": "list_directory",
+          "description": "List the vault's folder structure. Without a path: an overview of the top folders with file counts (2 levels deep, no file names) — small in any vault. With a path: that folder's files and subfolders (1 level deep unless maxDepth is set); 'path' must be an actual vault folder (e.g. 'Projects/research'). Every folder carries a recursive fileCount; moreFiles / moreFolders report entries omitted to fit the context budget. To find specific notes use search_notes or grep_notes rather than walking the tree."
+        },
+        "read_content": {
+          "enabled": true,
+          "name": "read_content",
+          "description": "Read content of vault files by path or wiki link. Supports text, PDFs, and Excalidraw. Images must be attached directly in chat."
+        },
+        "grep_notes": {
+          "enabled": true,
+          "name": "grep_notes",
+          "description": "Find an exact text substring or regex pattern across your notes, returning matching lines with line numbers and surrounding context. Unlike search_notes (which ranks notes by relevance and cannot match literal strings), this does exact/regex line-level matching. Provide 'path' to scope the search to a single note. Use it to find literal strings (e.g. 'TODO(fix)', '#deprecated', a wiki link), or to locate exact positions before editing."
+        },
+        "get_all_tags": {
+          "enabled": true,
+          "name": "get_all_tags",
+          "description": "Retrieve a list of all tags used in the Obsidian vault. Returns a sorted list of unique tags."
+        },
+        "get_properties": {
+          "enabled": true,
+          "name": "get_properties",
+          "description": "Retrieve properties (frontmatter) from Obsidian. Omit 'note_name' to list all available property keys in the vault."
+        },
+        "execute_javascript": {
+          "enabled": true,
+          "name": "execute_javascript",
+          "description": "Execute isolated JavaScript for calculations and data transformation. Pass structured data via the input field, use return for the final value, and use console.log for intermediate output."
+        },
+        "manage_notes": {
+          "enabled": true,
+          "name": "manage_notes",
+          "description": "Create, update, delete, move, or find-and-replace across markdown notes in one staged batch. For a single note, use 'update' with targeted search-and-replace edits (add is_regex/replace_all to match by regex or replace every occurrence). For vault-wide or folder-scoped find-and-replace, use the 'replace' operation (find/replace, optional is_regex/case_sensitive/path_prefix) — preview its blast radius first with grep_notes. Batch related note operations together. Staged changes can still be revised: editing a note you already have a pending proposal for ADDS to that proposal, so set replace_pending on the update to replace it instead, or use the 'discard' operation with the proposal's id (reported when it was staged) to withdraw it entirely."
+        },
+        "fetch_url": {
+          "enabled": true,
+          "name": "fetch_url",
+          "description": "Fetch a public web page or text resource over HTTP(S) and return its main content. HTML is converted to markdown with scripts, styles, and navigation chrome removed while headings, lists, tables, code blocks, and links are preserved. JSON, plain text, and other text-based responses are returned as-is. Use this when the user asks about a specific URL or when external information is needed that the vault does not contain."
+        },
+        "web_search": {
+          "enabled": true,
+          "name": "web_search",
+          "description": "Search the web and return a list of relevant results (title, URL, snippet). Use this when the user asks about current events, external topics, or anything that cannot be in the vault. Always prefer searching the vault first with search_notes.",
+          "settings": {
+            "maxResults": 10
+          }
+        },
+        "manage_skills": {
+          "enabled": true,
+          "name": "manage_skills",
+          "description": "Create new skills, revise your own attached skills, or delete a skill when the user asks you to. Changes apply immediately. A skill's name and plugin link are locked once created; only the body and description can change."
+        }
+      },
+      "mcpServers": {},
+      "subAgentIds": [],
+      "pluginExecTools": {
+        "exec:notebook-navigator": true,
+        "exec:quickadd": true,
+        "exec:omnisearch": true
+      }
+    },
+    "01a12262-5d74-717d-bc56-8a6ea1cc9bbe": {
+      "id": "01a12262-5d74-717d-bc56-8a6ea1cc9bbe",
+      "name": "Tools",
+      "icon": "tool-case",
+      "chatModel": {
+        "provider": "openrouter",
+        "model": "google/gemini-3.8-flash",
+        "modelConfig": {
+          "contextWindow": 1048576,
+          "supportsVision": true
+        }
+      },
+      "summarizationModel": null,
+      "titleModel": null,
+      "skills": {},
+      "toolsConfig": {
+        "search_notes": {
+          "enabled": true,
+          "name": "search_notes",
+          "description": "Search through your Obsidian notes, or return recently opened notes. Returns structured JSON with matching file names, paths, tags, match reasons, short match snippets or headings, and metadata (properties/frontmatter), plus a count of results hidden by privacy rules. Use this to identify relevant notes before using other tools. Pick the retrieval strategy with `algorithm`: `lexical` (default, fast, exact keyword matching) is usually the right first attempt — escalate to `semantic` or `hybrid` when wording rather than content is the obstacle.",
+          "settings": {}
+        },
+        "list_directory": {
+          "enabled": true,
+          "name": "list_directory",
+          "description": "List the vault's folder structure. Without a path: an overview of the top folders with file counts (2 levels deep, no file names) — small in any vault. With a path: that folder's files and subfolders (1 level deep unless maxDepth is set); 'path' must be an actual vault folder (e.g. 'Projects/research'). Every folder carries a recursive fileCount; moreFiles / moreFolders report entries omitted to fit the context budget. To find specific notes use search_notes or grep_notes rather than walking the tree."
+        },
+        "read_content": {
+          "enabled": true,
+          "name": "read_content",
+          "description": "Read content of vault files by path or wiki link. Supports text, PDFs, and Excalidraw. Images must be attached directly in chat."
+        },
+        "grep_notes": {
+          "enabled": true,
+          "name": "grep_notes",
+          "description": "Find an exact text substring or regex pattern across your notes, returning matching lines with line numbers and surrounding context. Unlike search_notes (which ranks notes by relevance and cannot match literal strings), this does exact/regex line-level matching. Provide 'path' to scope the search to a single note. Use it to find literal strings (e.g. 'TODO(fix)', '#deprecated', a wiki link), or to locate exact positions before editing."
+        },
+        "get_all_tags": {
+          "enabled": true,
+          "name": "get_all_tags",
+          "description": "Retrieve a list of all tags used in the Obsidian vault. Returns a sorted list of unique tags."
+        },
+        "get_properties": {
+          "enabled": true,
+          "name": "get_properties",
+          "description": "Retrieve properties (frontmatter) from Obsidian. Omit 'note_name' to list all available property keys in the vault."
+        },
+        "execute_javascript": {
+          "enabled": true,
+          "name": "execute_javascript",
+          "description": "Execute isolated JavaScript for calculations and data transformation. Pass structured data via the input field, use return for the final value, and use console.log for intermediate output."
+        },
+        "manage_notes": {
+          "enabled": true,
+          "name": "manage_notes",
+          "description": "Create, update, delete, move, or find-and-replace across markdown notes in one staged batch. For a single note, use 'update' with targeted search-and-replace edits (add is_regex/replace_all to match by regex or replace every occurrence). For vault-wide or folder-scoped find-and-replace, use the 'replace' operation (find/replace, optional is_regex/case_sensitive/path_prefix) — preview its blast radius first with grep_notes. Batch related note operations together. Staged changes can still be revised: editing a note you already have a pending proposal for ADDS to that proposal, so set replace_pending on the update to replace it instead, or use the 'discard' operation with the proposal's id (reported when it was staged) to withdraw it entirely."
+        },
+        "fetch_url": {
+          "enabled": true,
+          "name": "fetch_url",
+          "description": "Fetch a public web page or text resource over HTTP(S) and return its main content. HTML is converted to markdown with scripts, styles, and navigation chrome removed while headings, lists, tables, code blocks, and links are preserved. JSON, plain text, and other text-based responses are returned as-is. Use this when the user asks about a specific URL or when external information is needed that the vault does not contain."
+        },
+        "web_search": {
+          "enabled": true,
+          "name": "web_search",
+          "description": "Search the web and return a list of relevant results (title, URL, snippet). Use this when the user asks about current events, external topics, or anything that cannot be in the vault. Always prefer searching the vault first with search_notes.",
+          "settings": {
+            "maxResults": 10
+          }
+        },
+        "manage_skills": {
+          "enabled": true,
+          "name": "manage_skills",
+          "description": "Create new skills, revise your own attached skills, or delete a skill when the user asks you to. Changes apply immediately. A skill's name and plugin link are locked once created; only the body and description can change."
+        }
+      },
+      "mcpServers": {},
+      "subAgentIds": [],
+      "pluginExecTools": {}
+    },
+    "01a12263-3e29-71d8-9959-2582fdc99462": {
+      "id": "01a12263-3e29-71d8-9959-2582fdc99462",
+      "name": "Deep think",
+      "icon": "brain",
+      "chatModel": {
+        "provider": "openrouter",
+        "model": "deepseek/deepseek-r1-0528",
+        "modelConfig": {
+          "contextWindow": 163840,
+          "supportsVision": false
+        }
+      },
+      "summarizationModel": null,
+      "titleModel": null,
+      "skills": {},
+      "toolsConfig": {
+        "search_notes": {
+          "enabled": true,
+          "name": "search_notes",
+          "description": "Search through your Obsidian notes, or return recently opened notes. Returns structured JSON with matching file names, paths, tags, match reasons, short match snippets or headings, and metadata (properties/frontmatter), plus a count of results hidden by privacy rules. Use this to identify relevant notes before using other tools. Pick the retrieval strategy with `algorithm`: `lexical` (default, fast, exact keyword matching) is usually the right first attempt — escalate to `semantic` or `hybrid` when wording rather than content is the obstacle.",
+          "settings": {}
+        },
+        "list_directory": {
+          "enabled": true,
+          "name": "list_directory",
+          "description": "List the vault's folder structure. Without a path: an overview of the top folders with file counts (2 levels deep, no file names) — small in any vault. With a path: that folder's files and subfolders (1 level deep unless maxDepth is set); 'path' must be an actual vault folder (e.g. 'Projects/research'). Every folder carries a recursive fileCount; moreFiles / moreFolders report entries omitted to fit the context budget. To find specific notes use search_notes or grep_notes rather than walking the tree."
+        },
+        "read_content": {
+          "enabled": true,
+          "name": "read_content",
+          "description": "Read content of vault files by path or wiki link. Supports text, PDFs, and Excalidraw. Images must be attached directly in chat."
+        },
+        "grep_notes": {
+          "enabled": true,
+          "name": "grep_notes",
+          "description": "Find an exact text substring or regex pattern across your notes, returning matching lines with line numbers and surrounding context. Unlike search_notes (which ranks notes by relevance and cannot match literal strings), this does exact/regex line-level matching. Provide 'path' to scope the search to a single note. Use it to find literal strings (e.g. 'TODO(fix)', '#deprecated', a wiki link), or to locate exact positions before editing."
+        },
+        "get_all_tags": {
+          "enabled": true,
+          "name": "get_all_tags",
+          "description": "Retrieve a list of all tags used in the Obsidian vault. Returns a sorted list of unique tags."
+        },
+        "get_properties": {
+          "enabled": true,
+          "name": "get_properties",
+          "description": "Retrieve properties (frontmatter) from Obsidian. Omit 'note_name' to list all available property keys in the vault."
+        },
+        "execute_javascript": {
+          "enabled": true,
+          "name": "execute_javascript",
+          "description": "Execute isolated JavaScript for calculations and data transformation. Pass structured data via the input field, use return for the final value, and use console.log for intermediate output."
+        },
+        "manage_notes": {
+          "enabled": true,
+          "name": "manage_notes",
+          "description": "Create, update, delete, move, or find-and-replace across markdown notes in one staged batch. For a single note, use 'update' with targeted search-and-replace edits (add is_regex/replace_all to match by regex or replace every occurrence). For vault-wide or folder-scoped find-and-replace, use the 'replace' operation (find/replace, optional is_regex/case_sensitive/path_prefix) — preview its blast radius first with grep_notes. Batch related note operations together. Staged changes can still be revised: editing a note you already have a pending proposal for ADDS to that proposal, so set replace_pending on the update to replace it instead, or use the 'discard' operation with the proposal's id (reported when it was staged) to withdraw it entirely."
+        },
+        "fetch_url": {
+          "enabled": true,
+          "name": "fetch_url",
+          "description": "Fetch a public web page or text resource over HTTP(S) and return its main content. HTML is converted to markdown with scripts, styles, and navigation chrome removed while headings, lists, tables, code blocks, and links are preserved. JSON, plain text, and other text-based responses are returned as-is. Use this when the user asks about a specific URL or when external information is needed that the vault does not contain."
+        },
+        "web_search": {
+          "enabled": true,
+          "name": "web_search",
+          "description": "Search the web and return a list of relevant results (title, URL, snippet). Use this when the user asks about current events, external topics, or anything that cannot be in the vault. Always prefer searching the vault first with search_notes.",
+          "settings": {
+            "maxResults": 10
+          }
+        },
+        "manage_skills": {
+          "enabled": true,
+          "name": "manage_skills",
+          "description": "Create new skills, revise your own attached skills, or delete a skill when the user asks you to. Changes apply immediately. A skill's name and plugin link are locked once created; only the body and description can change."
+        }
+      },
+      "mcpServers": {},
+      "subAgentIds": [],
+      "pluginExecTools": {}
+    },
+    "01a12264-c052-76af-88ac-16e46f1e5b64": {
+      "id": "01a12264-c052-76af-88ac-16e46f1e5b64",
+      "name": "Mass process",
+      "icon": "boxes",
+      "chatModel": {
+        "provider": "openrouter",
+        "model": "google/gemini-3.8-flash",
+        "modelConfig": {
+          "contextWindow": 1048576,
+          "supportsVision": true
+        }
+      },
+      "summarizationModel": {
+        "provider": "openrouter",
+        "model": "google/gemini-3.8-flash",
+        "modelConfig": {
+          "contextWindow": 1048576,
+          "supportsVision": true
+        }
+      },
+      "titleModel": null,
+      "skills": {},
+      "toolsConfig": {
+        "search_notes": {
+          "enabled": true,
+          "name": "search_notes",
+          "description": "Search through your Obsidian notes, or return recently opened notes. Returns structured JSON with matching file names, paths, tags, match reasons, short match snippets or headings, and metadata (properties/frontmatter), plus a count of results hidden by privacy rules. Use this to identify relevant notes before using other tools. Pick the retrieval strategy with `algorithm`: `lexical` (default, fast, exact keyword matching) is usually the right first attempt — escalate to `semantic` or `hybrid` when wording rather than content is the obstacle.",
+          "settings": {}
+        },
+        "list_directory": {
+          "enabled": true,
+          "name": "list_directory",
+          "description": "List the vault's folder structure. Without a path: an overview of the top folders with file counts (2 levels deep, no file names) — small in any vault. With a path: that folder's files and subfolders (1 level deep unless maxDepth is set); 'path' must be an actual vault folder (e.g. 'Projects/research'). Every folder carries a recursive fileCount; moreFiles / moreFolders report entries omitted to fit the context budget. To find specific notes use search_notes or grep_notes rather than walking the tree."
+        },
+        "read_content": {
+          "enabled": true,
+          "name": "read_content",
+          "description": "Read content of vault files by path or wiki link. Supports text, PDFs, and Excalidraw. Images must be attached directly in chat."
+        },
+        "grep_notes": {
+          "enabled": true,
+          "name": "grep_notes",
+          "description": "Find an exact text substring or regex pattern across your notes, returning matching lines with line numbers and surrounding context. Unlike search_notes (which ranks notes by relevance and cannot match literal strings), this does exact/regex line-level matching. Provide 'path' to scope the search to a single note. Use it to find literal strings (e.g. 'TODO(fix)', '#deprecated', a wiki link), or to locate exact positions before editing."
+        },
+        "get_all_tags": {
+          "enabled": true,
+          "name": "get_all_tags",
+          "description": "Retrieve a list of all tags used in the Obsidian vault. Returns a sorted list of unique tags."
+        },
+        "get_properties": {
+          "enabled": true,
+          "name": "get_properties",
+          "description": "Retrieve properties (frontmatter) from Obsidian. Omit 'note_name' to list all available property keys in the vault."
+        },
+        "execute_javascript": {
+          "enabled": true,
+          "name": "execute_javascript",
+          "description": "Execute isolated JavaScript for calculations and data transformation. Pass structured data via the input field, use return for the final value, and use console.log for intermediate output."
+        },
+        "manage_notes": {
+          "enabled": true,
+          "name": "manage_notes",
+          "description": "Create, update, delete, move, or find-and-replace across markdown notes in one staged batch. For a single note, use 'update' with targeted search-and-replace edits (add is_regex/replace_all to match by regex or replace every occurrence). For vault-wide or folder-scoped find-and-replace, use the 'replace' operation (find/replace, optional is_regex/case_sensitive/path_prefix) — preview its blast radius first with grep_notes. Batch related note operations together. Staged changes can still be revised: editing a note you already have a pending proposal for ADDS to that proposal, so set replace_pending on the update to replace it instead, or use the 'discard' operation with the proposal's id (reported when it was staged) to withdraw it entirely."
+        },
+        "fetch_url": {
+          "enabled": true,
+          "name": "fetch_url",
+          "description": "Fetch a public web page or text resource over HTTP(S) and return its main content. HTML is converted to markdown with scripts, styles, and navigation chrome removed while headings, lists, tables, code blocks, and links are preserved. JSON, plain text, and other text-based responses are returned as-is. Use this when the user asks about a specific URL or when external information is needed that the vault does not contain."
+        },
+        "web_search": {
+          "enabled": true,
+          "name": "web_search",
+          "description": "Search the web and return a list of relevant results (title, URL, snippet). Use this when the user asks about current events, external topics, or anything that cannot be in the vault. Always prefer searching the vault first with search_notes.",
+          "settings": {
+            "maxResults": 10
+          }
+        },
+        "manage_skills": {
+          "enabled": true,
+          "name": "manage_skills",
+          "description": "Create new skills, revise your own attached skills, or delete a skill when the user asks you to. Changes apply immediately. A skill's name and plugin link are locked once created; only the body and description can change."
+        }
+      },
+      "mcpServers": {},
+      "subAgentIds": [],
+      "pluginExecTools": {}
+    }
+  },
+  "defaultAgentId": "default-agent",
+  "selectedAgentId": "default-agent",
+  "targetFolder": "50 AI/Chats",
+  "attachmentFolder": "00 System/Attachments",
+  "widgetsFolder": "50 AI/Agents/Skills/widgets",
+  "agentFolder": "50 AI/Agents",
+  "agentFolderMigrated": true,
+  "coreSkillsSeeded": true,
+  "manageSkillsFolderMigrated": true,
+  "manageNotesFolderMigrated": true,
+  "privacyMode": "public-by-default",
+  "privacyFilter": {
+    "type": "all",
+    "conditions": [
+      {
+        "type": "paths",
+        "value": []
+      }
+    ]
+  },
+  "isVerbose": false,
+  "showToolIODetails": false,
+  "chatOpenLocation": "right",
+  "lastActiveChatId": null,
+  "onboardingComplete": true,
+  "onboardingSplashSeen": true,
+  "checkForUpdates": true,
+  "lastUpdateCheckAt": 1792027795939,
+  "lastNotifiedUpdateVersion": null,
+  "lastSeenVersion": "2.3.0",
+  "dismissedRecommendations": [],
+  "thinkingProcessExpanded": true,
+  "showActiveAgentsInStatusBar": true,
+  "overrideMobileNavbarSearch": false,
+  "suppressIntegrationPrivacyWarning": true,
+  "enableLangSmith": false,
+  "langSmithApiKeyId": "",
+  "langSmithProject": "obsidian-agent",
+  "langSmithEndpoint": "https://api.smith.langchain.com",
+  "webSearchProvider": "brave",
+  "webSearchApiKeyIds": {
+    "brave": "general"
+  },
+  "searchShowPath": true,
+  "searchShowTags": true,
+  "searchShowMatchBadges": true,
+  "searchShowMatchContext": true,
+  "searchShowKeyboardHints": true,
+  "recentNotes": [
+    {
+      "path": "20 Writing/Hellsing-faith/Codex/Characters/Dorian Kate.md",
+      "lastOpenedAt": 1792074324755
+    },
+    {
+      "path": "00 System/Dashboards/Main Dashboard.md",
+      "lastOpenedAt": 1792030756105
+    },
+    {
+      "path": "50 AI/Chats/New Chat (4).chat",
+      "lastOpenedAt": 1792016373129
+    },
+    {
+      "path": "10 Brain/Research/Sistemas de numeração Romano.md",
+      "lastOpenedAt": 1791909057818
+    },
+    {
+      "path": "20 Writing/Heavensing/Heavensing.md",
+      "lastOpenedAt": 1791907645686
+    },
+    {
+      "path": "20 Writing/Hellsing-faith/Codex/Characters/Manio Kate.md",
+      "lastOpenedAt": 1791780403180
+    },
+    {
+      "path": "README.md",
+      "lastOpenedAt": 1791778772042
+    },
+    {
+      "path": "50 AI/Chats/New Chat (3).chat",
+      "lastOpenedAt": 1791748907286
+    },
+    {
+      "path": "50 AI/Chats/New Chat (2).chat",
+      "lastOpenedAt": 1791673580641
+    },
+    {
+      "path": "50 AI/Chats/New Chat.chat",
+      "lastOpenedAt": 1791666226397
+    },
+    {
+      "path": "20 Writing/Hellsing-faith/Hellsing-faith.md",
+      "lastOpenedAt": 1791666223877
+    },
+    {
+      "path": "20 Writing/Manio Kate.md",
+      "lastOpenedAt": 1791666206668
+    },
+    {
+      "path": "00 System/Archives/Scenes/00-45 O baile de traças.md",
+      "lastOpenedAt": 1791666070973
+    },
+    {
+      "path": "50 AI/Agents/Main/AGENT.md",
+      "lastOpenedAt": 1791604892596
+    },
+    {
+      "path": "50 AI/Agents/Memories/User.md",
+      "lastOpenedAt": 1791604891926
+    },
+    {
+      "path": "50 AI/Agents/Skills/skill-creator/SKILL.md",
+      "lastOpenedAt": 1791600061734
+    },
+    {
+      "path": "50 AI/Agents/Skills/quickadd/SKILL.md",
+      "lastOpenedAt": 1791597217659
+    },
+    {
+      "path": "50 AI/Agents/Skills/caveman/SKILL.md",
+      "lastOpenedAt": 1791597216137
+    },
+    {
+      "path": "50 AI/Agents/Skills/bases/SKILL.md",
+      "lastOpenedAt": 1791594831542
+    },
+    {
+      "path": "50 AI/Agents/Skills/widgets/SKILL.md",
+      "lastOpenedAt": 1791594516948
+    },
+    {
+      "path": "50 AI/Agents/Skills/web/SKILL.md",
+      "lastOpenedAt": 1791594509660
+    },
+    {
+      "path": "50 AI/Agents/Skills/omnisearch/SKILL.md",
+      "lastOpenedAt": 1791594492613
+    },
+    {
+      "path": "50 AI/Agents/Skills/notebook-navigator/SKILL.md",
+      "lastOpenedAt": 1791594478380
+    },
+    {
+      "path": "50 AI/Agents/Skills/explore-vault/SKILL.md",
+      "lastOpenedAt": 1791594465586
+    },
+    {
+      "path": "50 AI/Agents/Tools/AGENT.md",
+      "lastOpenedAt": 1791592502990
+    },
+    {
+      "path": "Agents/Tools/AGENT.md",
+      "lastOpenedAt": 1791578656776
+    },
+    {
+      "path": "Agents/Deepseek V3.2/AGENT.md",
+      "lastOpenedAt": 1791577978626
+    },
+    {
+      "path": "Agents/Skills/omnisearch/SKILL.md",
+      "lastOpenedAt": 1791577972851
+    },
+    {
+      "path": "Agents/Memories/User.md",
+      "lastOpenedAt": 1791577532336
+    },
+    {
+      "path": "Chats/New Chat.chat",
+      "lastOpenedAt": 1791577521149
+    },
+    {
+      "path": "ChatGPT_MD/agents/Main.md",
+      "lastOpenedAt": 1791577519416
+    }
+  ],
+  "embeddingIndexes": [
+    {
+      "id": "openrouter:openai/text-embedding-3-small",
+      "provider": "openrouter",
+      "model": "openai/text-embedding-3-small",
+      "createdAt": 1791907994851,
+      "lastBuiltAt": 1791908078716,
+      "documentCount": 297,
+      "batchSize": 50,
+      "dimensions": 1536
+    }
+  ],
+  "searchEmbedIndex": "openrouter:openai/text-embedding-3-small",
+  "graphEmbedIndex": "openrouter:openai/text-embedding-3-small",
+  "favoriteModels": [
+    {
+      "provider": "openrouter",
+      "model": "liquid/lfm-2.5-embedding-350m:free"
+    }
+  ],
+  "smartGraphSettings": {
+    "linkDistance": 60,
+    "chargeStrength": -120,
+    "centerStrength": 0.07,
+    "linkStrength": 1,
+    "clusterCohesionStrength": 0.45,
+    "showWikiLinks": true,
+    "showSemanticLinks": true,
+    "highlightSemanticLinks": true,
+    "linkOnlyTopics": false,
+    "semanticNeighborCount": 5,
+    "semanticThreshold": 0.55,
+    "directedWikiEdges": true,
+    "graphChatModel": {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-v3.2",
+      "modelConfig": {}
+    },
+    "autoLabelClusters": true,
+    "markdownOnly": false,
+    "showTags": true,
+    "leidenSeed": 42,
+    "leidenResolution": 2.4,
+    "bridgeThreshold": 0.4,
+    "highlightIsolated": false,
+    "highlightBridges": false,
+    "showClusterLabels": true,
+    "showTopicHulls": true,
+    "showTopics": true
+  },
+  "diffViewMode": "two-pane",
+  "vaultSlug": "coldwriter"
+}

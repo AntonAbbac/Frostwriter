@@ -1,0 +1,10 @@
+{
+  "id": "word-smith",
+  "name": "Word-Smith",
+  "version": "1.8.7",
+  "minAppVersion": "1.13.7",
+  "description": "Distraction-free Writing Suite.",
+  "author": "SadSnake1",
+  "fundingUrl": "https://buymeacoffee.com/sadsnake1",
+  "isDesktopOnly": false
+}

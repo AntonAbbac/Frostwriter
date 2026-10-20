@@ -1,0 +1,700 @@
+{
+  "workspaces": {
+    "default-mobile": {
+      "main": {
+        "id": "5324373015726ba8",
+        "type": "split",
+        "children": [
+          {
+            "id": "4509724f8bf84da7",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "e7a7b303c61786dc",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "00 System/Dashboards/Main Dashboard.md",
+                    "mode": "preview",
+                    "source": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "Main Dashboard"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "389d636a9364c058",
+        "type": "mobile-drawer",
+        "children": [
+          {
+            "id": "49fd979324dd7dde",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "34596c3021e15501",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "34817a6aadebc5e8",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "887bc5f663be0a4c",
+            "type": "leaf",
+            "state": {
+              "type": "beautytasks-nav",
+              "state": {},
+              "icon": "check-circle",
+              "title": "BeautyTasks"
+            }
+          },
+          {
+            "id": "814f4c281c38fa4c",
+            "type": "leaf",
+            "state": {
+              "type": "word-smith-menu",
+              "state": {},
+              "icon": "word-smith-w",
+              "title": "Word-Smith"
+            }
+          },
+          {
+            "id": "f59cd86892c48d0d",
+            "type": "leaf",
+            "state": {
+              "type": "notebook-navigator",
+              "state": {},
+              "icon": "notebook-navigator",
+              "title": "Notebook Navigator"
+            }
+          }
+        ],
+        "currentTab": 5
+      },
+      "right": {
+        "id": "c22d561a003fd930",
+        "type": "mobile-drawer",
+        "children": [
+          {
+            "id": "44e04f013cd5e5dc",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "00 System/Dashboards/Main Dashboard.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "142f3c77c13ac90c",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "00 System/Dashboards/Main Dashboard.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "c512ff9f66b5b3ec",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "00 System/Dashboards/Main Dashboard.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ],
+        "currentTab": 1
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "workspaces:Manage workspace layouts": false,
+          "switcher:Open quick switcher": false,
+          "command-palette:Open command palette": false,
+          "bases:Create new base": false,
+          "word-smith:Open the Word-Smith menu": false,
+          "storyline:StoryLine projects": false,
+          "quickadd:QuickAdd": false,
+          "beautytasks:Open BeautyTasks": false,
+          "notebook-navigator:Notebook Navigator": false
+        }
+      },
+      "active": "e7a7b303c61786dc",
+      "mtime": "2026-09-17T11:33:48-03:00",
+      "workspaces-plus:settings-v1": {
+        "trackedFiles": {
+          "e7a7b303c61786dc": "00 System/Dashboards/Main Dashboard.md"
+        },
+        "explorerFoldState": []
+      }
+    },
+    "projects": {
+      "main": {
+        "id": "f0e7d9ac15f73da7",
+        "type": "split",
+        "children": [
+          {
+            "id": "5b1655fb1b9edabb",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "d6a79bc411e75567",
+                "type": "leaf",
+                "state": {
+                  "type": "beautytasks-main",
+                  "state": {
+                    "kind": "manage",
+                    "key": "projects",
+                    "layout": null,
+                    "calPanel": null,
+                    "doneTab": "done",
+                    "manageTab": "active",
+                    "planRole": null,
+                    "planMates": null,
+                    "planForced": false
+                  },
+                  "icon": "list-plus",
+                  "title": "Projects"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "6454826191d9ddc3",
+        "type": "split",
+        "children": [
+          {
+            "id": "46313216d55eaf72",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "a69c255eba6384c0",
+                "type": "leaf",
+                "state": {
+                  "type": "notebook-navigator",
+                  "state": {},
+                  "icon": "notebook-navigator",
+                  "title": "Notebook Navigator"
+                }
+              },
+              {
+                "id": "4ff0d1f457df4075",
+                "type": "leaf",
+                "state": {
+                  "type": "beautytasks-nav",
+                  "state": {},
+                  "icon": "check-circle",
+                  "title": "BeautyTasks"
+                }
+              },
+              {
+                "id": "574f37dc208155b4",
+                "type": "leaf",
+                "state": {
+                  "type": "word-smith-menu",
+                  "state": {},
+                  "icon": "word-smith-w",
+                  "title": "Word-Smith"
+                }
+              }
+            ],
+            "currentTab": 1
+          }
+        ],
+        "direction": "horizontal",
+        "width": 300
+      },
+      "right": {
+        "id": "845182fd7b31d41b",
+        "type": "split",
+        "children": [
+          {
+            "id": "a14e5ee216ce43d3",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "6470d0f09a80c1a1",
+                "type": "leaf",
+                "state": {
+                  "type": "backlink",
+                  "state": {
+                    "file": "00 System/Dashboards/Main Dashboard.md",
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical",
+                    "showSearch": false,
+                    "searchQuery": "",
+                    "backlinkCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-coming-in",
+                  "title": "Backlinks"
+                }
+              },
+              {
+                "id": "2dcffaae0feca58f",
+                "type": "leaf",
+                "state": {
+                  "type": "outgoing-link",
+                  "state": {
+                    "linksCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-going-out",
+                  "title": "Outgoing links"
+                }
+              },
+              {
+                "id": "168b6ff44584f8dc",
+                "type": "leaf",
+                "state": {
+                  "type": "outline",
+                  "state": {
+                    "followCursor": false,
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-list",
+                  "title": "Outline"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 300
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "omnisearch:Omnisearch": false,
+          "switcher:Open quick switcher": false,
+          "storyline:StoryLine projects": false,
+          "quickadd:QuickAdd": false,
+          "beautytasks:Open BeautyTasks": false,
+          "command-palette:Open command palette": false,
+          "bases:Create new base": false,
+          "word-smith:Open the Word-Smith menu": false,
+          "notebook-navigator:Notebook Navigator": false,
+          "workspaces:Manage workspace layouts": false
+        }
+      },
+      "active": "4ff0d1f457df4075",
+      "mtime": "2026-09-28T21:51:52-03:00",
+      "workspaces-plus:settings-v1": {
+        "trackedFiles": {},
+        "explorerFoldState": []
+      }
+    },
+    "tasks": {
+      "main": {
+        "id": "f0e7d9ac15f73da7",
+        "type": "split",
+        "children": [
+          {
+            "id": "5b1655fb1b9edabb",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "d6a79bc411e75567",
+                "type": "leaf",
+                "state": {
+                  "type": "beautytasks-main",
+                  "state": {
+                    "kind": "view",
+                    "key": "heute",
+                    "layout": null,
+                    "calPanel": null,
+                    "doneTab": "done",
+                    "manageTab": "active",
+                    "planRole": null,
+                    "planMates": null,
+                    "planForced": false
+                  },
+                  "icon": "list",
+                  "title": "Today"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "6454826191d9ddc3",
+        "type": "split",
+        "children": [
+          {
+            "id": "46313216d55eaf72",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "a69c255eba6384c0",
+                "type": "leaf",
+                "state": {
+                  "type": "notebook-navigator",
+                  "state": {},
+                  "icon": "notebook-navigator",
+                  "title": "Notebook Navigator"
+                }
+              },
+              {
+                "id": "4ff0d1f457df4075",
+                "type": "leaf",
+                "state": {
+                  "type": "beautytasks-nav",
+                  "state": {},
+                  "icon": "check-circle",
+                  "title": "BeautyTasks"
+                }
+              },
+              {
+                "id": "574f37dc208155b4",
+                "type": "leaf",
+                "state": {
+                  "type": "word-smith-menu",
+                  "state": {},
+                  "icon": "word-smith-w",
+                  "title": "Word-Smith"
+                }
+              }
+            ],
+            "currentTab": 1
+          }
+        ],
+        "direction": "horizontal",
+        "width": 300
+      },
+      "right": {
+        "id": "845182fd7b31d41b",
+        "type": "split",
+        "children": [
+          {
+            "id": "a14e5ee216ce43d3",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "6470d0f09a80c1a1",
+                "type": "leaf",
+                "state": {
+                  "type": "backlink",
+                  "state": {
+                    "file": "00 System/Dashboards/Main Dashboard.md",
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical",
+                    "showSearch": false,
+                    "searchQuery": "",
+                    "backlinkCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-coming-in",
+                  "title": "Backlinks"
+                }
+              },
+              {
+                "id": "2dcffaae0feca58f",
+                "type": "leaf",
+                "state": {
+                  "type": "outgoing-link",
+                  "state": {
+                    "linksCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-going-out",
+                  "title": "Outgoing links"
+                }
+              },
+              {
+                "id": "168b6ff44584f8dc",
+                "type": "leaf",
+                "state": {
+                  "type": "outline",
+                  "state": {
+                    "followCursor": false,
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-list",
+                  "title": "Outline"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 300
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "omnisearch:Omnisearch": false,
+          "switcher:Open quick switcher": false,
+          "storyline:StoryLine projects": false,
+          "quickadd:QuickAdd": false,
+          "beautytasks:Open BeautyTasks": false,
+          "command-palette:Open command palette": false,
+          "bases:Create new base": false,
+          "word-smith:Open the Word-Smith menu": false,
+          "notebook-navigator:Notebook Navigator": false,
+          "workspaces:Manage workspace layouts": false
+        }
+      },
+      "active": "6470d0f09a80c1a1",
+      "mtime": "2026-09-28T21:54:32-03:00",
+      "workspaces-plus:settings-v1": {
+        "trackedFiles": {},
+        "explorerFoldState": []
+      }
+    },
+    "default": {
+      "main": {
+        "id": "f0e7d9ac15f73da7",
+        "type": "split",
+        "children": [
+          {
+            "id": "5b1655fb1b9edabb",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "36d5228022aa9ead",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "00 System/Dashboards/Main Dashboard.md",
+                    "mode": "preview",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "Main Dashboard"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "6454826191d9ddc3",
+        "type": "split",
+        "children": [
+          {
+            "id": "46313216d55eaf72",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "a69c255eba6384c0",
+                "type": "leaf",
+                "state": {
+                  "type": "notebook-navigator",
+                  "state": {},
+                  "icon": "notebook-navigator",
+                  "title": "Notebook Navigator"
+                }
+              },
+              {
+                "id": "4ff0d1f457df4075",
+                "type": "leaf",
+                "state": {
+                  "type": "beautytasks-nav",
+                  "state": {},
+                  "icon": "check-circle",
+                  "title": "BeautyTasks"
+                }
+              },
+              {
+                "id": "574f37dc208155b4",
+                "type": "leaf",
+                "state": {
+                  "type": "word-smith-menu",
+                  "state": {},
+                  "icon": "word-smith-w",
+                  "title": "Word-Smith"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 300
+      },
+      "right": {
+        "id": "845182fd7b31d41b",
+        "type": "split",
+        "children": [
+          {
+            "id": "0f6652de4b21b07d",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "96cd912a71a40683",
+                "type": "leaf",
+                "state": {
+                  "type": "notebook-navigator-calendar",
+                  "state": {},
+                  "icon": "lucide-calendar-days",
+                  "title": "Calendar"
+                }
+              }
+            ]
+          },
+          {
+            "id": "a14e5ee216ce43d3",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "8d040dc1e662f603",
+                "type": "leaf",
+                "state": {
+                  "type": "smart-second-brain-graph",
+                  "state": {},
+                  "icon": "git-fork",
+                  "title": "Smart graph"
+                }
+              },
+              {
+                "id": "6470d0f09a80c1a1",
+                "type": "leaf",
+                "state": {
+                  "type": "backlink",
+                  "state": {
+                    "file": "00 System/Dashboards/Main Dashboard.md",
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical",
+                    "showSearch": false,
+                    "searchQuery": "",
+                    "backlinkCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-coming-in",
+                  "title": "Backlinks"
+                }
+              },
+              {
+                "id": "2dcffaae0feca58f",
+                "type": "leaf",
+                "state": {
+                  "type": "outgoing-link",
+                  "state": {
+                    "file": "00 System/Dashboards/Main Dashboard.md",
+                    "linksCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-going-out",
+                  "title": "Outgoing links"
+                }
+              },
+              {
+                "id": "168b6ff44584f8dc",
+                "type": "leaf",
+                "state": {
+                  "type": "outline",
+                  "state": {
+                    "file": "00 System/Dashboards/Main Dashboard.md",
+                    "followCursor": false,
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-list",
+                  "title": "Outline"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 300
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "penny-wallet:Penny wallet": false,
+          "smart-second-brain:New chat": false,
+          "smart-second-brain:Search notes": false,
+          "smart-second-brain:Open smart graph": false,
+          "switcher:Open quick switcher": false,
+          "storyline:StoryLine projects": false,
+          "quickadd:QuickAdd": false,
+          "beautytasks:Open BeautyTasks": false,
+          "command-palette:Open command palette": false,
+          "bases:Create new base": false,
+          "notebook-navigator:Notebook Navigator": false,
+          "workspaces:Manage workspace layouts": false
+        }
+      },
+      "active": "36d5228022aa9ead",
+      "mtime": "2026-10-19T22:50:34-03:00",
+      "workspaces-plus:settings-v1": {
+        "trackedFiles": {
+          "36d5228022aa9ead": "00 System/Dashboards/Main Dashboard.md"
+        },
+        "explorerFoldState": []
+      }
+    }
+  },
+  "active": "default"
+}

@@ -1,0 +1,28 @@
+filters:
+  and:
+    - type == "research"
+views:
+  - type: list
+    name: Unprocessed
+    filters:
+      and:
+        - status == "raw"
+    order:
+      - file.name
+      - subject
+      - source
+    sort:
+      - property: file.ctime
+        direction: DESC
+    separator: ":"
+  - type: list
+    name: All
+    order:
+      - file.name
+      - status
+      - subject
+      - author
+    sort:
+      - property: subject
+        direction: ASC
+    separator: ":"

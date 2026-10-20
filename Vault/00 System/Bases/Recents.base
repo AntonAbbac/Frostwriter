@@ -1,0 +1,12 @@
+filters:
+  and:
+    - '!type.contains("dashboard")'
+views:
+  - type: list
+    name: Recent 10
+    sort:
+      - property: file.mtime
+        direction: DESC
+    limit: 10
+    markers: bullet
+    indentProperties: false

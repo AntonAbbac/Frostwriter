@@ -1,0 +1,29 @@
+filters:
+  and:
+    - type == "project"
+    - function == "index"
+views:
+  - type: list
+    name: Active
+    filters:
+      and:
+        - status == "active"
+    sort:
+      - property: priority
+        direction: DESC
+    order:
+      - file.name
+      - area
+      - priority
+      - deadline
+    separator: ":"
+  - type: list
+    name: All
+    sort:
+      - property: status
+        direction: ASC
+    order:
+      - file.name
+      - status
+      - area
+    separator: ":"
